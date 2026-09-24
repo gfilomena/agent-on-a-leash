@@ -14,7 +14,7 @@ Approved by Jules on 2026-09-24. Tick a step's box once Jules has seen its check
 | Inbox badge | The Inbox tab shows the number of waiting purchases, visible from every screen. |
 | Demo setup | **Desktop:** the app in a phone frame, with a presenter panel beside it (pick a test story, start a live run, watch purchases arrive from Viseca with the decision and the time it took, e.g. "Approved in 0.4 s"). **Phone:** the app fills the screen, no frame, no panel. The presenter panel is also its own page at `/presenter`. The customer app stays clean; the judges see both sides. |
 | Look | Dark, premium, glass. See section 4. |
-| Logo | None for now. The chat home is text only ("How can I help?"). |
+| Logo | None for now. The chat home is text only: "What do you need today?" (renamed by Jules: Compass is not a general chatbot). |
 | Known shops without history | When the card has no history, Compass asks the customer the first time it sees a shop; once the customer approves a shop, it counts as known from then on. The customer can also name their usual shops in the chat before confirming. The explanation always says why ("First purchase at this shop, so I'm asking you once"). |
 | Recording the live stories | Once step 3 works, run each of the 10 live stories once in a safe mode that never approves, and save their purchases for offline testing (like the 45 pack purchases). |
 | Hidden stories | Judging may use stories we haven't seen: everything stays general. |
@@ -53,7 +53,7 @@ Reference: `design/reference-home.png` (for the background, type and mood; the c
 - **Glass:** cards, the bottom tab bar and sheets are frosted glass: semi-transparent dark fill, background blur, thin 1px light border, large rounded corners (20–24px). Glass is only a surface behind content; text never sits directly on a busy glow.
 - **Type:** white and large. Headings in the geometric display font, body text and amounts in Inter. Generous spacing, centred hero moments.
 - **Verdicts:** solid pills (not glass) in green, amber and red, each with an icon and a word: **Approved**, **Needs review**, **Blocked** (like the severity badges on Proton's breach observatory).
-- **Logo:** none for now. The chat home is text only: "How can I help?" in the display font, centred.
+- **Logo:** none for now. The chat home is text only: "What do you need today?" in the display font, centred.
 - **Readability first (projector):** high text contrast; key information never on a transparent surface. **High-contrast mode** swaps glass for solid dark surfaces: a switch in the presenter panel, and automatic when the device asks for less transparency.
 - **A decision in 3 seconds:** one large card with the verdict pill, one sentence with the verdict first ("Blocked: CHF 215 is over your CHF 200 limit"), and shop · item · amount in large numbers. Tapping opens a sheet with the facts (✓ passed, ✕ failed, ? unknown), any ignored shop text, and how fast Compass decided.
 
@@ -93,7 +93,7 @@ With 7 hours from plan approval (until ~00:35), the line is still reachable, wit
 
 ### Phase B: Look (about 45 min)
 
-- [ ] **4. Design preview with fake data.** Chat home ("How can I help?", text only), the four tabs with the Inbox badge, verdict cards, the detail sheet, the presenter panel, phone and desktop layouts, high-contrast mode. Claude looks at the two Proton pages first.
+- [ ] **4. Design preview with fake data.** Chat home ("What do you need today?", text only), the four tabs with the Inbox badge, verdict cards, the detail sheet, the presenter panel, phone and desktop layouts, high-contrast mode. Claude looks at the two Proton pages first.
   *Check:* Jules clicks through it on the laptop (and on the projector if possible). **Jules approves the look before real data is wired.**
 
 ### Phase C: Core engine (about 1 h 30)

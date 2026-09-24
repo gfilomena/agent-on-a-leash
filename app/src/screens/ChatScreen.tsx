@@ -28,9 +28,9 @@ export function ChatScreen({ onConfirmed }: { onConfirmed: () => void }) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="font-heading text-[40px] font-medium leading-none tracking-[-0.02em]"
+            className="max-w-[300px] font-heading text-[38px] font-medium leading-[1.08] tracking-[-0.02em]"
           >
-            How can I help?
+            What do you need today?
           </motion.h1>
           <p className="mt-4 max-w-[280px] text-[15px] leading-relaxed text-muted-foreground">
             Tell me what your agent may buy. I'll turn it into rules you confirm.
@@ -43,9 +43,9 @@ export function ChatScreen({ onConfirmed }: { onConfirmed: () => void }) {
               key={s}
               type="button"
               onClick={() => send(s)}
-              className="glass line-clamp-2 w-full rounded-2xl px-4 py-3 text-left text-[14px] leading-snug text-foreground/90 transition hover:border-white/20"
+              className="glass w-full rounded-2xl px-4 py-3 text-left text-[14px] leading-snug text-foreground/90 transition hover:border-white/20"
             >
-              {s}
+              <span className="line-clamp-2">{s}</span>
             </button>
           ))}
           <Composer value={draft} onChange={setDraft} onSend={() => send(draft)} />
@@ -81,7 +81,11 @@ export function ChatScreen({ onConfirmed }: { onConfirmed: () => void }) {
           </motion.div>
         ) : (
           <motion.div key="card" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="glass mr-4 rounded-3xl rounded-bl-lg p-5">
-            <h2 className="font-heading text-[19px] font-medium">Here's what I understood</h2>
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="font-heading text-[19px] font-medium">Here's what I understood</h2>
+              {/* Until plan step 9, this answer is a fixed sample, whatever was typed. */}
+              <span className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[11.5px] font-medium text-muted-foreground">Sample answer</span>
+            </div>
             <ol className="mt-4 space-y-3">
               {samplePolicy.rules.map((rule, i) => (
                 <li key={rule} className="flex gap-3 text-[15px] leading-snug">
