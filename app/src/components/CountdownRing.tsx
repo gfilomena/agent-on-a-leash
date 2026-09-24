@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 /** Seconds left to answer, as a ring that empties. */
-export function CountdownRing({ until, totalMs = 120_000 }: { until: number; totalMs?: number }) {
+export function CountdownRing({ until, totalMs }: { until: number; totalMs: number }) {
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 1000);

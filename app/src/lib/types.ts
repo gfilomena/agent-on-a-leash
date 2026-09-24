@@ -1,43 +1,55 @@
-// What the app shows. Filled with sample data in the design preview (step 4), by the engine later.
+// What the engine sends the app (GET /api/snapshot). Plain words only: no codes or ids to display.
 
-export type Verdict = "approve" | "step_up" | "decline";
+export type Display = "approve" | "step_up" | "decline" | "expired";
 export type CheckResult = "pass" | "fail" | "unknown";
 
 export interface Check {
   label: string;
   result: CheckResult;
-  detail?: string;
+  detail: string;
+  kind: "rule" | "warning" | "bank" | "status";
 }
 
-export interface Decision {
+export interface Purchase {
   id: string;
-  verdict: Verdict;
+  display: Display;
+  status: "approved" | "declined" | "pending" | "expired";
+  answeredBy: "compass" | "you" | "viseca";
   /** One plain sentence, verdict first. */
   sentence: string;
+  /** Why Compass asked (kept after the customer answered). */
+  reviewReason: string | null;
   shop: string;
   items: string[];
   amountChf: number;
-  /** Set when the shop charged in another currency. */
-  original?: { amount: number; currency: string };
+  original: { amount: number; currency: string } | null;
   at: string;
   decidedInMs: number;
+  answerMs: number;
+  /** Answer before this time (ms since epoch), while waiting. */
+  waitingUntil: number | null;
   checks: Check[];
-  /** Shop text that tried to give instructions; shown struck through, never followed. */
-  ignoredText?: string;
-  /** Who gave the final answer. */
-  answeredBy?: "compass" | "you";
-  /** Waiting in the Inbox until this time (ms since epoch). */
-  waitingUntil?: number;
-  expired?: boolean;
+  /** Shop text that tried to give instructions: shown struck through, never followed. */
+  ignoredText: string[];
+  story: string | null;
+  policyTitle: string | null;
 }
 
 export interface Policy {
   id: string;
+  title: string;
   instruction: string;
   rules: string[];
+  guidance: string[];
+  notUnderstood: string[];
+  questions: { text: string; options: string[] }[];
   whenUnsure: "ask" | "decline";
-  status: "active" | "revoked";
-  confirmedAt: string;
+  watchSession: boolean;
+  status: "draft" | "active" | "revoked";
+  createdAt: string;
+  confirmedAt: string | null;
+  revokedAt: string | null;
+  story: { name: string; total: number; received: number } | null;
 }
 
 export interface Story {
@@ -45,4 +57,13 @@ export interface Story {
   name: string;
   instruction: string;
   purchases: number;
+}
+
+export interface Snapshot {
+  version: number;
+  engine: { worker: boolean; lastError: string | null; compilerModel: string; humanWindowSeconds: number };
+  stories: Story[];
+  policies: Policy[];
+  purchases: Purchase[];
+  approvedShops: string[];
 }

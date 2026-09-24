@@ -1,18 +1,29 @@
+import { History } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { DecisionCard } from "@/components/DecisionCard";
-import type { Decision } from "@/lib/types";
+import type { Purchase } from "@/lib/types";
 import { ScreenHeader } from "./ScreenHeader";
 
-export function HistoryScreen({ items, onOpen }: { items: Decision[]; onOpen: (d: Decision) => void }) {
-  const count = (v: Decision["verdict"]) => items.filter((d) => d.verdict === v).length;
+export function HistoryScreen({ items, waiting, onOpen }: { items: Purchase[]; waiting: number; onOpen: (d: Purchase) => void }) {
+  const count = (d: Purchase["display"]) => items.filter((p) => p.display === d).length;
   return (
     <div>
       <ScreenHeader title="History" subtitle="Every decision, and why." />
-      <div className="mb-5 flex gap-2 text-[13px]">
-        <Tally dot="bg-approve" n={count("approve")} label="approved" />
-        <Tally dot="bg-review" n={count("step_up")} label="waiting" />
-        <Tally dot="bg-block" n={count("decline")} label="blocked" />
-      </div>
+      {items.length > 0 && (
+        <div className="mb-5 flex flex-wrap gap-2 text-[13px]">
+          <Tally dot="bg-approve" n={count("approve")} label="approved" />
+          <Tally dot="bg-review" n={waiting} label="waiting" />
+          <Tally dot="bg-block" n={count("decline") + count("expired")} label="not bought" />
+        </div>
+      )}
+      {items.length === 0 && (
+        <div className="mt-16 flex flex-col items-center text-center text-muted-foreground">
+          <div className="glass grid size-16 place-items-center rounded-3xl">
+            <History className="size-7" aria-hidden />
+          </div>
+          <p className="mt-4 max-w-[260px] text-[15px] leading-relaxed">Every purchase your agent tries appears here, with Compass's decision and why.</p>
+        </div>
+      )}
       <div className="space-y-4">
         <AnimatePresence initial={false}>
           {items.map((d) => (

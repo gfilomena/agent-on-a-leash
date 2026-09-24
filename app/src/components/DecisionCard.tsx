@@ -1,20 +1,20 @@
 import { ShieldAlert, UserCheck } from "lucide-react";
 import { clock, money } from "@/lib/format";
-import type { Decision } from "@/lib/types";
+import type { Purchase } from "@/lib/types";
 import { VerdictPill } from "./VerdictPill";
 
 /** One decision, readable in 3 seconds: verdict, one sentence, shop · item · amount. */
-export function DecisionCard({ d, onOpen }: { d: Decision; onOpen?: () => void }) {
+export function DecisionCard({ d, onOpen }: { d: Purchase; onOpen?: () => void }) {
   const more = d.items.length > 1 ? ` +${d.items.length - 1}` : "";
   return (
     <button
       type="button"
       onClick={onOpen}
-      className="glass block w-full rounded-3xl p-5 text-left transition active:scale-[0.99] hover:border-white/20 focus-visible:outline-2"
+      className="glass block w-full rounded-3xl p-5 text-left transition hover:border-white/20 focus-visible:outline-2 active:scale-[0.99]"
     >
       <div className="flex items-center justify-between gap-3">
-        <VerdictPill verdict={d.verdict} />
-        <span className="text-[13px] text-muted-foreground amount">{clock(d.at)}</span>
+        <VerdictPill verdict={d.display} />
+        <span className="amount text-[13px] text-muted-foreground">{clock(d.at)}</span>
       </div>
 
       <p className="mt-3.5 text-[18px] font-medium leading-snug text-foreground">{d.sentence}</p>
@@ -33,9 +33,9 @@ export function DecisionCard({ d, onOpen }: { d: Decision; onOpen?: () => void }
         </div>
       </div>
 
-      {(d.ignoredText || d.answeredBy === "you") && (
+      {(d.ignoredText.length > 0 || d.answeredBy === "you") && (
         <div className="mt-4 flex flex-wrap gap-2">
-          {d.ignoredText && (
+          {d.ignoredText.length > 0 && (
             <span className="inline-flex items-center gap-1.5 rounded-full border border-block/50 px-2.5 py-1 text-[12.5px] font-medium text-block">
               <ShieldAlert className="size-3.5" aria-hidden /> Shop text ignored
             </span>

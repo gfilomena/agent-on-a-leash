@@ -123,11 +123,11 @@ That is about 15 minutes over. If time runs short, cut from the bottom of phase 
 
 - [ ] **10. Presenter panel and History, live.** Pick a story, start a live run, watch purchases arrive with the verdict and the time taken, and see the cards appear in History on the phone.
   *Check:* story 1 live: every purchase appears on both sides; tapping a card shows its facts.
-- [ ] **11. Chat → confirm.** The picked story's sentence appears in the chat; follow-up questions; "Here's what I understood"; Confirm creates and confirms the policy at Viseca. Only then can the presenter start the run.
+- [x] **11. Chat → confirm.** The picked story's sentence appears in the chat; follow-up questions; "Here's what I understood"; Confirm creates and confirms the policy at Viseca. Only then can the presenter start the run.
   *Check:* Jules does story 4 in the chat; Controls shows the policy as active.
 - [ ] **12. Inbox.** Waiting purchases with the badge, a countdown, and Approve / Decline (sent to Viseca as the customer's answer).
   *Check:* during story 4 live, Jules approves one purchase and declines another. History shows "Approved by you"; only the approved one adds to spending.
-- [ ] **13. Revoke.** Controls lists the policies, each with a Revoke button.
+- [x] **13. Revoke.** Controls lists the policies, each with a Revoke button.
   *Check:* after revoking, no further purchase for that policy is approved, and Controls shows it as revoked.
 
 ---
