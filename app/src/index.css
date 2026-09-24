@@ -1,12 +1,162 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource/outfit/400.css";
+@import "@fontsource/outfit/500.css";
+@import "@fontsource/outfit/600.css";
 
-@theme {
-  --color-bg: #0b0b0f;
-  --color-accent: #6d4aff;
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+/* Compass: dark, premium, glass (PLAN.md section 4). Everything visual is a token here. */
+
+:root {
+  --radius: 1.25rem;
+
+  --background: #0b0b0f;
+  --foreground: #f5f5f7;
+  --muted: rgba(255, 255, 255, 0.06);
+  --muted-foreground: rgba(245, 245, 247, 0.66);
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #8b70ff;
+
+  /* One accent: violet. Buttons, active tab, links, focus. Never verdicts. */
+  --primary: #6d4aff;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(255, 255, 255, 0.08);
+  --secondary-foreground: #f5f5f7;
+  --accent: rgba(255, 255, 255, 0.08);
+  --accent-foreground: #f5f5f7;
+  --destructive: #ff6b6b;
+
+  --card: rgba(19, 19, 27, 0.74);
+  --card-foreground: #f5f5f7;
+  --popover: #16161f;
+  --popover-foreground: #f5f5f7;
+
+  /* Verdicts: solid, bright, near-black text (7:1 or better on every pill). */
+  --verdict-approve: #3ddc97;
+  --verdict-review: #ffc53d;
+  --verdict-block: #ff6b6b;
+  --verdict-ink: #0b0b0f;
+
+  /* Glass surfaces */
+  --glass-fill: rgba(19, 19, 27, 0.74);
+  --glass-fill-strong: rgba(24, 24, 34, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 24px;
 }
 
-html,
-body {
-  background: var(--color-bg);
+/* High-contrast mode: glass becomes solid (presenter switch, or the device asks for it). */
+:root[data-contrast="high"] {
+  --glass-fill: #15151d;
+  --glass-fill-strong: #1b1b25;
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-blur: 0px;
+  --muted-foreground: rgba(245, 245, 247, 0.82);
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-fill: #15151d;
+    --glass-fill-strong: #1b1b25;
+    --glass-blur: 0px;
+  }
+}
+
+@theme inline {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-approve: var(--verdict-approve);
+  --color-review: var(--verdict-review);
+  --color-block: var(--verdict-block);
+  --color-ink: var(--verdict-ink);
+  --radius-sm: calc(var(--radius) * 0.4);
+  --radius-md: calc(var(--radius) * 0.6);
+  --radius-lg: calc(var(--radius) * 0.8);
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.2);
+  --radius-3xl: calc(var(--radius) * 1.5);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/60;
+  }
+  html,
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+  body {
+    @apply font-sans antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+}
+
+@layer components {
+  /* Frosted glass: only ever a surface behind content. */
+  .glass {
+    background: var(--glass-fill);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  }
+  .glass-strong {
+    background: var(--glass-fill-strong);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  }
+  /* Amounts: digits of equal width, so they line up. */
+  .amount {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Background: soft colour glows + a dot grid that fades toward the edges. */
+.backdrop-glows {
+  background:
+    radial-gradient(55% 38% at 38% 56%, rgba(98, 84, 235, 0.55), transparent 72%),
+    radial-gradient(45% 34% at 66% 64%, rgba(176, 72, 168, 0.5), transparent 72%),
+    radial-gradient(38% 30% at 98% 58%, rgba(236, 118, 92, 0.42), transparent 72%),
+    radial-gradient(40% 36% at 2% 76%, rgba(44, 66, 176, 0.42), transparent 72%);
+  filter: blur(8px);
+  animation: glow-drift 40s ease-in-out infinite alternate;
+}
+.backdrop-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(65% 45% at 50% 58%, black 25%, transparent 78%);
+  -webkit-mask-image: radial-gradient(65% 45% at 50% 58%, black 25%, transparent 78%);
+}
+@keyframes glow-drift {
+  from {
+    transform: translate3d(-2%, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, -2%, 0) scale(1.05);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .backdrop-glows {
+    animation: none;
+  }
 }
