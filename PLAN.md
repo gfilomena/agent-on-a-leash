@@ -10,7 +10,7 @@ Approved by Jules on 2026-09-24. Tick a step's box once Jules has seen its check
 | Time | At least 7 hours of build time until the demo |
 | Spending cap | One setting in Controls, **off by default**. Counts all approved agent spending on the card, across all policies (not per policy), but only purchases approved through Compass (by the engine or the customer), not the older history file. Lowering it is always allowed; raising it means creating a new policy. Test runs replay the same days, so the demo reset clears it. |
 | Standout feature | **Highlighted manipulation attempts:** instructions hidden in shop text are shown struck through and marked "Ignored". Stretch goal, only if the core flow and the demo are done early: a session-risk timeline for story 3. |
-| Inbox timeout | The customer has 120 s to answer. Until step 3 shows what Viseca does when time runs out, the card only says "Expired: you didn't answer in time", with no claim about what happened to the purchase. |
+| Inbox timeout | The customer has 120 s to answer; unanswered purchases are declined by Viseca (see "Expired wording"). |
 | Inbox badge | The Inbox tab shows the number of waiting purchases, visible from every screen. |
 | Demo setup | **Desktop:** the app in a phone frame, with a presenter panel beside it (pick a test story, start a live run, watch purchases arrive from Viseca with the decision and the time it took, e.g. "Approved in 0.4 s"). **Phone:** the app fills the screen, no frame, no panel. The presenter panel is also its own page at `/presenter`. The customer app stays clean; the judges see both sides. |
 | Look | Dark, premium, glass. See section 4. |
@@ -18,6 +18,13 @@ Approved by Jules on 2026-09-24. Tick a step's box once Jules has seen its check
 | Known shops without history | When the card has no history, Compass asks the customer the first time it sees a shop; once the customer approves a shop, it counts as known from then on. The customer can also name their usual shops in the chat before confirming. The explanation always says why ("First purchase at this shop, so I'm asking you once"). |
 | Recording the live stories | Once step 3 works, run each of the 10 live stories once in a safe mode that never approves, and save their purchases for offline testing (like the 45 pack purchases). |
 | Hidden stories | Judging may use stories we haven't seen: everything stays general. |
+| Time (updated 21:42) | About 8 more hours, until ~05:40. |
+| No hard-coded content | Every screen shows real data from the engine and Viseca. Sample data exists only in rehearsal tools (`--dry`). Hard-coded content looks amateurish. |
+| Test agent ("try it yourself") | A clearly labelled **simulated** shopping agent: for any typed request it proposes a real shop and product from Viseca's data, and the real engine decides. Viseca called this a bonus point. Built by us (not copied), as a separate lane that only reuses the engine, so the Viseca flow cannot break because of it. Ideas from Giuseppe's code: the AI instructions, the "invented ids are rejected" guard, the review card, editing the shop text to try to trick Compass. |
+| Chat and Viseca stories | The chat suggests Viseca's test requests. Confirming one starts that Viseca story in the background; purchases then arrive in Inbox and History. The side panel becomes an optional **"Behind the scenes"** view (desktop). |
+| Giuseppe's pieces | Adopted, rewritten in our code with credit: shop-text reader (instruction patterns, size, return days), product matching to Viseca's catalogue, extra rule types, "I may not have understood…", split-order / amount-consistency / re-quote checks, bank's own card and account limits, engine reachable only from this laptop. Not adopted: his text-pattern compiler (fails on the live sentences), his answer-key tests, decisions that contradict our principles. |
+| Spending cap and regions | Cap fully customisable (any CHF amount per day, week, month or custom days). Allowed regions: Switzerland only, Europe, Worldwide (default). Both card-wide, for every policy. Tightening applies at once; loosening only to policies confirmed afterwards. Built in step 18. |
+| Expired wording | "Expired: you didn't answer in time, so it wasn't bought." (Viseca declines unanswered purchases.) |
 
 ## 2. Principles
 
@@ -65,20 +72,20 @@ For every check, Claude runs it and shows Jules the result; Jules can rerun it w
 
 Up to the **minimum demo line**, steps are ordered so that the three required demo moments work as early as possible. After the line, steps are in priority order: if time runs short, cut from the bottom. The last 30 minutes are always kept for rehearsal.
 
-**Time (updated 2026-09-24, 19:50).** Clock starts at plan approval (~17:35). Phase A took 2 h 15 instead of 1 h: the redelivery loop, the discovery that the live stories differ from the pack, and recording them. The live stories also add work to the engine (weekday rules, one-per-day limits, monthly totals, EUR limits, "asks once per new shop").
+**Time (updated 2026-09-24, 21:45).** About 8 hours left (until ~05:40). Phases A and B are done.
 
-| Phase | First estimate | Now | Done by (approx.) |
-| --- | --- | --- | --- |
-| A Foundations (0–3) + recording | 1 h | **2 h 15, done** | 19:50 |
-| B Look (4) | 45 min | 45 min | 20:35 |
-| C Core engine (5–7) | 1 h | 1 h 30 | 22:05 |
-| D Shop text + sentence → rules (8–9) | 45 min | 45 min | 22:50 |
-| E Connect the app (10–13) | 1 h 15 | 1 h (screens from step 4 only get wired) | 23:50 |
-| **Minimum demo line** | at 4 h 45 | **at ~6 h 15** | **~23:50** |
-| H Rehearsal and freeze | 30 min | 30 min | ~00:20 |
-| F + G (after the line) | 2 h 15 | 2 h 15 | only with extra time |
+| Phase | Estimate | Done by (approx.) |
+| --- | --- | --- |
+| A Foundations (0–3) + recording, B Look (4) | done | 21:45 |
+| C Core engine (5–7) + Giuseppe pieces 1, 2, 3, 6 | 1 h 45 | 23:30 |
+| D Shop text + sentence → rules (8–9) + pieces 4, 5 | 1 h | 00:30 |
+| E Connect the app (10–13) + piece 7, all sample content replaced | 1 h 15 | 01:45 |
+| **Minimum demo line** | | **~01:45** |
+| F AI item check (14), test agent (14b), seller checks (15), session signals (16) | 2 h 25 | 04:10 |
+| G Explanations (17), Controls with cap and regions (18), polish and bug fixes (19) | 1 h 20 | 05:30 |
+| H Rehearsal and freeze (20) | 30 min | ~06:00 |
 
-With 7 hours from plan approval (until ~00:35), the line is still reachable, with about 15 minutes to spare, and nothing after the line fits. This assumes three trims (proposed, awaiting Jules): step 4 builds the real screens with sample data so Phase E only wires them; step 9 ships without follow-up questions (they move after the line, together with "name your usual shops"); high-contrast mode moves to step 19.
+That is about 15 minutes over. If time runs short, cut from the bottom of phase G, never the rehearsal.
 
 ### Phase A: Foundations (took 2 h 15)
 
@@ -93,12 +100,12 @@ With 7 hours from plan approval (until ~00:35), the line is still reachable, wit
 
 ### Phase B: Look (about 45 min)
 
-- [ ] **4. Design preview with fake data.** Chat home ("What do you need today?", text only), the four tabs with the Inbox badge, verdict cards, the detail sheet, the presenter panel, phone and desktop layouts, high-contrast mode. Claude looks at the two Proton pages first.
+- [x] **4. Design preview with fake data.** Chat home ("What do you need today?", text only), the four tabs with the Inbox badge, verdict cards, the detail sheet, the presenter panel, phone and desktop layouts, high-contrast mode. Claude looks at the two Proton pages first.
   *Check:* Jules clicks through it on the laptop (and on the projector if possible). **Jules approves the look before real data is wired.**
 
 ### Phase C: Core engine (about 1 h 30)
 
-- [ ] **5. Test rule sets and hard rules.** Rule sets written from the 5 sentences only and saved before any rule code runs. Every check gives pass, fail or unknown.
+- [ ] **5. Test rule sets and hard rules.** Rule sets written from the 15 sentences only (5 pack, 10 live) and saved before any rule code runs. Every check gives pass, fail or unknown.
   *Check:* story 1 #2 passes the per-order limit at exactly CHF 120.00; #3 and #9 fail because of the delivery fee.
 - [ ] **6. Spending memory.** Rolling windows on the story's own clock; only final approvals count, each purchase once; saved to disk. Includes the card-wide spending cap (off by default).
   *Check:* story 1 #7, #8 and #10 show "7-day total CHF x of 300". After a restart the totals are unchanged; a purchase delivered twice counts once. With a test cap switched on, the cap appears on every purchase of that card.
@@ -139,6 +146,8 @@ Without step 14, purchases that need the AI item check go to "Needs review". Tha
 
 - [ ] **14. AI item check.** Judges what code can't: size, road vs trail shoe, add-ons, return days written in text. Time limit and fallback included. The model is picked here by timing 2–3 small models.
   *Check:* story 2 #2 (size 42), #4 (7-day returns), #6 (trail shoe), #7 (add-on), #8 (exactly 14 days) and story 4 #7 get a clear reason instead of "unknown", with the AI's time shown. With the AI switched off (`--no-ai`), nothing becomes approved that wasn't approved before.
+- [ ] **14b. Test agent ("try it yourself").** Type any request; the simulated agent proposes a real shop and product from Viseca's data (you can edit the shop text to try to trick Compass); "Let the agent buy"; the real engine decides. Separate lane, same engine.
+  *Check:* "6 white Adidas socks size 42" gets a proposal and a clear verdict; a hidden instruction typed into the shop text is shown as ignored; the Viseca flow still works exactly as before.
 - [ ] **15. Seller checks.** Lookalike shops, duplicate orders, updated quotes.
   *Check:* story 4 #2 is flagged as a repeat of #1; #5 says it "looks like PixelHarbor"; #8 is not treated as a duplicate.
 - [ ] **16. Session signals.** New device, unusual hour, new country, many attempts within 10 minutes.

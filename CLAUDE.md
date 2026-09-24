@@ -6,7 +6,7 @@ Hackathon build for Viseca's "Agent on a Leash" case (Swiss {ai} Weeks 2026).
 
 We build the **wallet control layer**: the customer describes in a chat what their AI shopping agent may buy, confirms the rules we derive, and our engine decides every purchase the agent proposes: `approve`, `decline` or `step_up` (ask the customer).
 
-**We do not build the shopping agent.** Viseca's simulator plays the agent: it sends pre-written purchases through their API and we answer each one.
+**We do not build the shopping agent.** Viseca's simulator plays the agent: it sends pre-written purchases through their API and we answer each one. Exception (Jules, 2026-09-24): a clearly labelled *test agent* for the "try it yourself" playground, a separate lane that only reuses the engine (PLAN.md step 14b).
 
 ## Read these first (do not re-derive what they say)
 

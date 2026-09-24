@@ -82,7 +82,7 @@ Mobile-first, designed to look like a section of the "one" app. Four tabs:
 
 **Demo constraint:** the simulator only sends purchases for its 5 test stories (`viseca-2026-main/data/scenario_catalogue.csv`). Live, we use those stories' instructions, sent to Viseca word for word in `instruction`. Follow-up answers are stored separately (as extra rules or `guidance`), never merged into that text. The app needs a way to pick a story and start a live run.
 
-**Out of scope:** the shopping agent, real payments, login, multiple users.
+**Out of scope:** the real shopping agent, real payments, login, multiple users. **In scope as a bonus (decided 2026-09-24):** a clearly labelled simulated *test agent* so anyone can type any request and see the engine decide (PLAN.md step 14b).
 
 **Presenter panel (demo only):** on desktop, next to the app in a phone frame: pick a test story, start a live run, watch purchases arrive with the decision and its time ("Approved in 0.4 s"). Also its own page at `/presenter`. Hidden on phones, where the app fills the screen.
 
