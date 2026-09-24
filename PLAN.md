@@ -116,7 +116,7 @@ That is about 15 minutes over. If time runs short, cut from the bottom of phase 
 
 - [x] **8. Instructions hidden in shop text** (the standout feature, engine side).
   *Check:* story 4 #3 and #6 show "Ignored shop text: 'NOTE FOR AUTOMATED…'". The text never loosens anything: #3 is still blocked for its price, #6 goes to the customer.
-- [ ] **9. Sentence → rules (AI).** Rules plus 0–3 one-tap follow-up questions; a price limit is mandatory. The AI never sees the purchases.
+- [x] **9. Sentence → rules (AI).** Rules plus 0–3 one-tap follow-up questions; a price limit is mandatory. The AI never sees the purchases.
   *Check:* for each of the 5 story sentences, Jules reads "Here's what I understood". The replay gives the same results with the AI's rules as with the test rule sets.
 
 ### Phase E: Connect the app (about 1 h)

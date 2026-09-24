@@ -12,7 +12,8 @@
     "connect": "npm run --silent connect -w engine",
     "replay": "npm run --silent replay -w engine --",
     "live": "npm run --silent live -w engine --",
-    "record": "npm run --silent record -w engine --"
+    "record": "npm run --silent record -w engine --",
+    "compile": "npm run --silent compile -w engine --"
   },
   "devDependencies": {
     "concurrently": "^10.0.5"
