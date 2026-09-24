@@ -13,7 +13,7 @@ We build the **wallet control layer**: the customer describes in a chat what the
 | File | What it holds |
 | --- | --- |
 | `PRODUCT.md` | What we build: flow, decision logic, screens. Source of truth for product decisions. |
-| `PLAN.md` | Approved build plan: decisions, principles, stack, look and feel, steps with checks, minimum demo line. Tick steps there as they pass. |
+| `PLAN.md` | **Start with section 0 "Current state"** (what works, the exact next step, decisions, open questions, known issues). Then: decisions, principles, stack, look and feel, steps with checks, minimum demo line. Tick steps there as they pass. |
 | `viseca-2026-main/challenge.md` | The brief and the judging criteria |
 | `viseca-2026-main/technical_details.md` | Viseca API and data contract (endpoints, message format, rule format, timing) |
 | `viseca-2026-main/data/README.md` + `data_dictionary.md` | The synthetic data pack: files, joins, units, nulls, currency |
@@ -26,7 +26,7 @@ We build the **wallet control layer**: the customer describes in a chat what the
 - Two developers (frontend, backend) may also work in this repo.
 - **Plan before coding.** For any non-trivial step, write a short plan and wait for approval.
 - After each milestone, tell Jules in 3 lines: what works now, how to see it, what comes next.
-- Hackathon rules: working, demoable, polished UI beats code quality. No over-engineering, no premature abstractions. Hardcode anything except decisions (see rule 8).
+- Hackathon rules: working, demoable, polished UI beats code quality. No over-engineering, no premature abstractions. Nothing the customer or the judges see is hard-coded or sample data: it comes from the engine and Viseca (Jules: hard-coded content looks amateurish). Never hard-code decisions (rule 8).
 - Test by running things: the offline replay of the 45 purchases and live runs against the API. No big test suites.
 
 ## Architecture (fixed)
@@ -35,8 +35,8 @@ We build the **wallet control layer**: the customer describes in a chat what the
   - **Engine (backend):** decision logic, the Viseca worker, LLM calls, a small REST API for the app.
   - **App (frontend):** mobile-first, looks like a section of a banking app. Talks only to our backend, never to Viseca or the LLM.
 - **Secrets:** read from `.env` in the backend only. Never in the frontend, never committed, never printed in logs or chat.
-- **Only one worker per team key.** Workers share Viseca's queue; a second running backend steals purchases.
-- **Stack (decided 2026-09-24, details in `PLAN.md`):** TypeScript everywhere. Engine: Node 22 + Hono, JSON-file storage, OpenAI. App: React + Vite + Tailwind + shadcn/ui + Motion, reaches the engine only via `/api`. `npm run dev` at the root starts both.
+- **Only one worker per team key.** Workers share Viseca's queue; a second running backend steals purchases. `npm run dev` starts the engine **with** the worker; never run `npm run live` or `npm run record` at the same time (they have their own worker). `WORKER=off` starts the engine without it.
+- **Stack (decided 2026-09-24, details in `PLAN.md`):** TypeScript everywhere. Engine: Node 22 + Hono, JSON-file storage (`engine/data/state.json`), OpenAI (`gpt-4.1` for sentence → rules; item-check model chosen at plan step 14). App: React + Vite + Tailwind + shadcn/ui + Motion, reaches the engine only via `/api`. `npm run dev` at the root starts both.
 - **Storage:** keep it simple (in-memory + a JSON file or SQLite). Decisions and the spend ledger must survive a restart during the demo.
 
 ## Decision engine rules (non-negotiable)
@@ -73,13 +73,20 @@ Also: `GET /healthz` (no key), `GET /v1/bootstrap`, `GET /v1/reference-data`, `G
 
 Rule format: `field`, `operator` (`< <= = != > >= in not_in`), `value` (number | string | list of strings), optional `currency`, `scope` (`purchase` | `period`), `period_days`. No other keys. Omit unused optional keys.
 
-## Build order
+## Build status and where things are
 
-1. **Connect:** load `.env`, call `/healthz` and `/v1/bootstrap`, print the result.
-2. **Offline replay:** rebuild the 45 events from the data pack (`technical_details.md` section 3), feed them in order to the engine, print one line per purchase (story, #, shop, CHF, decision, reason). This is our regression check.
-3. **Live SCEN0000 end to end:** mandate -> confirm -> run -> worker -> decision posted. A dumb "always step_up" engine is fine at this step.
-4. **Core engine:** facts, hard rules, spend ledger. Check stories 1 and 2 with the replay.
-5. **Security checks:** shop text, lookalike sellers, session signals, duplicates and re-quotes. Stories 3 and 4.
-6. **LLM:** instruction -> rules (with follow-up questions), item judge, fallback on failure.
-7. **App:** Chat + confirm, Inbox (resolve), History (evidence), Controls (tighten, revoke, spending cap), a way to start a live run and watch decisions arrive.
-8. **Demo polish:** the three required demo moments (see `PRODUCT.md`).
+The original build order (connect → offline replay → live SCEN0000 → core engine → security checks → LLM → app → demo polish) has been followed; steps 1–7 of it are done. **Status, next step and remaining work: `PLAN.md` section 0.**
+
+| Where | What |
+| --- | --- |
+| `engine/src/engine/` | The decision engine: `decide.ts` (verdict + sentence), `rules.ts` (customer rules), `protections.ts` (warning signs, bank checks), `shoptext.ts` (untrusted shop text), `history.ts`, `reference.ts`, `memory.ts` |
+| `engine/src/compiler.ts`, `ai.ts` | Sentence → rules with the AI, validated by code |
+| `engine/src/server.ts`, `live.ts`, `worker.ts`, `policies.ts`, `state.ts` | API for the app, Viseca worker, policies, saved state |
+| `engine/policies/test-policies.json` | Hand-written test rule sets (from sentences only; never edited to fix a result) |
+| `engine/recordings/` | The 10 live stories' 111 purchases (recording mode, `test_recording`) for offline tests |
+| `engine/reference/reference-data.json` | Viseca's reference data (catalogue, shops, cards, accounts), incl. the live stories |
+| `app/src/` | The app: `screens/`, `components/`, `presenter/` ("Behind the scenes"), `lib/` (API, types, polling) |
+
+Commands (repo root): `npm run dev` · `npm run connect` · `npm run replay [-- --live] [--approve-reviews] [--why]` · `npm run compile [-- --quiet]` · `npm run live -- --dry` · `npm run record -- --dry`.
+
+Pitfalls: Python on this Mac exits silently (use Node/TypeScript); `timeout` does not exist on macOS; the browser pane's screenshots can lag one step behind clicks; Viseca's reset is off, so every live run and policy stays in the team's record (ask Jules before starting live runs).
