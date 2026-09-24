@@ -15,6 +15,11 @@ const INSTRUCTION_PATTERNS: [RegExp, string][] = [
   [/\b(approve|authori[sz]e|accept)\b[^.]{0,20}\b(this|the)\b[^.]{0,15}\b(payment|order|purchase|transaction)\b/i, "tells the system to approve"],
   [/\b(cardholder|customer) is (unavailable|away|not available)\b/i, "tries to stop us asking you"],
   [/\b(do not|don't|no need to) (ask|notify|confirm|contact)\b/i, "tries to stop us asking you"],
+  [/\b(mandate|policy|instructions?|permissions?|limits?)\b[^.]{0,40}\b(was |were |has been |have been )?(updated|changed|amended|extended|lifted|raised|removed)\b/i, "claims your rules were changed"],
+  [/\b(issuer|bank|card ?network|visa|mastercard)\b[^.]{0,40}\b(trusted|verified|whitelist(ed)?|pre-?approved)\b|\b(trusted|verified|whitelisted)\s+(seller|merchant|shop)s?\b|\bmerchant_trust\s*[=:]/i, "claims your bank trusts this seller"],
+  [/\b(approve|approval|auto_?approve|pay)[_\s-]*(without|w\/o|no)[_\s-]*(confirmation|checks?|review|verification)\b|\b(confirmation|verification|review)[_\s-]*(required|needed)\s*[=:]\s*(0|false|no)\b/i, "asks to skip checks"],
+  [/\bdeclin(e|ing)\b[^.]{0,40}\b(breach|violate|against|contrary to|break)\b/i, "pressures against declining"],
+  [/\[\s*(agent|ai|assistant|bot)[-_ ]?(policy|instructions?|directives?|note)\s*\]/i, "speaks directly to the shopping agent"],
 ];
 
 export interface InstructionFinding {

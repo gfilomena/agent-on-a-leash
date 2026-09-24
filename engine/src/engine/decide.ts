@@ -4,6 +4,7 @@
 import { money } from "../money.js";
 import type { AuthorizationEvent, EngineDecision } from "../types.js";
 import type { PastPurchase } from "./memory.js";
+import { protections } from "./protections.js";
 import { evaluateRule, type Check } from "./rules.js";
 
 export interface DecideInput {
@@ -14,15 +15,19 @@ export interface DecideInput {
   customerApprovedShops?: Set<string>;
   /** Revoked in Compass (Viseca may still deliver purchases for it). */
   policyRevoked?: boolean;
+  /** The customer asked to watch for someone else driving the session. */
+  watchSession?: boolean;
 }
 
 export interface Decision extends EngineDecision {
   checks: Check[];
+  /** Shop text that tried to give instructions: shown to the customer as ignored. */
+  ignoredText: string[];
   /** Engine time, milliseconds. */
   ms: number;
 }
 
-const status = (label: string, detail: string, message: string, reason: string): Check => ({ id: `status:${reason}`, label, result: "fail", detail, message, reason, weight: 0 });
+const status = (label: string, detail: string, message: string, reason: string): Check => ({ id: `status:${reason}`, label, result: "fail", detail, message, reason, weight: 0, kind: "status" });
 
 export function decide(input: DecideInput): Decision {
   const started = performance.now();
@@ -38,6 +43,7 @@ export function decide(input: DecideInput): Decision {
 
   const ctx = { event, past: input.past, customerApprovedShops: input.customerApprovedShops ?? new Set<string>() };
   (event.mandate.hard_rules ?? []).forEach((rule, i) => checks.push(evaluateRule(rule, i, ctx)));
+  checks.push(...protections({ event, past: input.past, customerApprovedShops: ctx.customerApprovedShops, watchSession: input.watchSession ?? false }));
 
   const fails = checks.filter((c) => c.result === "fail").sort((x, y) => x.weight - y.weight);
   const unknowns = checks.filter((c) => c.result === "unknown").sort((x, y) => x.weight - y.weight);
@@ -47,7 +53,11 @@ export function decide(input: DecideInput): Decision {
   let customer_message: string;
   if (fails.length) {
     decision = "decline";
-    customer_message = `Blocked: ${fails[0].message}.`;
+    // A never-used shop that imitates a known one: say so, it is the more useful reason.
+    const imitation = unknowns.find((c) => c.reason === "lookalike_merchant");
+    customer_message = fails[0].reason === "unfamiliar_merchant" && imitation
+      ? `Blocked: ${imitation.message} you've never bought from.`
+      : `Blocked: ${fails[0].message}.`;
   } else if (unknowns.length) {
     decision = declineWhenUnsure ? "decline" : "step_up";
     customer_message = declineWhenUnsure
@@ -68,6 +78,7 @@ export function decide(input: DecideInput): Decision {
     customer_message,
     evidence: checks.map((c) => ({ check: c.label, result: c.result, detail: c.detail })),
     checks,
+    ignoredText: checks.filter((c) => c.quote).map((c) => c.quote!),
     ms: Math.round((performance.now() - started) * 100) / 100,
   };
 }

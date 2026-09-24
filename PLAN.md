@@ -105,16 +105,16 @@ That is about 15 minutes over. If time runs short, cut from the bottom of phase 
 
 ### Phase C: Core engine (about 1 h 30)
 
-- [ ] **5. Test rule sets and hard rules.** Rule sets written from the 15 sentences only (5 pack, 10 live) and saved before any rule code runs. Every check gives pass, fail or unknown.
+- [x] **5. Test rule sets and hard rules.** Rule sets written from the 15 sentences only (5 pack, 10 live) and saved before any rule code runs. Every check gives pass, fail or unknown.
   *Check:* story 1 #2 passes the per-order limit at exactly CHF 120.00; #3 and #9 fail because of the delivery fee.
-- [ ] **6. Spending memory.** Rolling windows on the story's own clock; only final approvals count, each purchase once; saved to disk. Includes the card-wide spending cap (off by default).
+- [x] **6. Spending memory.** Rolling windows on the story's own clock; only final approvals count, each purchase once; saved to disk. Includes the card-wide spending cap (off by default).
   *Check:* story 1 #7, #8 and #10 show "7-day total CHF x of 300". After a restart the totals are unchanged; a purchase delivered twice counts once. With a test cap switched on, the cap appears on every purchase of that card.
-- [ ] **7. Shop and basket checks.** Known shop (from past purchases), shop type, return terms, every line of the basket.
+- [x] **7. Shop and basket checks.** Known shop (from past purchases), shop type, return terms, every line of the basket.
   *Check:* story 1 #6 (cosmetics in a grocery basket) is caught. Story 2: #3 (final sale) blocked, #5 (returns not stated) asks, #11 (not a sports shop) blocked, #12 (new but compliant shop) **not** blocked.
 
 ### Phase D: Customer's words and manipulation (about 45 min)
 
-- [ ] **8. Instructions hidden in shop text** (the standout feature, engine side).
+- [x] **8. Instructions hidden in shop text** (the standout feature, engine side).
   *Check:* story 4 #3 and #6 show "Ignored shop text: 'NOTE FOR AUTOMATED…'". The text never loosens anything: #3 is still blocked for its price, #6 goes to the customer.
 - [ ] **9. Sentence → rules (AI).** Rules plus 0–3 one-tap follow-up questions; a price limit is mandatory. The AI never sees the purchases.
   *Check:* for each of the 5 story sentences, Jules reads "Here's what I understood". The replay gives the same results with the AI's rules as with the test rule sets.
@@ -148,9 +148,9 @@ Without step 14, purchases that need the AI item check go to "Needs review". Tha
   *Check:* story 2 #2 (size 42), #4 (7-day returns), #6 (trail shoe), #7 (add-on), #8 (exactly 14 days) and story 4 #7 get a clear reason instead of "unknown", with the AI's time shown. With the AI switched off (`--no-ai`), nothing becomes approved that wasn't approved before.
 - [ ] **14b. Test agent ("try it yourself").** Type any request; the simulated agent proposes a real shop and product from Viseca's data (you can edit the shop text to try to trick Compass); "Let the agent buy"; the real engine decides. Separate lane, same engine.
   *Check:* "6 white Adidas socks size 42" gets a proposal and a clear verdict; a hidden instruction typed into the shop text is shown as ignored; the Viseca flow still works exactly as before.
-- [ ] **15. Seller checks.** Lookalike shops, duplicate orders, updated quotes.
+- [x] **15. Seller checks.** Lookalike shops, duplicate orders, updated quotes.
   *Check:* story 4 #2 is flagged as a repeat of #1; #5 says it "looks like PixelHarbor"; #8 is not treated as a duplicate.
-- [ ] **16. Session signals.** New device, unusual hour, new country, many attempts within 10 minutes.
+- [x] **16. Session signals.** New device, unusual hour, new country, many attempts within 10 minutes.
   *Check:* story 3 #4–#7 go to the customer with reasons like "new device at 02:14, shop never used"; #8–#9 are fine again; #11 is blocked for CHF 268 > 250.
 
 ### Phase G: Finish (about 1 h)

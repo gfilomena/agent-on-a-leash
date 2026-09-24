@@ -22,6 +22,10 @@ export interface Check {
   reason: string;
   /** Lower = explains the verdict first. */
   weight: number;
+  /** rule = the customer's own rule; warning = always-on warning sign; bank = card/account; status = policy/card state. */
+  kind: "rule" | "warning" | "bank" | "status";
+  /** Shop text that was flagged and ignored (shown struck through). */
+  quote?: string;
 }
 
 export interface RuleContext {
@@ -80,7 +84,7 @@ export function evaluateRule(rule: MandateRule, index: number, ctx: RuleContext)
   const a = ctx.event.authorization;
   const shop = a.merchant.merchant_name;
   const id = `rule:${index}`;
-  const make = (label: string, result: Result, detail: string, message: string, reason: string, weight: number): Check => ({ id, label, result, detail, message, reason, weight });
+  const make = (label: string, result: Result, detail: string, message: string, reason: string, weight: number): Check => ({ id, label, result, detail, message, reason, weight, kind: "rule" });
   const unknownField = () =>
     make("Rule Compass can't read", "unknown", `Compass can't check the rule on "${rule.field}" yet`, `one of your rules can't be checked automatically yet`, "rule_not_understood", 90);
 

@@ -18,7 +18,7 @@ const approveReviews = args.includes("--approve-reviews");
 const why = args.includes("--why");
 const only = args.find((a) => !a.startsWith("--"));
 
-const policies: Record<string, { hard_rules: MandateRule[]; uncertainty_policy: "ask" | "decline" }> = JSON.parse(
+const policies: Record<string, { hard_rules: MandateRule[]; uncertainty_policy: "ask" | "decline"; local?: { watch_session?: boolean } }> = JSON.parse(
   readFileSync(fileURLToPath(new URL("../../policies/test-policies.json", import.meta.url)), "utf8"),
 ).policies;
 
@@ -66,7 +66,7 @@ for (const { story, items } of sources) {
     if (toChf(a.amount, a.currency) === a.billing_amount_chf) fxOk++;
     else problems.push(`${story.scenarioId} #${a.replay_order}: CHF conversion differs from Viseca's`);
 
-    const d = decide({ event, past, customerApprovedShops });
+    const d = decide({ event, past, customerApprovedShops, watchSession: policy.local?.watch_session });
     slowest = Math.max(slowest, d.ms);
     tally[d.decision]++;
 
@@ -82,7 +82,7 @@ for (const { story, items } of sources) {
     const money = a.currency === "CHF" ? formatMoney(a.billing_amount_chf) : `${formatMoney(a.amount, a.currency)} = ${formatMoney(a.billing_amount_chf)}`;
     const youApproved = d.decision === "step_up" && approveReviews ? `${color.dim} → you approved${color.reset}` : "";
     console.log(`  #${String(a.replay_order).padEnd(3)}${cut(a.merchant.merchant_name, 22)}${cut(money, 26)}${color[d.decision]}${label[d.decision].padEnd(13)}${color.reset}${d.customer_message}${youApproved}`);
-    if (why) for (const c of d.checks) console.log(`${color.dim}        ${mark[c.result]} ${c.label}: ${c.detail}${color.reset}`);
+    if (why) for (const c of d.checks.filter((c) => c.kind === "rule" || c.result !== "pass")) console.log(`${color.dim}        ${mark[c.result]} ${c.label}: ${c.detail}${color.reset}`);
   }
 }
 
