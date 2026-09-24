@@ -1,0 +1,1020 @@
+{
+  "scenario_id": "SCEN0135",
+  "scenario_name": "Household budget",
+  "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+  "event_count": 12,
+  "recorded_at": "2026-09-24T17:47:14.676Z",
+  "run_id": "run_0b762db10cfd1202",
+  "mandate_id": "TMf8041f65fb45e887",
+  "note": "Recording mode: every purchase was declined as a test recording, so context and related statuses reflect that. Not an answer key.",
+  "purchases": [
+    {
+      "type": "authorization.request",
+      "request_id": "req_ca0f6b7ec32e4e04",
+      "deadline_at": "2026-09-24T17:47:21.696629Z",
+      "authorization": {
+        "authorization_id": "AU10371-0cfd1202",
+        "source_authorization_id": "AU10371",
+        "scenario_id": "SCEN0135",
+        "replay_order": 1,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-26T09:45:00Z",
+        "amount": 38.5,
+        "currency": "CHF",
+        "billing_amount_chf": 38.5,
+        "items_subtotal": 33.5,
+        "delivery_fee": 5,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-08-27",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0001",
+            "item_name": "Fresh produce selection",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 16,
+            "currency": "CHF",
+            "item_details": "Seasonal fruit and vegetables"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0003",
+            "item_name": "Breakfast supplies",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 17.5,
+            "currency": "CHF",
+            "item_details": "Bread, oats, and yoghurt"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:13.696629Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_e90451a145aa0e59",
+      "deadline_at": "2026-09-24T17:47:21.743806Z",
+      "authorization": {
+        "authorization_id": "AU10372-0cfd1202",
+        "source_authorization_id": "AU10372",
+        "scenario_id": "SCEN0135",
+        "replay_order": 2,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-27T19:05:00Z",
+        "amount": 99.36,
+        "currency": "CHF",
+        "billing_amount_chf": 99.36,
+        "items_subtotal": 94.36,
+        "delivery_fee": 5,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-08-28",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0004",
+            "item_name": "Weekly grocery basket",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 73.95,
+            "currency": "CHF",
+            "item_details": "Weekly food and household staples"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0001",
+            "item_name": "Fresh produce selection",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 20.41,
+            "currency": "CHF",
+            "item_details": "Fruit and vegetables"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:13.743806Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_d22abce2a1a3f411",
+      "deadline_at": "2026-09-24T17:47:21.824830Z",
+      "authorization": {
+        "authorization_id": "AU10373-0cfd1202",
+        "source_authorization_id": "AU10373",
+        "scenario_id": "SCEN0135",
+        "replay_order": 3,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-28T07:35:00Z",
+        "amount": 63.78,
+        "currency": "CHF",
+        "billing_amount_chf": 63.78,
+        "items_subtotal": 58.78,
+        "delivery_fee": 5,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-08-29",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0001",
+            "item_name": "Fresh produce selection",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 22.9,
+            "currency": "CHF",
+            "item_details": "Fruit and vegetables"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0002",
+            "item_name": "Pantry staples",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 35.88,
+            "currency": "CHF",
+            "item_details": "Dry store cupboard goods"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:13.824830Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_23614af06b705dea",
+      "deadline_at": "2026-09-24T17:47:21.918948Z",
+      "authorization": {
+        "authorization_id": "AU10374-0cfd1202",
+        "source_authorization_id": "AU10374",
+        "scenario_id": "SCEN0135",
+        "replay_order": 4,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-29T11:40:00Z",
+        "amount": 130.9,
+        "currency": "CHF",
+        "billing_amount_chf": 130.9,
+        "items_subtotal": 123.9,
+        "delivery_fee": 7,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-08-30",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0004",
+            "item_name": "Weekly grocery basket",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 94.95,
+            "currency": "CHF",
+            "item_details": "Weekly food and household staples"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0002",
+            "item_name": "Pantry staples",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 28.95,
+            "currency": "CHF",
+            "item_details": "Rice, pasta, and tinned goods"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:13.918948Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_201e8e8f93ba9b62",
+      "deadline_at": "2026-09-24T17:47:22.006499Z",
+      "authorization": {
+        "authorization_id": "AU10375-0cfd1202",
+        "source_authorization_id": "AU10375",
+        "scenario_id": "SCEN0135",
+        "replay_order": 5,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-29T11:46:00Z",
+        "amount": 59.14,
+        "currency": "CHF",
+        "billing_amount_chf": 59.14,
+        "items_subtotal": 54.14,
+        "delivery_fee": 5,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 1,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-08-30",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0003",
+            "item_name": "Breakfast supplies",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 24.14,
+            "currency": "CHF",
+            "item_details": "Breakfast staples"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0001",
+            "item_name": "Fresh produce selection",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 30,
+            "currency": "CHF",
+            "item_details": "Fruit and vegetables"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": [
+          {
+            "authorization_id": "AU10374-0cfd1202",
+            "timestamp": "2026-08-29T11:40:00Z",
+            "merchant_id": "ME0109",
+            "billing_amount_chf": 130.9,
+            "status": "declined"
+          }
+        ]
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:14.006499Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_b0086ec18794ffe9",
+      "deadline_at": "2026-09-24T17:47:22.089765Z",
+      "authorization": {
+        "authorization_id": "AU10376-0cfd1202",
+        "source_authorization_id": "AU10376",
+        "scenario_id": "SCEN0135",
+        "replay_order": 6,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-30T13:20:00Z",
+        "amount": 64.03,
+        "currency": "CHF",
+        "billing_amount_chf": 64.03,
+        "items_subtotal": 59.03,
+        "delivery_fee": 5,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-08-31",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0004",
+            "item_name": "Weekly grocery basket",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 45,
+            "currency": "CHF",
+            "item_details": "Food and household staples"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0001",
+            "item_name": "Fresh produce selection",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 14.03,
+            "currency": "CHF",
+            "item_details": "Fruit and vegetables"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:14.089765Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_afb984fb9af44dee",
+      "deadline_at": "2026-09-24T17:47:22.173974Z",
+      "authorization": {
+        "authorization_id": "AU10377-0cfd1202",
+        "source_authorization_id": "AU10377",
+        "scenario_id": "SCEN0135",
+        "replay_order": 7,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-31T14:55:00Z",
+        "amount": 65.61,
+        "currency": "CHF",
+        "billing_amount_chf": 65.61,
+        "items_subtotal": 60.61,
+        "delivery_fee": 5,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-09-01",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0001",
+            "item_name": "Fresh produce selection",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 22.9,
+            "currency": "CHF",
+            "item_details": "Fruit and vegetables"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0168",
+            "item_name": "Wine and spirits",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 37.71,
+            "currency": "CHF",
+            "item_details": "Six bottles of red wine, 75 cl"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:14.173974Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_a58e5978121b712a",
+      "deadline_at": "2026-09-24T17:47:22.251347Z",
+      "authorization": {
+        "authorization_id": "AU10378-0cfd1202",
+        "source_authorization_id": "AU10378",
+        "scenario_id": "SCEN0135",
+        "replay_order": 8,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0115",
+          "merchant_name": "Terrace Market",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Olten",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-09-01T07:45:00Z",
+        "amount": 59,
+        "currency": "CHF",
+        "billing_amount_chf": 59,
+        "items_subtotal": 54,
+        "delivery_fee": 5,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-09-03",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0004",
+            "item_name": "Weekly grocery basket",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 54,
+            "currency": "CHF",
+            "item_details": "Weekly food and household staples"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:14.251347Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_ccb2322dea604484",
+      "deadline_at": "2026-09-24T17:47:22.331396Z",
+      "authorization": {
+        "authorization_id": "AU10379-0cfd1202",
+        "source_authorization_id": "AU10379",
+        "scenario_id": "SCEN0135",
+        "replay_order": 9,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-09-02T19:15:00Z",
+        "amount": 20.93,
+        "currency": "CHF",
+        "billing_amount_chf": 20.93,
+        "items_subtotal": 15.93,
+        "delivery_fee": 5,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-09-03",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0003",
+            "item_name": "Breakfast supplies",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 15.93,
+            "currency": "CHF",
+            "item_details": "Breakfast staples"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:14.331396Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_bac2b53bc438ff7f",
+      "deadline_at": "2026-09-24T17:47:22.411203Z",
+      "authorization": {
+        "authorization_id": "AU10380-0cfd1202",
+        "source_authorization_id": "AU10380",
+        "scenario_id": "SCEN0135",
+        "replay_order": 10,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-09-04T20:00:00Z",
+        "amount": 127.9,
+        "currency": "CHF",
+        "billing_amount_chf": 127.9,
+        "items_subtotal": 120.9,
+        "delivery_fee": 7,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-09-05",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0004",
+            "item_name": "Weekly grocery basket",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 89,
+            "currency": "CHF",
+            "item_details": "Weekly food and household staples"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0002",
+            "item_name": "Pantry staples",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 31.9,
+            "currency": "CHF",
+            "item_details": "Dry store cupboard goods"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:14.411203Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_3c21d08b86f87c9c",
+      "deadline_at": "2026-09-24T17:47:22.494073Z",
+      "authorization": {
+        "authorization_id": "AU10381-0cfd1202",
+        "source_authorization_id": "AU10381",
+        "scenario_id": "SCEN0135",
+        "replay_order": 11,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-09-04T20:22:00Z",
+        "amount": 123.99,
+        "currency": "CHF",
+        "billing_amount_chf": 123.99,
+        "items_subtotal": 116.99,
+        "delivery_fee": 7,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-09-05",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": "AU10380-0cfd1202",
+        "related_authorization_status": "pending",
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0004",
+            "item_name": "Weekly grocery basket",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 85,
+            "currency": "CHF",
+            "item_details": "Weekly food and household staples"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0002",
+            "item_name": "Pantry staples",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 31.99,
+            "currency": "CHF",
+            "item_details": "Dry store cupboard goods"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:14.494073Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_e22a18cd1106d664",
+      "deadline_at": "2026-09-24T17:47:22.574380Z",
+      "authorization": {
+        "authorization_id": "AU10382-0cfd1202",
+        "source_authorization_id": "AU10382",
+        "scenario_id": "SCEN0135",
+        "replay_order": 12,
+        "mandate_id": "TMf8041f65fb45e887",
+        "profile_id": "PROFILE_AUTH0135",
+        "card_id": "CA1696",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0109",
+          "merchant_name": "Alpine Corner Store",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Vevey",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-09-05T18:12:00Z",
+        "amount": 83.08,
+        "currency": "CHF",
+        "billing_amount_chf": 83.08,
+        "items_subtotal": 78.08,
+        "delivery_fee": 5,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-ED93FA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-09-06",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Household grocery delivery",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0004",
+            "item_name": "Weekly grocery basket",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 51,
+            "currency": "CHF",
+            "item_details": "Food and household staples"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0001",
+            "item_name": "Fresh produce selection",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 27.08,
+            "currency": "CHF",
+            "item_details": "Fruit and vegetables"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TMf8041f65fb45e887",
+        "status": "active",
+        "customer_id": "CU1448",
+        "card_id": "CA1696",
+        "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0135"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:14.574380Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    }
+  ]
+}

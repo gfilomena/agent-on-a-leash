@@ -65,9 +65,22 @@ For every check, Claude runs it and shows Jules the result; Jules can rerun it w
 
 Up to the **minimum demo line**, steps are ordered so that the three required demo moments work as early as possible. After the line, steps are in priority order: if time runs short, cut from the bottom. The last 30 minutes are always kept for rehearsal.
 
-Time estimates add up to about 7 h 30, a bit over 7 h. That is why the line exists.
+**Time (updated 2026-09-24, 19:50).** Clock starts at plan approval (~17:35). Phase A took 2 h 15 instead of 1 h: the redelivery loop, the discovery that the live stories differ from the pack, and recording them. The live stories also add work to the engine (weekday rules, one-per-day limits, monthly totals, EUR limits, "asks once per new shop").
 
-### Phase A: Foundations (about 1 h)
+| Phase | First estimate | Now | Done by (approx.) |
+| --- | --- | --- | --- |
+| A Foundations (0–3) + recording | 1 h | **2 h 15, done** | 19:50 |
+| B Look (4) | 45 min | 45 min | 20:35 |
+| C Core engine (5–7) | 1 h | 1 h 30 | 22:05 |
+| D Shop text + sentence → rules (8–9) | 45 min | 45 min | 22:50 |
+| E Connect the app (10–13) | 1 h 15 | 1 h (screens from step 4 only get wired) | 23:50 |
+| **Minimum demo line** | at 4 h 45 | **at ~6 h 15** | **~23:50** |
+| H Rehearsal and freeze | 30 min | 30 min | ~00:20 |
+| F + G (after the line) | 2 h 15 | 2 h 15 | only with extra time |
+
+With 7 hours from plan approval (until ~00:35), the line is still reachable, with about 15 minutes to spare, and nothing after the line fits. This assumes three trims (proposed, awaiting Jules): step 4 builds the real screens with sample data so Phase E only wires them; step 9 ships without follow-up questions (they move after the line, together with "name your usual shops"); high-contrast mode moves to step 19.
+
+### Phase A: Foundations (took 2 h 15)
 
 - [x] **0. Project setup.** Folders `engine/` and `app/`, installs, local version history (git, nothing uploaded).
   *Check:* `npm run dev`, open the page: a dark phone-shaped page saying "Compass" and "Engine connected".
@@ -75,7 +88,7 @@ Time estimates add up to about 7 h 30, a bit over 7 h. That is why the line exis
   *Check:* `npm run connect` prints "Connected ✓", the decision deadline (8 s), the customer window (120 s) and the 5 stories. The key is never shown.
 - [x] **2. Offline replay.** Rebuild the 45 purchases from the data pack and check each against Viseca's format. Every decision is "ask" for now.
   *Check:* `npm run replay` prints 45 lines (story, #, shop, CHF, decision, reason) and "45/45 valid". Story 4 #4 shows CHF 391.50 (USD 450 converted correctly).
-- [ ] **3. First live purchase, end to end (SCEN0000).** Create policy → confirm → start run → receive the purchase → answer "ask" → **pause: Jules gives the customer's answer (approve or decline) himself**, then it is sent to Viseca. Also find out: what Viseca does when the customer doesn't answer within 120 s; which evidence format Viseca accepts; whether purchases arrive one at a time or in bursts.
+- [x] **3. First live purchase, end to end (SCEN0101 live).** Create policy → confirm → start run → receive the purchase → answer "ask" → **pause: Jules gives the customer's answer (approve or decline) himself**, then it is sent to Viseca. Also find out: what Viseca does when the customer doesn't answer within 120 s; which evidence format Viseca accepts; whether purchases arrive one at a time or in bursts.
   *Check:* every stage prints ✓ and "answered in X s". Claude reports the three findings in plain words.
 
 ### Phase B: Look (about 45 min)
@@ -83,7 +96,7 @@ Time estimates add up to about 7 h 30, a bit over 7 h. That is why the line exis
 - [ ] **4. Design preview with fake data.** Chat home ("How can I help?", text only), the four tabs with the Inbox badge, verdict cards, the detail sheet, the presenter panel, phone and desktop layouts, high-contrast mode. Claude looks at the two Proton pages first.
   *Check:* Jules clicks through it on the laptop (and on the projector if possible). **Jules approves the look before real data is wired.**
 
-### Phase C: Core engine (about 1 h)
+### Phase C: Core engine (about 1 h 30)
 
 - [ ] **5. Test rule sets and hard rules.** Rule sets written from the 5 sentences only and saved before any rule code runs. Every check gives pass, fail or unknown.
   *Check:* story 1 #2 passes the per-order limit at exactly CHF 120.00; #3 and #9 fail because of the delivery fee.
@@ -99,7 +112,7 @@ Time estimates add up to about 7 h 30, a bit over 7 h. That is why the line exis
 - [ ] **9. Sentence → rules (AI).** Rules plus 0–3 one-tap follow-up questions; a price limit is mandatory. The AI never sees the purchases.
   *Check:* for each of the 5 story sentences, Jules reads "Here's what I understood". The replay gives the same results with the AI's rules as with the test rule sets.
 
-### Phase E: Connect the app (about 1 h 15)
+### Phase E: Connect the app (about 1 h)
 
 - [ ] **10. Presenter panel and History, live.** Pick a story, start a live run, watch purchases arrive with the verdict and the time taken, and see the cards appear in History on the phone.
   *Check:* story 1 live: every purchase appears on both sides; tapping a card shows its facts.
@@ -112,7 +125,7 @@ Time estimates add up to about 7 h 30, a bit over 7 h. That is why the line exis
 
 ---
 
-**MINIMUM DEMO LINE (about 4 h 45 in).** Everything above gives the three required moments:
+**MINIMUM DEMO LINE (about 6 h 15 in, ~23:50).** Everything above gives the three required moments:
 
 1. An ordinary purchase approved with no friction: **a grocery order from story 1, which needs no AI item check.**
 2. A manipulated purchase stopped with a clear reason (story 4 #3: blocked for its price, the hidden instruction shown as ignored).
@@ -157,7 +170,9 @@ Without step 14, purchases that need the AI item check go to "Needs review". Tha
    - While a purchase waits for the customer, `/next` hands it out again, instantly. The worker must never answer it a second time and must not poll in a tight loop. The first run looped on exactly this; fixed in `engine/src/worker.ts`, with a stop after 3 redeliveries of a refused purchase.
    - An unanswered review is **declined by Viseca** 120–150 s after our answer: status `declined`, reason `step_up_expired`, message "The confirmation window expired."
    - A purchase nobody picks up is closed by Viseca as `timeout` ("The request expired before it was delivered.").
-2. **Found at step 1 (2026-09-24):** the live API is not the data pack.
+   - **The queue is shared by all our runs.** A stopped run leaves its purchases in the queue, and the next session receives them first. On 2026-09-24 this caused "Purchase 3 of 2" and 4 extra SCEN0101 runs: each stopped at the safeguard, but only after it had started its run. Now fixed: the scripts wait until no earlier purchase is open before starting a run, count only purchases under their own policy, and never answer a purchase that is already waiting for its customer. Viseca's record holds 11 SCEN0101 runs from step 3.
+2. **Recorded live stories (2026-09-24, 19:48):** all 10 live stories are saved in `engine/recordings/`, 111 purchases in total. SCEN0101's 2 come from the clean step 3 run; the other 109 come from recording mode, where every purchase was declined with reason `test_recording`, engine `recording-mode` and message "Test run to collect data, not a real decision". Viseca confirmed all 109 labels. `npm run replay -- --live` replays them offline. They are purchases, not answers.
+3. **Found at step 1 (2026-09-24):** the live API is not the data pack.
    - Our team (`team35`) gets **10 live stories** (`SCEN0101`, `SCEN0135`, …), not the pack's 5. Same themes plus 5 new ones: subscriptions, cross-border (EUR limit), weeknight meal delivery, hotel booking, category exclusions. Different customers, cards and limits. The live list comes from `/v1/bootstrap`; nothing may be hard-coded to it.
    - Viseca's reference data is larger than the pack (30 customers, 51 cards, 78 merchants, 87 items), but the **history file is identical** and has **no past purchases for the 10 live cards** (`CA1xxx`). "A shop I already use" can't be derived from history for live stories, and the purchase event has no such field.
    - **Reset is off** (`features.reset: false`): every live run stays in our record.

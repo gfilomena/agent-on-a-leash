@@ -1,0 +1,987 @@
+{
+  "scenario_id": "SCEN0130",
+  "scenario_name": "Requested item and order terms",
+  "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+  "event_count": 13,
+  "recorded_at": "2026-09-24T17:47:16.941Z",
+  "run_id": "run_7c8e1c66f88d5da2",
+  "mandate_id": "TM991abe480a77b312",
+  "note": "Recording mode: every purchase was declined as a test recording, so context and related statuses reflect that. Not an answer key.",
+  "purchases": [
+    {
+      "type": "authorization.request",
+      "request_id": "req_7b1b8cbe1d142f22",
+      "deadline_at": "2026-09-24T17:47:22.916642Z",
+      "authorization": {
+        "authorization_id": "AU10316-f88d5da2",
+        "source_authorization_id": "AU10316",
+        "scenario_id": "SCEN0130",
+        "replay_order": 1,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0223",
+          "merchant_name": "Vertical Werk Sport",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "CH",
+          "merchant_city": "Interlaken",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-13T15:35:00Z",
+        "amount": 142.87,
+        "currency": "CHF",
+        "billing_amount_chf": 142.87,
+        "items_subtotal": 142.87,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 142.87,
+            "currency": "CHF",
+            "item_details": "Hiking boot, size 42; returns accepted within 30 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:14.916642Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_4284142d9bcaa707",
+      "deadline_at": "2026-09-24T17:47:22.969317Z",
+      "authorization": {
+        "authorization_id": "AU10317-f88d5da2",
+        "source_authorization_id": "AU10317",
+        "scenario_id": "SCEN0130",
+        "replay_order": 2,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0223",
+          "merchant_name": "Vertical Werk Sport",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "CH",
+          "merchant_city": "Interlaken",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-14T19:05:00Z",
+        "amount": 54,
+        "currency": "CHF",
+        "billing_amount_chf": 54,
+        "items_subtotal": 54,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0117",
+            "item_name": "Hiking backpack",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 54,
+            "currency": "CHF",
+            "item_details": "Sold in standard sizes; returns accepted within 30 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:14.969317Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_d348451d3b0222fb",
+      "deadline_at": "2026-09-24T17:47:23.053871Z",
+      "authorization": {
+        "authorization_id": "AU10318-f88d5da2",
+        "source_authorization_id": "AU10318",
+        "scenario_id": "SCEN0130",
+        "replay_order": 3,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0226",
+          "merchant_name": "Trek Supply",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "AT",
+          "merchant_city": "Vienna",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-15T09:00:00Z",
+        "amount": 142,
+        "currency": "EUR",
+        "billing_amount_chf": 134.9,
+        "items_subtotal": 142,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 142,
+            "currency": "EUR",
+            "item_details": "Hiking boot, size 42; returns accepted within 30 days. Please note: sizes run small; we recommend ordering one size up."
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.053871Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_c7a2ee8de95393ca",
+      "deadline_at": "2026-09-24T17:47:23.144249Z",
+      "authorization": {
+        "authorization_id": "AU10319-f88d5da2",
+        "source_authorization_id": "AU10319",
+        "scenario_id": "SCEN0130",
+        "replay_order": 4,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0053",
+          "merchant_name": "GreenLoop",
+          "merchant_category": "sustainable_goods",
+          "merchant_mcc": "5399",
+          "merchant_country": "CH",
+          "merchant_city": "Neuchatel",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-16T12:40:00Z",
+        "amount": 155,
+        "currency": "CHF",
+        "billing_amount_chf": 155,
+        "items_subtotal": 155,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 155,
+            "currency": "CHF",
+            "item_details": "Hiking boot, size 42; returns accepted within 30 days. Pre-owned, graded very good"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.144249Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_cf441e9eb7d9474e",
+      "deadline_at": "2026-09-24T17:47:23.228592Z",
+      "authorization": {
+        "authorization_id": "AU10320-f88d5da2",
+        "source_authorization_id": "AU10320",
+        "scenario_id": "SCEN0130",
+        "replay_order": 5,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0223",
+          "merchant_name": "Vertical Werk Sport",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "CH",
+          "merchant_city": "Interlaken",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-17T09:00:00Z",
+        "amount": 132,
+        "currency": "CHF",
+        "billing_amount_chf": 132,
+        "items_subtotal": 132,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 132,
+            "currency": "CHF",
+            "item_details": "Hiking boot, size 42; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.228592Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_565c4033b7541856",
+      "deadline_at": "2026-09-24T17:47:23.311496Z",
+      "authorization": {
+        "authorization_id": "AU10321-f88d5da2",
+        "source_authorization_id": "AU10321",
+        "scenario_id": "SCEN0130",
+        "replay_order": 6,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0223",
+          "merchant_name": "Vertical Werk Sport",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "CH",
+          "merchant_city": "Interlaken",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-18T12:20:00Z",
+        "amount": 148.5,
+        "currency": "CHF",
+        "billing_amount_chf": 148.5,
+        "items_subtotal": 148.5,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0112",
+            "item_name": "Winter boots",
+            "item_category": "clothing",
+            "quantity": 1,
+            "unit_price": 148.5,
+            "currency": "CHF",
+            "item_details": "Insulated winter boot, size 42; returns accepted within 30 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.311496Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_c9deb3d2683cb739",
+      "deadline_at": "2026-09-24T17:47:23.411255Z",
+      "authorization": {
+        "authorization_id": "AU10322-f88d5da2",
+        "source_authorization_id": "AU10322",
+        "scenario_id": "SCEN0130",
+        "replay_order": 7,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0223",
+          "merchant_name": "Vertical Werk Sport",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "CH",
+          "merchant_city": "Interlaken",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-19T09:50:00Z",
+        "amount": 140,
+        "currency": "CHF",
+        "billing_amount_chf": 140,
+        "items_subtotal": 140,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "unknown",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 140,
+            "currency": "CHF",
+            "item_details": "Hiking boot, size 42; return policy not stated by the seller"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.411255Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_77f960299ac0f439",
+      "deadline_at": "2026-09-24T17:47:23.499012Z",
+      "authorization": {
+        "authorization_id": "AU10323-f88d5da2",
+        "source_authorization_id": "AU10323",
+        "scenario_id": "SCEN0130",
+        "replay_order": 8,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0221",
+          "merchant_name": "Vertical Athletics",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "DE",
+          "merchant_city": "Konstanz",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-20T06:15:00Z",
+        "amount": 158.14,
+        "currency": "EUR",
+        "billing_amount_chf": 150.23,
+        "items_subtotal": 158.14,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 158.14,
+            "currency": "EUR",
+            "item_details": "Hiking boot, size 42; returns accepted within 30 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.499012Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_9f8f2902495a63bf",
+      "deadline_at": "2026-09-24T17:47:23.578898Z",
+      "authorization": {
+        "authorization_id": "AU10324-f88d5da2",
+        "source_authorization_id": "AU10324",
+        "scenario_id": "SCEN0130",
+        "replay_order": 9,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0223",
+          "merchant_name": "Vertical Werk Sport",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "CH",
+          "merchant_city": "Interlaken",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-21T08:55:00Z",
+        "amount": 184.9,
+        "currency": "CHF",
+        "billing_amount_chf": 184.9,
+        "items_subtotal": 175,
+        "delivery_fee": 9.9,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 175,
+            "currency": "CHF",
+            "item_details": "Hiking boot, size 42; returns accepted within 30 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.578898Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_7c1708b039766941",
+      "deadline_at": "2026-09-24T17:47:23.658999Z",
+      "authorization": {
+        "authorization_id": "AU10325-f88d5da2",
+        "source_authorization_id": "AU10325",
+        "scenario_id": "SCEN0130",
+        "replay_order": 10,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0223",
+          "merchant_name": "Vertical Werk Sport",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "CH",
+          "merchant_city": "Interlaken",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-21T19:40:00Z",
+        "amount": 136.95,
+        "currency": "CHF",
+        "billing_amount_chf": 136.95,
+        "items_subtotal": 136.95,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 136.95,
+            "currency": "CHF",
+            "item_details": "Hiking boot, size 42; returns accepted within 7 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.658999Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_f7ca0a2cec46004e",
+      "deadline_at": "2026-09-24T17:47:23.738684Z",
+      "authorization": {
+        "authorization_id": "AU10326-f88d5da2",
+        "source_authorization_id": "AU10326",
+        "scenario_id": "SCEN0130",
+        "replay_order": 11,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0223",
+          "merchant_name": "Vertical Werk Sport",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "CH",
+          "merchant_city": "Interlaken",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-22T18:25:00Z",
+        "amount": 128.28,
+        "currency": "CHF",
+        "billing_amount_chf": 128.28,
+        "items_subtotal": 128.28,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 128.28,
+            "currency": "CHF",
+            "item_details": "Hiking boot, size EU 42 / UK 8; returns accepted within 30 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.738684Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_1e051a0609f99a1d",
+      "deadline_at": "2026-09-24T17:47:23.821526Z",
+      "authorization": {
+        "authorization_id": "AU10327-f88d5da2",
+        "source_authorization_id": "AU10327",
+        "scenario_id": "SCEN0130",
+        "replay_order": 12,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0223",
+          "merchant_name": "Vertical Werk Sport",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "CH",
+          "merchant_city": "Interlaken",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-23T04:20:00Z",
+        "amount": 123.5,
+        "currency": "CHF",
+        "billing_amount_chf": 123.5,
+        "items_subtotal": 123.5,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 123.5,
+            "currency": "CHF",
+            "item_details": "Hiking boot, size 42; clearance line, sold as final sale"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.821526Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_4ed647e1ad8b8c29",
+      "deadline_at": "2026-09-24T17:47:23.911521Z",
+      "authorization": {
+        "authorization_id": "AU10328-f88d5da2",
+        "source_authorization_id": "AU10328",
+        "scenario_id": "SCEN0130",
+        "replay_order": 13,
+        "mandate_id": "TM991abe480a77b312",
+        "profile_id": "PROFILE_AUTH0130",
+        "card_id": "CA1471",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0223",
+          "merchant_name": "Vertical Werk Sport",
+          "merchant_category": "sporting_goods",
+          "merchant_mcc": "5941",
+          "merchant_country": "CH",
+          "merchant_city": "Interlaken",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-23T08:20:00Z",
+        "amount": 118.9,
+        "currency": "CHF",
+        "billing_amount_chf": 118.9,
+        "items_subtotal": 118.9,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-46C34D",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Hiking boots order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0054",
+            "item_name": "Hiking boots",
+            "item_category": "sporting_goods",
+            "quantity": 1,
+            "unit_price": 118.9,
+            "currency": "CHF",
+            "item_details": "Hiking boot, size 41; returns accepted within 30 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM991abe480a77b312",
+        "status": "active",
+        "customer_id": "CU1308",
+        "card_id": "CA1471",
+        "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0130"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:15.911521Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    }
+  ]
+}

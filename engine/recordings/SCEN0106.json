@@ -1,0 +1,957 @@
+{
+  "scenario_id": "SCEN0106",
+  "scenario_name": "Session integrity",
+  "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+  "event_count": 12,
+  "recorded_at": "2026-09-24T17:47:18.220Z",
+  "run_id": "run_0cc51a000e451bfe",
+  "mandate_id": "TM34184d3ea0d45d24",
+  "note": "Recording mode: every purchase was declined as a test recording, so context and related statuses reflect that. Not an answer key.",
+  "purchases": [
+    {
+      "type": "authorization.request",
+      "request_id": "req_4d02fdf6df42b01a",
+      "deadline_at": "2026-09-24T17:47:25.226438Z",
+      "authorization": {
+        "authorization_id": "AU10049-0e451bfe",
+        "source_authorization_id": "AU10049",
+        "scenario_id": "SCEN0106",
+        "replay_order": 1,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0194",
+          "merchant_name": "Quartz and Pine",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "CH",
+          "merchant_city": "Thun",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-16T09:50:00Z",
+        "amount": 155.25,
+        "currency": "CHF",
+        "billing_amount_chf": 155.25,
+        "items_subtotal": 155.25,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-31E17A",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0045",
+            "item_name": "Noise-cancelling headphones",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 155.25,
+            "currency": "CHF",
+            "item_details": "Over-ear headphones, 2-year warranty; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:17.226438Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_9de1306e643d6f07",
+      "deadline_at": "2026-09-24T17:47:25.295244Z",
+      "authorization": {
+        "authorization_id": "AU10050-0e451bfe",
+        "source_authorization_id": "AU10050",
+        "scenario_id": "SCEN0106",
+        "replay_order": 2,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0194",
+          "merchant_name": "Quartz and Pine",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "CH",
+          "merchant_city": "Thun",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-17T15:05:00Z",
+        "amount": 179.14,
+        "currency": "CHF",
+        "billing_amount_chf": 179.14,
+        "items_subtotal": 179.14,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-31E17A",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0048",
+            "item_name": "Tablet accessory",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 179.14,
+            "currency": "CHF",
+            "item_details": "Keyboard cover; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:17.295244Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_beff9c244495f8c1",
+      "deadline_at": "2026-09-24T17:47:25.381461Z",
+      "authorization": {
+        "authorization_id": "AU10051-0e451bfe",
+        "source_authorization_id": "AU10051",
+        "scenario_id": "SCEN0106",
+        "replay_order": 3,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0194",
+          "merchant_name": "Quartz and Pine",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "CH",
+          "merchant_city": "Thun",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-19T16:10:00Z",
+        "amount": 182.78,
+        "currency": "CHF",
+        "billing_amount_chf": 182.78,
+        "items_subtotal": 182.78,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-90DBDA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0045",
+            "item_name": "Noise-cancelling headphones",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 182.78,
+            "currency": "CHF",
+            "item_details": "Over-ear headphones, 2-year warranty; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:17.381461Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_5b7fb49920801991",
+      "deadline_at": "2026-09-24T17:47:25.462538Z",
+      "authorization": {
+        "authorization_id": "AU10052-0e451bfe",
+        "source_authorization_id": "AU10052",
+        "scenario_id": "SCEN0106",
+        "replay_order": 4,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0196",
+          "merchant_name": "Byte and Pine",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "CH",
+          "merchant_city": "Fribourg",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-20T12:40:00Z",
+        "amount": 119.3,
+        "currency": "CHF",
+        "billing_amount_chf": 119.3,
+        "items_subtotal": 119.3,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-90DBDA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0104",
+            "item_name": "USB-C hub",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 119.3,
+            "currency": "CHF",
+            "item_details": "7-port hub; returns accepted within 30 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:17.462538Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_83b6c7f90b11de7c",
+      "deadline_at": "2026-09-24T17:47:25.554382Z",
+      "authorization": {
+        "authorization_id": "AU10053-0e451bfe",
+        "source_authorization_id": "AU10053",
+        "scenario_id": "SCEN0106",
+        "replay_order": 5,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0339",
+          "merchant_name": "Signall Hub",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "GB",
+          "merchant_city": "London",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-20T12:43:00Z",
+        "amount": 160.71,
+        "currency": "GBP",
+        "billing_amount_chf": 180,
+        "items_subtotal": 160.71,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-90DBDA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 1,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0048",
+            "item_name": "Tablet accessory",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 160.71,
+            "currency": "GBP",
+            "item_details": "Keyboard cover; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": [
+          {
+            "authorization_id": "AU10052-0e451bfe",
+            "timestamp": "2026-08-20T12:40:00Z",
+            "merchant_id": "ME0196",
+            "billing_amount_chf": 119.3,
+            "status": "declined"
+          }
+        ]
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:17.554382Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_e939507326c3cefd",
+      "deadline_at": "2026-09-24T17:47:25.639455Z",
+      "authorization": {
+        "authorization_id": "AU10054-0e451bfe",
+        "source_authorization_id": "AU10054",
+        "scenario_id": "SCEN0106",
+        "replay_order": 6,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0339",
+          "merchant_name": "Signall Hub",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "GB",
+          "merchant_city": "London",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-20T12:47:00Z",
+        "amount": 249.95,
+        "currency": "GBP",
+        "billing_amount_chf": 279.94,
+        "items_subtotal": 249.95,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-90DBDA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 2,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0045",
+            "item_name": "Noise-cancelling headphones",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 249.95,
+            "currency": "GBP",
+            "item_details": "Over-ear headphones, 2-year warranty; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": [
+          {
+            "authorization_id": "AU10052-0e451bfe",
+            "timestamp": "2026-08-20T12:40:00Z",
+            "merchant_id": "ME0196",
+            "billing_amount_chf": 119.3,
+            "status": "declined"
+          },
+          {
+            "authorization_id": "AU10053-0e451bfe",
+            "timestamp": "2026-08-20T12:43:00Z",
+            "merchant_id": "ME0339",
+            "billing_amount_chf": 180,
+            "status": "declined"
+          }
+        ]
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:17.639455Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_aeca91d1b4fd7040",
+      "deadline_at": "2026-09-24T17:47:25.733994Z",
+      "authorization": {
+        "authorization_id": "AU10055-0e451bfe",
+        "source_authorization_id": "AU10055",
+        "scenario_id": "SCEN0106",
+        "replay_order": 7,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0059",
+          "merchant_name": "PixelHarbour",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "CH",
+          "merchant_city": "Zurich",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-20T12:50:00Z",
+        "amount": 120,
+        "currency": "CHF",
+        "billing_amount_chf": 120,
+        "items_subtotal": 120,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-90DBDA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 3,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0104",
+            "item_name": "USB-C hub",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 120,
+            "currency": "CHF",
+            "item_details": "7-port hub; returns accepted within 30 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": [
+          {
+            "authorization_id": "AU10052-0e451bfe",
+            "timestamp": "2026-08-20T12:40:00Z",
+            "merchant_id": "ME0196",
+            "billing_amount_chf": 119.3,
+            "status": "declined"
+          },
+          {
+            "authorization_id": "AU10053-0e451bfe",
+            "timestamp": "2026-08-20T12:43:00Z",
+            "merchant_id": "ME0339",
+            "billing_amount_chf": 180,
+            "status": "declined"
+          },
+          {
+            "authorization_id": "AU10054-0e451bfe",
+            "timestamp": "2026-08-20T12:47:00Z",
+            "merchant_id": "ME0339",
+            "billing_amount_chf": 279.94,
+            "status": "declined"
+          }
+        ]
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:17.733994Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_1c9d49d033b35a8a",
+      "deadline_at": "2026-09-24T17:47:25.824211Z",
+      "authorization": {
+        "authorization_id": "AU10056-0e451bfe",
+        "source_authorization_id": "AU10056",
+        "scenario_id": "SCEN0106",
+        "replay_order": 8,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0194",
+          "merchant_name": "Quartz and Pine",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "CH",
+          "merchant_city": "Thun",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-22T08:15:00Z",
+        "amount": 180,
+        "currency": "CHF",
+        "billing_amount_chf": 180,
+        "items_subtotal": 180,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-31E17A",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0048",
+            "item_name": "Tablet accessory",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 180,
+            "currency": "CHF",
+            "item_details": "Keyboard cover; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:17.824211Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_bb123609007591b7",
+      "deadline_at": "2026-09-24T17:47:25.914132Z",
+      "authorization": {
+        "authorization_id": "AU10057-0e451bfe",
+        "source_authorization_id": "AU10057",
+        "scenario_id": "SCEN0106",
+        "replay_order": 9,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0198",
+          "merchant_name": "Chip Works",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "CH",
+          "merchant_city": "Lucerne",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-23T16:05:00Z",
+        "amount": 84.19,
+        "currency": "CHF",
+        "billing_amount_chf": 84.19,
+        "items_subtotal": 84.19,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-31E17A",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0047",
+            "item_name": "Phone charger",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 84.19,
+            "currency": "CHF",
+            "item_details": "USB-C charger and cable; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:17.914132Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_61e3dce19b9dbad9",
+      "deadline_at": "2026-09-24T17:47:25.995998Z",
+      "authorization": {
+        "authorization_id": "AU10058-0e451bfe",
+        "source_authorization_id": "AU10058",
+        "scenario_id": "SCEN0106",
+        "replay_order": 10,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0194",
+          "merchant_name": "Quartz and Pine",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "CH",
+          "merchant_city": "Thun",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-24T19:20:00Z",
+        "amount": 85,
+        "currency": "CHF",
+        "billing_amount_chf": 85,
+        "items_subtotal": 85,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-31E17A",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0047",
+            "item_name": "Phone charger",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 85,
+            "currency": "CHF",
+            "item_details": "USB-C charger and cable; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:17.995998Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_f1c46b77370d1a56",
+      "deadline_at": "2026-09-24T17:47:26.073868Z",
+      "authorization": {
+        "authorization_id": "AU10059-0e451bfe",
+        "source_authorization_id": "AU10059",
+        "scenario_id": "SCEN0106",
+        "replay_order": 11,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0194",
+          "merchant_name": "Quartz and Pine",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "CH",
+          "merchant_city": "Thun",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-25T08:00:00Z",
+        "amount": 351.65,
+        "currency": "CHF",
+        "billing_amount_chf": 351.65,
+        "items_subtotal": 351.65,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-31E17A",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0045",
+            "item_name": "Noise-cancelling headphones",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 351.65,
+            "currency": "CHF",
+            "item_details": "Over-ear headphones, 2-year warranty; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:18.073868Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_ecd96ccc10e2a358",
+      "deadline_at": "2026-09-24T17:47:26.166273Z",
+      "authorization": {
+        "authorization_id": "AU10060-0e451bfe",
+        "source_authorization_id": "AU10060",
+        "scenario_id": "SCEN0106",
+        "replay_order": 12,
+        "mandate_id": "TM34184d3ea0d45d24",
+        "profile_id": "PROFILE_AUTH0106",
+        "card_id": "CA1576",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0194",
+          "merchant_name": "Quartz and Pine",
+          "merchant_category": "electronics",
+          "merchant_mcc": "5732",
+          "merchant_country": "CH",
+          "merchant_city": "Thun",
+          "availability": "online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-28T12:05:00Z",
+        "amount": 180,
+        "currency": "CHF",
+        "billing_amount_chf": 180,
+        "items_subtotal": 180,
+        "delivery_fee": 0,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-90DBDA",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": null,
+        "order_returnable": "true",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Electronics order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0048",
+            "item_name": "Tablet accessory",
+            "item_category": "electronics",
+            "quantity": 1,
+            "unit_price": 180,
+            "currency": "CHF",
+            "item_details": "Keyboard cover; returns accepted within 14 days"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM34184d3ea0d45d24",
+        "status": "active",
+        "customer_id": "CU1376",
+        "card_id": "CA1576",
+        "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+        "hard_rules": [],
+        "uncertainty_policy": "decline",
+        "profile_id": "PROFILE_AUTH0106"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:47:18.166273Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    }
+  ]
+}

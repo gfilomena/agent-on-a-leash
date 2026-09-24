@@ -8,7 +8,7 @@ import { decide } from "../decide.js";
 import { formatMoney } from "../money.js";
 import { eventErrors } from "../schema.js";
 import { viseca } from "../viseca.js";
-import { Worker, WorkerStuck, type Handled } from "../worker.js";
+import { unfinishedPurchases, Worker, WorkerStuck, type Handled } from "../worker.js";
 import { makeFakeViseca } from "./fake-viseca.js";
 
 const args = process.argv.slice(2);
@@ -105,12 +105,18 @@ let finished = false;
 const worker = new Worker(api, decide, {
   humanWindowMs,
   log: note,
+  onAdopted: (h) => {
+    say(`\n  ${c.dim}A purchase from an earlier run (${h.ev.authorization.merchant.merchant_name}) is still waiting for its customer window to close. It is not answered again.${c.reset}`);
+  },
   onAnswered: (h) => {
     const a = h.ev.authorization;
-    arrivals.push({ n: arrivals.length + 1, at: h.receivedAt });
+    // The queue is shared by all our runs: only purchases under this policy belong to this test.
+    const own = a.mandate_id === mandateId;
+    if (own) arrivals.push({ n: arrivals.length + 1, at: h.receivedAt });
     const errors = eventErrors(h.ev);
     const money = a.currency === "CHF" ? formatMoney(a.billing_amount_chf) : `${formatMoney(a.amount, a.currency)} = ${formatMoney(a.billing_amount_chf)}`;
-    say(`\n${c.bold}Purchase ${arrivals.length} of ${scenario.event_count}${c.reset}  ${a.merchant.merchant_name} · ${money}`);
+    const title = own ? `Purchase ${arrivals.length} of ${scenario.event_count}` : `From an earlier run (not counted)`;
+    say(`\n${c.bold}${title}${c.reset}  ${a.merchant.merchant_name} · ${money}`);
     say(`  ${errors.length ? `${c.red}✕ format problems: ${errors.join("; ")}${c.reset}` : "✓ matches Viseca's format"}`);
     if (h.accepted) {
       const verdict = { approve: "Approved", step_up: "Needs review", decline: "Blocked" }[h.d.decision];
@@ -203,6 +209,15 @@ async function customerLoop() {
 
 void workerLoop();
 void customerLoop();
+
+// Never start while earlier purchases are open: they would mix into this test.
+for (let waitedMs = 0; ; waitedMs += 5_000) {
+  const open = await unfinishedPurchases(api);
+  if (open.length === 0) break;
+  if (waitedMs === 0) say(`  Waiting for ${open.length} purchase(s) from earlier runs to close first (at most ~2.5 min)…`);
+  if (waitedMs > 4 * 60_000) stop(`✕ Earlier purchases are still open after 4 minutes: ${open.map((x) => `${x.authorization_id} ${x.status}`).join(", ")}`);
+  await sleep(5_000);
+}
 
 const run = await api.startRun(scenarioId, mandateId);
 note("run_started", run);

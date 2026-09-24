@@ -17,6 +17,7 @@ export function makeFakeViseca(humanWindowMs: number, opts: { refuseDecisions?: 
   const rows = story.attempts.slice(0, 2);
   const auths: { ev: AuthorizationEvent; status: string; reason?: string }[] = [];
   let started = false;
+  let runMandateId = "";
   const current = () => auths[auths.length - 1];
   const isFinal = (s: string) => ["approved", "declined"].includes(s);
 
@@ -28,8 +29,9 @@ export function makeFakeViseca(humanWindowMs: number, opts: { refuseDecisions?: 
       }),
     createMandate: (body: any) => res({ draft_id: "DRAFT_DRY", ...body }),
     confirmMandate: () => res({ mandate_id: "TM_DRY", status: "active" }),
-    startRun: () => {
+    startRun: (_scenarioId: string, mandateId: string) => {
       started = true;
+      runMandateId = mandateId; // like Viseca: every purchase carries the run's policy id
       return res({ run_id: "RUN_DRY", status: "running" });
     },
     getRun: () => {
@@ -39,6 +41,7 @@ export function makeFakeViseca(humanWindowMs: number, opts: { refuseDecisions?: 
     nextRequest: async () => {
       if (started && (!current() || isFinal(current().status)) && auths.length < rows.length) {
         const ev = run.buildEvent(rows[auths.length]);
+        ev.authorization.mandate_id = ev.mandate.mandate_id = runMandateId;
         run.record(ev, "step_up");
         auths.push({ ev, status: "awaiting_decision" });
       }

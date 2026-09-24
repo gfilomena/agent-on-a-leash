@@ -1,13 +1,21 @@
-// Step 2+: feed the pack's 45 purchases to the engine, in order, one line per purchase.
-// Usage: npm run replay [-- SCEN0002]
+// Step 2+: feed purchases to the engine, story by story, in order, one line per purchase.
+// Usage: npm run replay [-- SCEN0002]      the data pack's 45 purchases
+//        npm run replay -- --live [SCEN0135]  the 111 recorded live purchases (engine/recordings/)
 import { decide } from "../decide.js";
 import { formatMoney, toChf } from "../money.js";
-import { loadPackStories, OfflineRun } from "../offline.js";
+import { loadPackStories, loadRecordedStories, OfflineRun, type StoryInfo } from "../offline.js";
 import { eventErrors } from "../schema.js";
-import type { Verdict } from "../types.js";
+import type { AuthorizationEvent, Verdict } from "../types.js";
 
-const only = process.argv[2];
-const stories = loadPackStories().filter((s) => !only || s.scenarioId === only);
+const live = process.argv.includes("--live");
+const only = process.argv.slice(2).find((a) => !a.startsWith("--"));
+// Events are built one at a time: each one's context depends on our earlier decisions.
+type Source = { story: StoryInfo; items: ((run: OfflineRun) => AuthorizationEvent)[] };
+const sources: Source[] = (
+  live
+    ? loadRecordedStories().map((s) => ({ story: s, items: s.purchases.map((p) => (run: OfflineRun) => run.eventFromRecorded(p)) }))
+    : loadPackStories().map((s) => ({ story: s, items: s.attempts.map((row) => (run: OfflineRun) => run.buildEvent(row)) }))
+).filter((s) => !only || s.story.scenarioId === only);
 
 const color = { approve: "\x1b[32m", step_up: "\x1b[33m", decline: "\x1b[31m", dim: "\x1b[2m", reset: "\x1b[0m" };
 const label: Record<Verdict, string> = { approve: "Approved", step_up: "Needs review", decline: "Blocked" };
@@ -18,13 +26,14 @@ let valid = 0;
 let fxOk = 0;
 const problems: string[] = [];
 
-for (const story of stories) {
+console.log(live ? "Recorded live stories (engine/recordings/)" : "Data pack stories");
+for (const { story, items } of sources) {
   console.log(`\n${story.scenarioId} · ${story.name}`);
   console.log(`${color.dim}"${story.instruction}"${color.reset}`);
   const run = new OfflineRun(story);
 
-  for (const row of story.attempts) {
-    const event = run.buildEvent(row);
+  for (const next of items) {
+    const event = next(run);
     const a = event.authorization;
     total++;
 

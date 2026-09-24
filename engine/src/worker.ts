@@ -15,6 +15,8 @@ export interface QueueApi {
 
 export interface Handled {
   ev: AuthorizationEvent;
+  runId: string; // the run this purchase belongs to (the queue is shared by all our runs)
+  adopted: boolean; // arrived already answered by an earlier session, waiting for the customer
   d: EngineDecision;
   receivedAt: number;
   answeredAt: number;
@@ -46,6 +48,8 @@ export class Worker {
       humanWindowMs: number;
       log: (kind: string, data: unknown) => void;
       onAnswered: (h: Handled) => void;
+      onAdopted?: (h: Handled) => void;
+      engineVersion?: string;
     },
   ) {}
 
@@ -67,14 +71,28 @@ export class Worker {
       return "redelivered";
     }
     this.opts.log("purchase_received", envelope);
-    await this.answer(ev);
+    if (WAITING_FOR_CUSTOMER.test(String(envelope?.status))) {
+      // Answered by an earlier session and waiting for the customer: only /resolve may follow.
+      this.adopt(ev, envelope);
+      return "redelivered";
+    }
+    await this.answer(ev, envelope?.run_id);
     return "answered";
   }
 
-  private async answer(ev: AuthorizationEvent) {
+  private adopt(ev: AuthorizationEvent, envelope: any) {
+    const now = Date.now();
+    const d: EngineDecision = { decision: "step_up", reason_codes: [], customer_message: "", evidence: [] };
+    const h: Handled = { ev, d, runId: envelope?.run_id, adopted: true, receivedAt: now, answeredAt: now, accepted: true, evidenceFormat: null, refusal: null, redeliveries: 0, posts: 0 };
+    this.handled.set(ev.authorization.authorization_id, h);
+    this.opts.log("adopted", { id: ev.authorization.authorization_id, run_id: envelope?.run_id, status: envelope?.status });
+    this.opts.onAdopted?.(h);
+  }
+
+  private async answer(ev: AuthorizationEvent, runId: string) {
     const receivedAt = Date.now();
     const d = this.decide(ev);
-    const h: Handled = { ev, d, receivedAt, answeredAt: 0, accepted: false, evidenceFormat: null, refusal: null, redeliveries: 0, posts: 0 };
+    const h: Handled = { ev, d, runId, adopted: false, receivedAt, answeredAt: 0, accepted: false, evidenceFormat: null, refusal: null, redeliveries: 0, posts: 0 };
     this.handled.set(ev.authorization.authorization_id, h);
     await this.post(h);
     this.opts.onAnswered(h);
@@ -83,7 +101,7 @@ export class Worker {
   /** Sends our answer. Tries evidence as objects, then strings, then none (format unknown until tested). */
   private async post(h: Handled) {
     const id = h.ev.authorization.authorization_id;
-    const base = { authorization_id: id, decision: h.d.decision, reason_codes: h.d.reason_codes, customer_message: h.d.customer_message, engine_version: config.engineVersion };
+    const base = { authorization_id: id, decision: h.d.decision, reason_codes: h.d.reason_codes, customer_message: h.d.customer_message, engine_version: this.opts.engineVersion ?? config.engineVersion };
     const formats: EvidenceFormat[] = this.evidenceFormat ? [this.evidenceFormat] : ["objects", "strings", "none"];
     for (const fmt of formats) {
       const body = fmt === "objects" ? { ...base, evidence: h.d.evidence } : fmt === "strings" ? { ...base, evidence: h.d.evidence.map(evidenceText) } : base;
@@ -144,4 +162,11 @@ export class Worker {
     const record = list.find((x) => x.authorization_id === h.ev.authorization.authorization_id);
     return String(record?.status ?? envelopeStatus ?? "unknown");
   }
+}
+
+/** Purchases Viseca has not closed yet (from any of our runs). */
+export async function unfinishedPurchases(api: QueueApi): Promise<any[]> {
+  const r = await api.authorizations();
+  const list: any[] = Array.isArray(r.data) ? r.data : (r.data?.authorizations ?? []);
+  return list.filter((x) => /awaiting|step_up/i.test(String(x.status)));
 }

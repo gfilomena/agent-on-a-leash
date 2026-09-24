@@ -1,0 +1,190 @@
+{
+  "scenario_id": "SCEN0101",
+  "scenario_name": "Connection check",
+  "instruction": "Buy one ordinary grocery item for CHF 20 or less from a shop I use regularly. Ask me when uncertain.",
+  "event_count": 2,
+  "recorded_at": "2026-09-24T17:39:47.061Z",
+  "run_id": "run_4287f80fd9cf145c",
+  "mandate_id": "TM0db90d582fa25788",
+  "note": "Taken from the step 3 live test run (not recording mode): both purchases went to review and the customer answered (approve, then decline). Not an answer key.",
+  "purchases": [
+    {
+      "type": "authorization.request",
+      "request_id": "req_096717c46735b611",
+      "deadline_at": "2026-09-24T17:39:55.322140Z",
+      "authorization": {
+        "authorization_id": "AU10001-d9cf145c",
+        "source_authorization_id": "AU10001",
+        "scenario_id": "SCEN0101",
+        "replay_order": 1,
+        "mandate_id": "TM0db90d582fa25788",
+        "profile_id": "PROFILE_AUTH0101",
+        "card_id": "CA1331",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0102",
+          "merchant_name": "Rhine Fresh",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Winterthur",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-16T11:12:00Z",
+        "amount": 18,
+        "currency": "CHF",
+        "billing_amount_chf": 18,
+        "items_subtotal": 12,
+        "delivery_fee": 6,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-B81C42",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-08-17",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Grocery delivery order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0001",
+            "item_name": "Fresh produce selection",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 12,
+            "currency": "CHF",
+            "item_details": "One small basket of seasonal fruit and vegetables"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM0db90d582fa25788",
+        "status": "active",
+        "customer_id": "CU1217",
+        "card_id": "CA1331",
+        "instruction": "Buy one ordinary grocery item for CHF 20 or less from a shop I use regularly. Ask me when uncertain.",
+        "hard_rules": [
+          {
+            "field": "authorization.billing_amount_chf",
+            "operator": "<=",
+            "value": 20,
+            "currency": "CHF",
+            "scope": "purchase",
+            "period_days": null
+          }
+        ],
+        "uncertainty_policy": "ask",
+        "profile_id": "PROFILE_AUTH0101"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 0,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:39:47.322140Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    },
+    {
+      "type": "authorization.request",
+      "request_id": "req_e88535f7e853f12f",
+      "deadline_at": "2026-09-24T17:39:58.261204Z",
+      "authorization": {
+        "authorization_id": "AU10002-d9cf145c",
+        "source_authorization_id": "AU10002",
+        "scenario_id": "SCEN0101",
+        "replay_order": 2,
+        "mandate_id": "TM0db90d582fa25788",
+        "profile_id": "PROFILE_AUTH0101",
+        "card_id": "CA1331",
+        "initiator_type": "agent",
+        "merchant": {
+          "merchant_id": "ME0102",
+          "merchant_name": "Rhine Fresh",
+          "merchant_category": "groceries",
+          "merchant_mcc": "5411",
+          "merchant_country": "CH",
+          "merchant_city": "Winterthur",
+          "availability": "store_and_online",
+          "recurring_capable": "false"
+        },
+        "timestamp": "2026-08-17T09:20:00Z",
+        "amount": 38.9,
+        "currency": "CHF",
+        "billing_amount_chf": 38.9,
+        "items_subtotal": 32.9,
+        "delivery_fee": 6,
+        "channel": "ecommerce",
+        "customer_device_id": "DVC-B81C42",
+        "authority_status": "active",
+        "card_status_at_attempt": "active",
+        "spend_in_period_before_chf": null,
+        "recent_attempt_count_10m": 0,
+        "fulfillment_method": "delivery",
+        "delivery_by": "2026-08-18",
+        "order_returnable": "false",
+        "order_cancellable": "unknown",
+        "related_authorization_id": null,
+        "related_authorization_status": null,
+        "purchase_description": "Grocery delivery order",
+        "items": [
+          {
+            "line_no": 1,
+            "item_id": "IT0165",
+            "item_name": "Bakery and dairy order",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 17.9,
+            "currency": "CHF",
+            "item_details": "Bread and milk"
+          },
+          {
+            "line_no": 2,
+            "item_id": "IT0003",
+            "item_name": "Breakfast supplies",
+            "item_category": "groceries",
+            "quantity": 1,
+            "unit_price": 15,
+            "currency": "CHF",
+            "item_details": "Oats and yoghurt"
+          }
+        ]
+      },
+      "mandate": {
+        "mandate_id": "TM0db90d582fa25788",
+        "status": "active",
+        "customer_id": "CU1217",
+        "card_id": "CA1331",
+        "instruction": "Buy one ordinary grocery item for CHF 20 or less from a shop I use regularly. Ask me when uncertain.",
+        "hard_rules": [
+          {
+            "field": "authorization.billing_amount_chf",
+            "operator": "<=",
+            "value": 20,
+            "currency": "CHF",
+            "scope": "purchase",
+            "period_days": null
+          }
+        ],
+        "uncertainty_policy": "ask",
+        "profile_id": "PROFILE_AUTH0101"
+      },
+      "context": {
+        "approved_spend_in_period_chf": 18,
+        "recent_authorizations": []
+      },
+      "runtime": {
+        "received_at": "2026-09-24T17:39:50.261204Z",
+        "history_window_minutes": 10,
+        "context_basis": "run_decisions_and_scenario_timestamps"
+      }
+    }
+  ]
+}
