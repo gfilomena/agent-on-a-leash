@@ -6,6 +6,7 @@ import type { AuthorizationEvent, EngineDecision } from "../types.js";
 import type { PastPurchase } from "./memory.js";
 import { protections } from "./protections.js";
 import { evaluateRule, type Check } from "./rules.js";
+import { settingsChecks, type SecuritySettings, type Spent } from "./settings.js";
 
 export interface DecideInput {
   event: AuthorizationEvent;
@@ -17,18 +18,25 @@ export interface DecideInput {
   policyRevoked?: boolean;
   /** The customer asked to watch for someone else driving the session. */
   watchSession?: boolean;
+  /** The customer's requirements that are not a rule (e.g. "white socks"), for the AI item check. */
+  guidance?: string[];
+  /** Security settings (Controls) and the approved spending they count, across all policies. */
+  settings?: { settings: SecuritySettings; spent: Spent[] };
 }
 
 export interface Decision extends EngineDecision {
   checks: Check[];
   /** Shop text that tried to give instructions: shown to the customer as ignored. */
   ignoredText: string[];
-  /** Engine time, milliseconds. */
+  /** Engine time, milliseconds (AI item check included). */
   ms: number;
+  /** Time the AI item check took, if it ran. */
+  aiMs?: number;
 }
 
 const status = (label: string, detail: string, message: string, reason: string): Check => ({ id: `status:${reason}`, label, result: "fail", detail, message, reason, weight: 0, kind: "status" });
 
+/** Code only: every rule, warning sign and bank check. Fast and deterministic. */
 export function decide(input: DecideInput): Decision {
   const started = performance.now();
   const { event } = input;
@@ -43,8 +51,14 @@ export function decide(input: DecideInput): Decision {
 
   const ctx = { event, past: input.past, customerApprovedShops: input.customerApprovedShops ?? new Set<string>() };
   (event.mandate.hard_rules ?? []).forEach((rule, i) => checks.push(evaluateRule(rule, i, ctx)));
+  if (input.settings) checks.push(...settingsChecks(event, input.settings.settings, input.settings.spent));
   checks.push(...protections({ event, past: input.past, customerApprovedShops: ctx.customerApprovedShops, watchSession: input.watchSession ?? false }));
+  return conclude(event, checks, started);
+}
 
+/** The verdict from all checks: a failed check blocks; an unknown follows "when unsure"; otherwise approve. */
+export function conclude(event: AuthorizationEvent, checks: Check[], started: number): Decision {
+  const a = event.authorization;
   const fails = checks.filter((c) => c.result === "fail").sort((x, y) => x.weight - y.weight);
   const unknowns = checks.filter((c) => c.result === "unknown").sort((x, y) => x.weight - y.weight);
   const declineWhenUnsure = event.mandate.uncertainty_policy === "decline";

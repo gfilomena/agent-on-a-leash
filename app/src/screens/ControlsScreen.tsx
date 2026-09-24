@@ -2,19 +2,21 @@ import { SlidersHorizontal, Store } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { SecuritySettings } from "@/components/SecuritySettings";
 import { api } from "@/lib/api";
 import { clock } from "@/lib/format";
-import type { Policy } from "@/lib/types";
+import type { Policy, Settings } from "@/lib/types";
 import { ScreenHeader } from "./ScreenHeader";
 
-export function ControlsScreen({ policies, approvedShops }: { policies: Policy[]; approvedShops: string[] }) {
+export function ControlsScreen({ policies, approvedShops, settings, container }: { policies: Policy[]; approvedShops: string[]; settings?: Settings; container: HTMLElement | null }) {
   const active = policies.filter((p) => p.status === "active");
   const revoked = policies.filter((p) => p.status === "revoked");
   return (
     <div>
       <ScreenHeader title="Controls" subtitle="You decide what your agent may do." />
+      {settings && <SecuritySettings settings={settings} container={container} />}
       {policies.length === 0 && (
-        <div className="mt-16 flex flex-col items-center text-center text-muted-foreground">
+        <div className="mt-12 flex flex-col items-center text-center text-muted-foreground">
           <div className="glass grid size-16 place-items-center rounded-3xl">
             <SlidersHorizontal className="size-7" aria-hidden />
           </div>

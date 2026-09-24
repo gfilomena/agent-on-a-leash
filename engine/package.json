@@ -6,7 +6,7 @@
     "dev": "tsx watch --env-file=../.env src/server.ts",
     "start": "tsx --env-file=../.env src/server.ts",
     "connect": "tsx --env-file=../.env src/scripts/connect.ts",
-    "replay": "tsx src/scripts/replay.ts",
+    "replay": "tsx --env-file-if-exists=../.env src/scripts/replay.ts",
     "live": "tsx --env-file=../.env src/scripts/live.ts",
     "record": "tsx --env-file=../.env src/scripts/record.ts",
     "compile": "tsx --env-file=../.env src/scripts/compile.ts",

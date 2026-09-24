@@ -7,7 +7,8 @@ export interface Check {
   label: string;
   result: CheckResult;
   detail: string;
-  kind: "rule" | "warning" | "bank" | "status";
+  /** ai = one of the customer's requirements judged by the AI item check; setting = the security settings in Controls. */
+  kind: "rule" | "ai" | "setting" | "warning" | "bank" | "status";
 }
 
 export interface Purchase {
@@ -75,6 +76,21 @@ export interface Story {
   purchases: number;
 }
 
+export type Period = "day" | "week" | "month";
+export type Region = "switzerland" | "europe" | "global";
+
+/** Security settings (Controls): on top of every policy, decoupled from policies. */
+export interface Settings {
+  spendingLimit: { on: boolean; amount: number; period: Period };
+  region: Region;
+  /** Spending in the period of the agent's latest purchase (only while the limit is on). */
+  usage: { spentChf: number; limitChf: number; period: string; resets: string } | null;
+  /** Plain country names per region, for "See countries". */
+  countries: { switzerland: string[]; europe: string[] };
+}
+
+export type SettingsChange = { spendingLimit?: Partial<Settings["spendingLimit"]>; region?: Region };
+
 export interface Snapshot {
   version: number;
   engine: { worker: boolean; lastError: string | null; compilerModel: string; humanWindowSeconds: number };
@@ -82,4 +98,6 @@ export interface Snapshot {
   policies: Policy[];
   purchases: Purchase[];
   approvedShops: string[];
+  /** Missing until the engine has the security settings. */
+  settings?: Settings;
 }

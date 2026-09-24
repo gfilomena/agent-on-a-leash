@@ -1,8 +1,10 @@
 // The live side: the one worker for our team key, the customer's answers, and expired reviews.
 import { config } from "./config.js";
-import { decide, type Decision } from "./engine/decide.js";
+import type { Decision } from "./engine/decide.js";
+import { decideWithAi } from "./engine/itemcheck.js";
 import { itemSignature, type PastPurchase } from "./engine/memory.js";
-import { approvedShopsFor, approveShop, policyByMandate, save, state, type PurchaseRecord } from "./state.js";
+import type { Spent } from "./engine/settings.js";
+import { approvedShopsFor, approveShop, policyByMandate, save, securitySettings, state, type PurchaseRecord } from "./state.js";
 import type { AuthorizationEvent } from "./types.js";
 import { viseca } from "./viseca.js";
 import { Worker, WorkerStuck, type Handled } from "./worker.js";
@@ -33,15 +35,32 @@ function memoryFor(mandateId: string, excludeId: string): PastPurchase[] {
     }));
 }
 
-export function decideLive(event: AuthorizationEvent): Decision {
+/** Approved agent spending through Compass, across all policies, since the last "Reset spending" (for the spending limit). */
+export function liveSpent(excludeId?: string): Spent[] {
+  const since = securitySettings().spendingSince;
+  return state.purchases
+    .filter((p) => p.status === "approved" && p.id !== excludeId && (!since || p.receivedAt >= since))
+    .map((p) => ({ timestamp: p.simTime, amountChf: p.amountChf }));
+}
+
+/** Deadline is 8 s from queueing (deadline_at); keep 1.5 s for sending the answer (CLAUDE.md rule 3). */
+const DEADLINE_MARGIN_MS = 1500;
+
+export async function decideLive(event: AuthorizationEvent): Promise<Decision> {
   const policy = policyByMandate(event.mandate.mandate_id);
-  return decide({
-    event,
-    past: memoryFor(event.mandate.mandate_id, event.authorization.authorization_id),
-    customerApprovedShops: approvedShopsFor(event.authorization.card_id),
-    policyRevoked: policy?.status === "revoked",
-    watchSession: policy?.watchSession ?? false,
-  });
+  const budgetMs = Math.min(6000, Date.parse(event.deadline_at) - Date.now() - DEADLINE_MARGIN_MS);
+  return decideWithAi(
+    {
+      event,
+      past: memoryFor(event.mandate.mandate_id, event.authorization.authorization_id),
+      customerApprovedShops: approvedShopsFor(event.authorization.card_id),
+      policyRevoked: policy?.status === "revoked",
+      watchSession: policy?.watchSession ?? false,
+      guidance: policy?.guidance ?? [],
+      settings: { settings: securitySettings(), spent: liveSpent(event.authorization.authorization_id) },
+    },
+    { budgetMs },
+  );
 }
 
 const decisions = new Map<string, Decision>(); // full engine output, kept until the purchase is stored
@@ -100,8 +119,8 @@ export async function startWorker() {
     console.log("Worker off (WORKER=off): this engine will not take purchases from Viseca.");
     return;
   }
-  const worker = new Worker(viseca, (ev) => {
-    const d = decideLive(ev);
+  const worker = new Worker(viseca, async (ev) => {
+    const d = await decideLive(ev);
     decisions.set(ev.authorization.authorization_id, d);
     return d;
   }, {

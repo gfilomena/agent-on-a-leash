@@ -19,11 +19,14 @@ export async function askJson<T>(opts: { system: string; user: string; schemaNam
   const started = performance.now();
   const ms = () => Math.round(performance.now() - started);
   if (!client) return { data: null, ms: 0, error: "no OpenAI key" };
+  const model = opts.model ?? aiModel;
+  // GPT-5 models reason before answering and take no temperature: ask for the least reasoning (fastest).
+  const reasoning = /^(gpt-5|o\d)/.test(model);
   try {
     const res = await client.chat.completions.create(
       {
-        model: opts.model ?? aiModel,
-        temperature: opts.temperature ?? 0,
+        model,
+        ...(reasoning ? { reasoning_effort: (/^gpt-5(-|$)/.test(model) ? "minimal" : "none") as "minimal" } : { temperature: opts.temperature ?? 0 }),
         messages: [
           { role: "system", content: opts.system },
           { role: "user", content: opts.user },

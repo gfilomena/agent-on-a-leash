@@ -5,6 +5,7 @@ import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "
 import { fileURLToPath } from "node:url";
 import type { FollowUp } from "./compiler.js";
 import type { TryoutRecord } from "./tryout.js";
+import { DEFAULT_SETTINGS, type SecuritySettings } from "./engine/settings.js";
 import type { Check } from "./engine/rules.js";
 import type { MandateRule, Verdict } from "./types.js";
 
@@ -75,6 +76,8 @@ export interface State {
   approvedShops: Record<string, string[]>;
   /** "Try a purchase" tests (step 14b): a separate lane, never sent to Viseca. */
   tryouts?: TryoutRecord[];
+  /** Security settings (Controls): on top of every policy. Missing = defaults (limit off, global). */
+  settings?: SecuritySettings;
   version: number;
 }
 
@@ -102,6 +105,8 @@ export function resetState() {
   state.approvedShops = {};
   save();
 }
+
+export const securitySettings = (): SecuritySettings => state.settings ?? DEFAULT_SETTINGS;
 
 export const policyByMandate = (mandateId: string) => state.policies.find((p) => p.mandateId === mandateId);
 export const approvedShopsFor = (cardId: string) => new Set(state.approvedShops[cardId] ?? []);

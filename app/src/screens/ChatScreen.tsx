@@ -1,16 +1,17 @@
-import { ArrowUp, Check, CircleAlert, FlaskConical, LoaderCircle, RotateCcw, X } from "lucide-react";
+import { ArrowUp, Check, CircleAlert, FlaskConical, LoaderCircle, RotateCcw, ShieldCheck, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { TryPurchaseSheet } from "@/components/TryPurchaseSheet";
 import { api } from "@/lib/api";
-import type { Policy, Story } from "@/lib/types";
+import { money } from "@/lib/format";
+import type { Policy, Settings, Story } from "@/lib/types";
 
 type Phase = "home" | "reading" | "review" | "confirming" | "active";
 type Answer = { option: string } | { typed: string } | { skip: true };
 
 /** Chat: request → "Here's what I understood" (AI + code checks) → one-tap answers → confirm. */
-export function ChatScreen({ stories, container }: { stories: Story[]; container: HTMLElement | null }) {
+export function ChatScreen({ stories, settings, container }: { stories: Story[]; settings?: Settings; container: HTMLElement | null }) {
   const [phase, setPhase] = useState<Phase>("home");
   const [draftText, setDraftText] = useState("");
   const [request, setRequest] = useState("");
@@ -173,6 +174,8 @@ export function ChatScreen({ stories, container }: { stories: Story[]; container
                 ))}
             </AnimatePresence>
 
+            <SettingsLine settings={settings} />
+
             <div className="mt-5">
               <div className="text-[13.5px] text-muted-foreground">When something is unclear</div>
               <div className="mt-2 grid grid-cols-2 gap-1 rounded-full bg-white/[0.06] p-1">
@@ -233,6 +236,22 @@ export function ChatScreen({ stories, container }: { stories: Story[]; container
         </button>
       )}
     </div>
+  );
+}
+
+/** The security settings in Controls also apply: said once, before the customer confirms. */
+function SettingsLine({ settings }: { settings?: Settings }) {
+  if (!settings) return null;
+  const parts = [
+    ...(settings.region !== "global" ? [`shops in ${settings.region === "europe" ? "Europe" : "Switzerland"}`] : []),
+    ...(settings.spendingLimit.on ? [`${money(settings.spendingLimit.amount)} per ${settings.spendingLimit.period}`] : []),
+  ];
+  if (!parts.length) return null;
+  return (
+    <p className="mt-4 flex items-start gap-2 text-[13.5px] leading-snug text-muted-foreground">
+      <ShieldCheck className="mt-px size-4 shrink-0" aria-hidden />
+      <span>Your security settings also apply: {parts.join(" · ")}.</span>
+    </p>
   );
 }
 

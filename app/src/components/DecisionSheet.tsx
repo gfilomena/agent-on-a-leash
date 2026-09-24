@@ -59,11 +59,13 @@ export function DecisionSheet({ decision: d, onClose, container }: { decision: P
 
 /** The checks behind a decision (your rules, always-on checks) and any shop text that was ignored. */
 export function DecisionFacts({ d }: { d: Purchase }) {
-  const rules = d.checks.filter((c) => c.kind === "rule" || c.kind === "status");
+  const rules = d.checks.filter((c) => c.kind === "rule" || c.kind === "ai" || c.kind === "status");
+  const settings = d.checks.filter((c) => c.kind === "setting");
   const signs = d.checks.filter((c) => c.kind === "warning" || c.kind === "bank");
   return (
     <>
       <CheckList title="Your rules" checks={rules} />
+      <CheckList title="Your security settings" checks={settings} />
       <CheckList title="Always checked" checks={signs} />
       {d.ignoredText.map((text, i) => (
         <div key={i} className="mt-6 rounded-2xl border border-block/40 bg-block/[0.07] p-4">
@@ -92,7 +94,10 @@ function CheckList({ title, checks }: { title: string; checks: Purchase["checks"
                 <Icon className="size-3.5" strokeWidth={3} aria-label={label} />
               </span>
               <div>
-                <div className="text-[15px] font-medium">{c.label}</div>
+                <div className="flex items-center gap-2 text-[15px] font-medium">
+                  {c.label}
+                  {c.kind === "ai" && <span className="rounded-full border border-white/20 px-1.5 py-px text-[10.5px] font-semibold tracking-wide text-muted-foreground" title="Checked by the AI item check">AI</span>}
+                </div>
                 <div className="text-[13.5px] text-muted-foreground">{c.detail}</div>
               </div>
             </li>

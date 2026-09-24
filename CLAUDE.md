@@ -79,7 +79,7 @@ The original build order (connect → offline replay → live SCEN0000 → core 
 
 | Where | What |
 | --- | --- |
-| `engine/src/engine/` | The decision engine: `decide.ts` (verdict + sentence), `rules.ts` (customer rules), `protections.ts` (warning signs, bank checks), `shoptext.ts` (untrusted shop text), `history.ts`, `reference.ts`, `memory.ts` |
+| `engine/src/engine/` | The decision engine: `decide.ts` (verdict + sentence), `itemcheck.ts` (AI item check, step 14), `settings.ts` (security settings: spending limit, regions), `rules.ts` (customer rules), `protections.ts` (warning signs, bank checks), `shoptext.ts` (untrusted shop text), `history.ts`, `reference.ts`, `memory.ts` |
 | `engine/src/compiler.ts`, `ai.ts` | Sentence → rules with the AI, validated by code |
 | `engine/src/server.ts`, `live.ts`, `worker.ts`, `policies.ts`, `state.ts` | API for the app, Viseca worker, policies, saved state |
 | `engine/src/tryout.ts` | "Try a purchase" test lane (simulated agent, real engine, never sent to Viseca) |

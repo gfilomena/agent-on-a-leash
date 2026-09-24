@@ -43,7 +43,7 @@ export class Worker {
 
   constructor(
     private api: QueueApi,
-    private decide: (ev: AuthorizationEvent) => EngineDecision,
+    private decide: (ev: AuthorizationEvent) => EngineDecision | Promise<EngineDecision>,
     private opts: {
       humanWindowMs: number;
       log: (kind: string, data: unknown) => void;
@@ -91,7 +91,7 @@ export class Worker {
 
   private async answer(ev: AuthorizationEvent, runId: string) {
     const receivedAt = Date.now();
-    const d = this.decide(ev);
+    const d = await this.decide(ev);
     const h: Handled = { ev, d, runId, adopted: false, receivedAt, answeredAt: 0, accepted: false, evidenceFormat: null, refusal: null, redeliveries: 0, posts: 0 };
     this.handled.set(ev.authorization.authorization_id, h);
     await this.post(h);

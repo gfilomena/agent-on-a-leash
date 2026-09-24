@@ -3,13 +3,18 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { compilerModel, isAmountQuestion } from "./compiler.js";
-import { live, answerPurchase, loadBootstrap, startWorker } from "./live.js";
+import { live, answerPurchase, liveSpent, loadBootstrap, startWorker } from "./live.js";
+import { applyChange, countryLabel, REGION_COUNTRIES, usage } from "./engine/settings.js";
 import { money } from "./money.js";
 import { answerQuestion, confirmPolicy, createDraft, PolicyError, revokePolicy, type Answer } from "./policies.js";
 import { shops } from "./engine/reference.js";
-import { state, type Policy, type PurchaseRecord } from "./state.js";
+import { save, securitySettings, state, type Policy, type PurchaseRecord } from "./state.js";
 import { propose, tryCatalogue, tryPurchase } from "./tryout.js";
 import type { Check } from "./engine/rules.js";
+
+// Safety net for the demo: a stray async error is logged, never allowed to stop the engine (and its Viseca worker).
+// Other crashes still stop it: e.g. a second engine that can't get the port must exit, or two workers would share the queue.
+process.on("unhandledRejection", (err) => console.error("Engine: unhandled async error (kept running):", err));
 
 const PORT = Number(process.env.ENGINE_PORT ?? 8787);
 const HOST = process.env.ENGINE_HOST ?? "127.0.0.1";
@@ -84,6 +89,21 @@ function policyView(p: Policy) {
 
 app.get("/api/health", (c) => c.json({ ok: true, service: "compass-engine" }));
 
+/** Security settings for Controls: the values, spending in the period of the agent's latest purchase, the region lists. */
+function settingsView() {
+  const s = securitySettings();
+  const latest = state.purchases.reduce<string | null>((m, p) => (!m || p.simTime > m ? p.simTime : m), null);
+  return {
+    spendingLimit: s.spendingLimit,
+    region: s.region,
+    usage: s.spendingLimit.on ? usage(s, liveSpent(), latest) : null,
+    countries: {
+      switzerland: REGION_COUNTRIES.switzerland.map(countryLabel).sort(),
+      europe: REGION_COUNTRIES.europe.map(countryLabel).sort(),
+    },
+  };
+}
+
 app.get("/api/snapshot", (c) => {
   const approvedShopNames = [...new Set(Object.values(state.approvedShops).flat())].map((id) => shops.get(id)?.merchant_name ?? id).sort();
   return c.json({
@@ -93,7 +113,27 @@ app.get("/api/snapshot", (c) => {
     policies: state.policies.filter((p) => p.status !== "draft").map(policyView).reverse(),
     purchases: [...state.purchases].sort((a, b) => Date.parse(b.receivedAt) - Date.parse(a.receivedAt)).map(purchaseView),
     approvedShops: approvedShopNames,
+    settings: settingsView(),
   });
+});
+
+// Security settings: applied from the next decision, for every policy. The app asks the customer before loosening.
+app.post("/api/settings", async (c) => {
+  const change = await c.req.json().catch(() => ({}));
+  try {
+    state.settings = applyChange(securitySettings(), change ?? {});
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : "Please check the settings." }, 400);
+  }
+  save();
+  return c.json(settingsView());
+});
+
+// Demo tool ("Behind the scenes"): Viseca's stories replay the same dates, so earlier runs' spending would count again.
+app.post("/api/settings/reset-spending", (c) => {
+  state.settings = { ...securitySettings(), spendingSince: new Date().toISOString() };
+  save();
+  return c.json(settingsView());
 });
 
 // ---------- actions ----------
@@ -156,7 +196,7 @@ app.post("/api/tryout/propose", async (c) => {
 app.post("/api/tryout/buy", async (c) => {
   const { policyId, proposal, whenUnsure } = await c.req.json().catch(() => ({}));
   try {
-    const { decision: d, event, policy } = tryPurchase(String(policyId ?? ""), proposal ?? {}, whenUnsure === "decline" ? "decline" : whenUnsure === "ask" ? "ask" : undefined);
+    const { decision: d, event, policy } = await tryPurchase(String(policyId ?? ""), proposal ?? {}, whenUnsure === "decline" ? "decline" : whenUnsure === "ask" ? "ask" : undefined);
     const a = event.authorization;
     return c.json({
       id: a.authorization_id,

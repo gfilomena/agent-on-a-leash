@@ -22,8 +22,8 @@ export interface Check {
   reason: string;
   /** Lower = explains the verdict first. */
   weight: number;
-  /** rule = the customer's own rule; warning = always-on warning sign; bank = card/account; status = policy/card state. */
-  kind: "rule" | "warning" | "bank" | "status";
+  /** rule = the customer's own rule; ai = one of the customer's requirements judged by the AI item check; setting = the security settings in Controls; warning = always-on warning sign; bank = card/account; status = policy/card state. */
+  kind: "rule" | "ai" | "setting" | "warning" | "bank" | "status";
   /** Shop text that was flagged and ignored (shown struck through). */
   quote?: string;
 }

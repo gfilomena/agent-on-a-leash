@@ -27,7 +27,7 @@ A **wallet control layer** for Viseca's "one" app. The customer tells their AI s
 
 **Control (at any time)**
 
-7. The customer reads the history (every decision and why), tightens or revokes a policy, and sets a spending cap.
+7. The customer reads the history (every decision and why), tightens or revokes a policy, and sets the security settings (spending limit, allowed regions).
 
 ## 3. How a purchase is decided
 
@@ -50,7 +50,7 @@ Principles:
 | Check | What it looks at | Test story |
 | --- | --- | --- |
 | Customer rules | Price per order, item type, size, colour, shop type, return terms, known shop, no add-ons. Every line of the basket. | 0, 1, 2, 4 |
-| Spending cap | Total spent over a period (e.g. CHF 300 per 7 days). Only approved purchases count, each one once. | 1 |
+| Spending limits | A policy's own limits (e.g. CHF 300 per 7 days) and the security settings' spending limit (per day, week or month, across all policies). Only approved purchases count, each one once. | 1 |
 | Shop text | Product descriptions are untrusted. Hidden instructions ("ignore the limit") are ignored and shown to the customer. | 4 |
 | Seller | Fake shops with near-identical names, shops the customer never used. | 4 |
 | Session | New device, unusual hour, new country, many attempts within 10 minutes, duplicate orders. | 3, 4 |
@@ -66,13 +66,13 @@ Mobile-first, designed to look like a section of the "one" app. Four tabs:
 | **Chat** | Write a request, answer follow-up questions, review "Here's what I understood" and confirm. |
 | **Inbox** | See purchases waiting for them (item, price, shop, why we asked) and tap Approve or Decline. |
 | **History** | See every decision: the verdict, one sentence why, and the facts behind it. Suspicious shop text is highlighted as ignored. |
-| **Controls** | See active and revoked policies, tighten or revoke them, see the shops they approved, set the spending cap and the allowed regions. |
+| **Controls** | Set the security settings (spending limit, allowed regions), see active and revoked policies, tighten or revoke them, see the shops they approved. |
 
 **Tighten vs loosen:** Viseca's API only lets a policy get stricter. To loosen it, the customer creates a new one.
 
-**Spending cap (decided):** a Controls setting the customer sets once (e.g. "max CHF 500 per month for my agent"), off by default. It counts all approved agent spending on the card, across all policies (only purchases approved through Compass, by the engine or the customer), and applies whatever the chat request says. Fully customisable: any CHF amount per day, week, month or a custom number of days. Tightening applies at once; loosening only to policies confirmed afterwards.
+**Security settings (decided 2026-09-25, Jules):** a section at the top of Controls, on top of every policy and decoupled from policies (not sent to Viseca as rules; shown in every decision's facts and evidence). **Spending limit**: an amount in CHF and a period (Daily, Weekly, Monthly), off by default; counts every purchase the agent made through Compass that was approved (by Compass or by the customer in the Inbox), across all policies; calendar periods in Swiss time on the purchase's own date (resets at midnight, on Monday, on the 1st); a usage bar shows "CHF 212 of CHF 500 used in September · resets on 1 October". **Allowed regions**: Switzerland (with Liechtenstein), Europe (EU 27, Iceland, Liechtenstein, Norway, Switzerland, United Kingdom, Andorra, Monaco, San Marino, Vatican City; "See countries" lists them) or Global (default). Changes apply from the agent's next purchase, for every policy and for "Try a purchase"; stricter changes save at once, looser ones (raise or turn off the limit, bigger region) ask first in a confirmation sheet. Blocks read "Blocked: HarborByte is in the United States, and your region setting is Europe." / "Blocked: this CHF 250 order would bring your monthly spending to CHF 550, over your CHF 500 limit."; an unknown shop country asks. "Try a purchase" is judged against the customer's real spending and never adds to it. A "Reset spending" button in "Behind the scenes" (demo only) restarts the count, because Viseca's stories replay the same dates.
 
-**Allowed regions (decided):** Switzerland only, Europe, or Worldwide (default); card-wide, for every policy. A shop outside the region is blocked ("Blocked: this shop is in the United Kingdom, outside Switzerland"); a missing country makes Compass ask.
+
 
 **Shops you've approved (decided, built):** Controls lists the shops the customer approved in the Inbox.
 

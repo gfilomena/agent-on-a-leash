@@ -3,14 +3,16 @@
 // A separate lane: nothing is sent to Viseca, and the worker, History and Inbox are never touched.
 import { randomUUID } from "node:crypto";
 import { aiModel, askJson } from "./ai.js";
-import { decide, type Decision } from "./engine/decide.js";
+import type { Decision } from "./engine/decide.js";
+import { decideWithAi } from "./engine/itemcheck.js";
 import { cardHistory } from "./engine/history.js";
 import { itemSignature, type PastPurchase } from "./engine/memory.js";
 import { readProductFacts } from "./engine/shoptext.js";
 import { accounts, cards, catalogue, categoryWords, countryName, shops } from "./engine/reference.js";
 import { FX_TO_CHF, roundHalfEven, toChf } from "./money.js";
 import { PolicyError } from "./policies.js";
-import { approvedShopsFor, save, state, type Policy } from "./state.js";
+import { liveSpent } from "./live.js";
+import { approvedShopsFor, save, securitySettings, state, type Policy } from "./state.js";
 import type { Authorization, AuthorizationEvent, Term } from "./types.js";
 
 /** One proposal the customer can edit before "Let the agent buy". Price is in the shop's currency, delivery included. */
@@ -147,7 +149,7 @@ function memory(policyId: string, excludeId: string): PastPurchase[] {
 }
 
 /** "Let the agent buy": a Viseca-shaped purchase on the test card, decided by the real engine. */
-export function tryPurchase(policyId: string, input: Partial<TryProposal>, whenUnsure?: "ask" | "decline"): { decision: Decision; event: AuthorizationEvent; policy: Policy } {
+export async function tryPurchase(policyId: string, input: Partial<TryProposal>, whenUnsure?: "ask" | "decline"): Promise<{ decision: Decision; event: AuthorizationEvent; policy: Policy }> {
   const policy = findPolicy(policyId);
   const product = catalogue.get(String(input.productId ?? ""));
   const shop = shops.get(String(input.shopId ?? ""));
@@ -215,13 +217,20 @@ export function tryPurchase(policyId: string, input: Partial<TryProposal>, whenU
     runtime: { received_at: now.toISOString(), history_window_minutes: 10, context_basis: "run_decisions_and_scenario_timestamps" },
   };
 
-  const decision = decide({
-    event,
-    past,
-    customerApprovedShops: approvedShopsFor(testCard.card.card_id),
-    policyRevoked: policy.status === "revoked",
-    watchSession: policy.watchSession,
-  });
+  // Same engine and same time budget as a live purchase (8 s deadline, 1.5 s margin).
+  const decision = await decideWithAi(
+    {
+      event,
+      past,
+      customerApprovedShops: approvedShopsFor(testCard.card.card_id),
+      policyRevoked: policy.status === "revoked",
+      watchSession: policy.watchSession,
+      guidance: policy.guidance,
+      // Security settings apply to tests too: a test is judged against your real spending ("what if my agent bought this now?") and never adds to it.
+      settings: { settings: securitySettings(), spent: liveSpent() },
+    },
+    { budgetMs: 6000 },
+  );
 
   // Remember the try (a retry of the same proposal replaces it). "Needs review" is never answered here, so it wasn't bought.
   const record: TryoutRecord = {

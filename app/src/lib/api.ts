@@ -1,5 +1,5 @@
 // The app talks only to the Compass engine, through /api (never to Viseca or the AI).
-import type { Policy, Purchase, Snapshot, TryCatalogue, TryProposal } from "./types";
+import type { Policy, Purchase, Settings, SettingsChange, Snapshot, TryCatalogue, TryProposal } from "./types";
 
 async function call<T>(path: string, body?: unknown): Promise<T> {
   const res = await fetch(`/api${path}`, {
@@ -18,6 +18,8 @@ export const api = {
   answer: (policyId: string, question: string, answer: { option: string } | { typed: string } | { skip: true }) => call<Policy>(`/policies/${policyId}/answer`, { question, ...answer }),
   confirm: (policyId: string, whenUnsure: "ask" | "decline") => call<Policy>(`/policies/${policyId}/confirm`, { whenUnsure }),
   revoke: (policyId: string) => call<Policy>(`/policies/${policyId}/revoke`, {}),
+  saveSettings: (change: SettingsChange) => call<Settings>("/settings", change),
+  resetSpending: () => call<Settings>("/settings/reset-spending", {}),
   tryCatalogue: () => call<TryCatalogue>("/tryout/catalogue"),
   tryPropose: (policyId: string, avoid: string[]) => call<{ found: boolean; proposal?: TryProposal; message?: string }>("/tryout/propose", { policyId, avoid }),
   tryBuy: (policyId: string, proposal: TryProposal, whenUnsure: "ask" | "decline") => call<Purchase>("/tryout/buy", { policyId, proposal, whenUnsure }),

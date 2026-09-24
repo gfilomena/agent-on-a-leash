@@ -1,6 +1,8 @@
-import { Contrast } from "lucide-react";
+import { Contrast, RotateCcw } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { toast } from "sonner";
+import { api } from "@/lib/api";
 import { VerdictPill } from "@/components/VerdictPill";
 import { clock, money, seconds } from "@/lib/format";
 import type { Snapshot } from "@/lib/types";
@@ -74,6 +76,23 @@ export function PresenterPanel({ snap, offline }: { snap: Snapshot | null; offli
           <span className={`absolute top-0.5 size-5 rounded-full bg-white transition-all ${highContrast ? "left-[18px]" : "left-0.5"}`} />
         </span>
       </button>
+      {snap?.settings && (
+        <button
+          type="button"
+          onClick={() =>
+            api
+              .resetSpending()
+              .then(() => toast("Spending reset", { description: "The spending limit counts from now. History is unchanged." }))
+              .catch((err: Error) => toast(err.message))
+          }
+          className="mt-2 flex items-center gap-2 rounded-2xl bg-white/[0.04] px-3.5 py-3 text-left text-[14px] hover:bg-white/[0.07]"
+        >
+          <RotateCcw className="size-4 text-muted-foreground" aria-hidden />
+          <span>
+            Reset spending <span className="text-muted-foreground">· Viseca's stories replay the same dates</span>
+          </span>
+        </button>
+      )}
     </section>
   );
 }
