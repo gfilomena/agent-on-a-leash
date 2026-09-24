@@ -1,0 +1,16 @@
+{
+  "name": "compass",
+  "private": true,
+  "workspaces": [
+    "engine",
+    "app"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n engine,app -c magenta,cyan \"npm run dev -w engine\" \"npm run dev -w app\"",
+    "engine": "npm run dev -w engine",
+    "app": "npm run dev -w app"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}
