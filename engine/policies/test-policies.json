@@ -1,0 +1,195 @@
+{
+  "_about": "Hand-written test rule sets, one per story, written from each story's sentence plus Viseca's product catalogue only, never from its purchases (PLAN.md principle). Saved before any rule code ran and not edited afterwards to change a result; if one looks wrong, Jules decides based on the sentence. Thresholds: 'use regularly' = at least 2 earlier approved purchases at that shop; 'used before / already use / usual / already know' = at least 1. Local-only settings (not sent to Viseca) live under 'local'.",
+  "policies": {
+    "SCEN0000": {
+      "instruction": "Buy one ordinary grocery item for CHF 20 or less from a shop I use regularly. Ask me when uncertain.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 20, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_category", "operator": "in", "value": ["groceries"] },
+        { "field": "items.quantity_total", "operator": "<=", "value": 1 },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 2 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["One ordinary grocery item, nothing unusual."],
+      "open_questions": []
+    },
+    "SCEN0001": {
+      "instruction": "Order our household groceries for delivery. Keep each order at or below CHF 120 including delivery, and keep the total across any seven days at or below CHF 300. Ask me when uncertain.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 120, "currency": "CHF", "scope": "purchase" },
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 300, "currency": "CHF", "scope": "period", "period_days": 7 },
+        { "field": "items.item_category", "operator": "in", "value": ["groceries"] },
+        { "field": "authorization.fulfillment_method", "operator": "in", "value": ["delivery"] }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["Household groceries."],
+      "open_questions": []
+    },
+    "SCEN0002": {
+      "instruction": "Replace my worn road-running shoes in size 43. Buy only from a specialist sports retailer, only if the order can be returned within 14 days or more, and pay no more than CHF 200. Ask me when uncertain.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 200, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_id", "operator": "in", "value": ["IT0014", "IT0053"] },
+        { "field": "items.size", "operator": "=", "value": "43" },
+        { "field": "merchant.merchant_category", "operator": "in", "value": ["sporting_goods"] },
+        { "field": "authorization.return_window_days", "operator": ">=", "value": 14 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["Road-running shoes, not trail-running shoes."],
+      "open_questions": []
+    },
+    "SCEN0003": {
+      "instruction": "The agent may buy clothing for me, up to CHF 250 per order, from shops I have used before. Pause anything that looks like someone other than me is driving the session. Ask me when uncertain.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 250, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_category", "operator": "in", "value": ["clothing"] },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 1 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["Pause anything that looks like someone other than the customer is driving the session."],
+      "open_questions": [],
+      "local": { "watch_session": true }
+    },
+    "SCEN0004": {
+      "instruction": "Buy the 27-inch monitor I chose, from a seller I have bought from before, for CHF 400 or less. Do not add anything I did not ask for. Ask me when uncertain.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 400, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_id", "operator": "in", "value": ["IT0017"] },
+        { "field": "basket.unrequested_lines", "operator": "<=", "value": 0 },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 1 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["The specific 27-inch monitor the customer chose; nothing added."],
+      "open_questions": []
+    },
+    "SCEN0101": {
+      "instruction": "Buy one ordinary grocery item for CHF 20 or less from a shop I use regularly. Ask me when uncertain.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 20, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_category", "operator": "in", "value": ["groceries"] },
+        { "field": "items.quantity_total", "operator": "<=", "value": 1 },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 2 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["One ordinary grocery item, nothing unusual."],
+      "open_questions": []
+    },
+    "SCEN0135": {
+      "instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 100, "currency": "CHF", "scope": "purchase" },
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 250, "currency": "CHF", "scope": "period", "period_days": 7 },
+        { "field": "items.item_category", "operator": "in", "value": ["groceries", "household"] },
+        { "field": "merchant.merchant_category", "operator": "in", "value": ["groceries"] },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 1 },
+        { "field": "authorization.channel", "operator": "in", "value": ["ecommerce"] }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["Weekly grocery shopping: groceries and household basics."],
+      "open_questions": []
+    },
+    "SCEN0130": {
+      "instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 180, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_id", "operator": "in", "value": ["IT0054"] },
+        { "field": "items.size", "operator": "=", "value": "42" },
+        { "field": "merchant.merchant_category", "operator": "in", "value": ["sporting_goods"] },
+        { "field": "authorization.return_window_days", "operator": ">=", "value": 14 },
+        { "field": "basket.unrequested_lines", "operator": "<=", "value": 0 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["New hiking boots only, nothing else in the basket."],
+      "open_questions": []
+    },
+    "SCEN0106": {
+      "instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 300, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_category", "operator": "in", "value": ["electronics"] },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 1 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["Small electronics and accessories.", "Stop and ask if the session looks unusual: a new device, a burst of orders, unfamiliar shops abroad."],
+      "open_questions": [],
+      "local": { "watch_session": true }
+    },
+    "SCEN0122": {
+      "instruction": "Buy the camera lens I chose, from a seller I have bought from before, for CHF 900 or less. Do not add anything I did not ask for. Ask me when uncertain.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 900, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_id", "operator": "in", "value": ["IT0123"] },
+        { "field": "basket.unrequested_lines", "operator": "<=", "value": 0 },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 1 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["The specific camera lens the customer chose; nothing added."],
+      "open_questions": []
+    },
+    "SCEN0136": {
+      "instruction": "Keep my current subscriptions running. Total per month must stay under CHF 80. No new services, no premium tiers, no annual prepayments. If a price changes, ask me.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<", "value": 80, "currency": "CHF", "scope": "period", "period_days": 30 },
+        { "field": "items.item_category", "operator": "in", "value": ["subscriptions"] },
+        { "field": "items.item_id", "operator": "not_in", "value": ["IT0158", "IT0155"] },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 1 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["Only existing subscriptions: no new services, no premium tiers, no annual prepayments.", "If a price changes, ask the customer."],
+      "open_questions": []
+    },
+    "SCEN0104": {
+      "instruction": "Order hiking boots, size 46, from the Austrian outdoor retailer I already know. Pay no more than EUR 200 and only if they can be returned. Ask me if anything is unclear.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 200, "currency": "EUR", "scope": "purchase" },
+        { "field": "items.item_id", "operator": "in", "value": ["IT0054"] },
+        { "field": "items.size", "operator": "=", "value": "46" },
+        { "field": "merchant.merchant_country", "operator": "in", "value": ["AT"] },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 1 },
+        { "field": "authorization.order_returnable", "operator": "in", "value": ["true"] }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["The Austrian outdoor retailer the customer already knows."],
+      "open_questions": []
+    },
+    "SCEN0113": {
+      "instruction": "Weeknight dinners only: one delivery a day, CHF 40 maximum including the delivery fee, from my usual services. Never at the weekend. Ask me if something doesn't fit.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 40, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_category", "operator": "in", "value": ["food_delivery"] },
+        { "field": "authorization.orders_same_day", "operator": "<=", "value": 1 },
+        { "field": "authorization.local_weekday", "operator": "not_in", "value": ["saturday", "sunday"] },
+        { "field": "authorization.fulfillment_method", "operator": "in", "value": ["delivery"] },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 1 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["Weeknight dinners only."],
+      "open_questions": []
+    },
+    "SCEN0124": {
+      "instruction": "Book me a hotel in Munich for 3 nights from 10 September to 13 September, at most CHF 200 per night, refundable rate only. No flights, no insurance. Ask me when uncertain.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 600, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_category", "operator": "in", "value": ["hotel"] },
+        { "field": "items.item_id", "operator": "not_in", "value": ["IT0172"] },
+        { "field": "authorization.order_cancellable", "operator": "in", "value": ["true"] }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["A hotel in Munich, 3 nights, 10 to 13 September.", "At most CHF 200 per night (CHF 600 for the 3 nights).", "Refundable rate only; no flights, no insurance."],
+      "open_questions": []
+    },
+    "SCEN0117": {
+      "instruction": "Groceries and everyday household items only, maximum CHF 100 per order, from the shops I use. No alcohol, no gift cards, no cosmetics. When in doubt, ask.",
+      "hard_rules": [
+        { "field": "authorization.billing_amount_chf", "operator": "<=", "value": 100, "currency": "CHF", "scope": "purchase" },
+        { "field": "items.item_category", "operator": "in", "value": ["groceries", "household"] },
+        { "field": "items.item_category", "operator": "not_in", "value": ["gift_card", "cosmetics"] },
+        { "field": "items.item_id", "operator": "not_in", "value": ["IT0168"] },
+        { "field": "merchant.prior_approved_purchases", "operator": ">=", "value": 1 }
+      ],
+      "uncertainty_policy": "ask",
+      "guidance": ["Groceries and everyday household items only.", "No alcohol, no gift cards, no cosmetics."],
+      "open_questions": []
+    }
+  }
+}

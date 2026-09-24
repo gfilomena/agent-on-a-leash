@@ -1,0 +1,3056 @@
+{
+ "type": "reference_data",
+ "pack_version": "saw26-hackaton-api",
+ "classification": "SYNTHETIC TEST DATA",
+ "tables": {
+  "customers": [
+   {
+    "customer_id": "CU0001",
+    "persona_name": "Alex Meier",
+    "home_region": "Zurich region",
+    "background": "Plans household purchases for a family and normally shops once a week.",
+    "shopping_preferences": "Practical groceries, children's essentials, and durable household products; avoids gift vouchers.",
+    "typical_spending": "Regular supermarket visits, public transport, and occasional family meals, mostly during daytime.",
+    "budget_style": "careful",
+    "travel_pattern": "One or two short trips to neighbouring countries each year."
+   },
+   {
+    "customer_id": "CU0002",
+    "persona_name": "Sofia Keller",
+    "home_region": "Basel region",
+    "background": "Travels regularly for consulting work and separates travel spending from everyday purchases.",
+    "shopping_preferences": "Flexible hotel bookings near public transport and simple expense documentation.",
+    "typical_spending": "Frequent rail, hotel, and restaurant payments in Switzerland, Germany, and France.",
+    "budget_style": "flexible",
+    "travel_pattern": "Regular business travel in Germany and France."
+   },
+   {
+    "customer_id": "CU0003",
+    "persona_name": "Luca Bernasconi",
+    "home_region": "Lugano region",
+    "background": "Spends weekends hiking and climbing, with seasonal trips across the nearby Italian border.",
+    "shopping_preferences": "Repairable outdoor equipment and specialist sports shops rather than fashion purchases.",
+    "typical_spending": "Sports purchases, fuel, casual dining, and periodic EUR transactions in northern Italy.",
+    "budget_style": "balanced",
+    "travel_pattern": "Seasonal leisure travel in Italy."
+   },
+   {
+    "customer_id": "CU0004",
+    "persona_name": "Noor Haddad",
+    "home_region": "Geneva region",
+    "background": "Works rotating hospital shifts and often buys meals and essentials outside standard office hours.",
+    "shopping_preferences": "Fast grocery delivery and practical meals after late shifts; avoids energy drinks.",
+    "typical_spending": "Groceries, meal delivery, transport, and pharmacy purchases, including legitimate late-night activity.",
+    "budget_style": "careful",
+    "travel_pattern": "Rarely travels abroad."
+   },
+   {
+    "customer_id": "CU0005",
+    "persona_name": "Emma Roth",
+    "home_region": "Bern region",
+    "background": "Studies part-time while working and relies on several digital learning services.",
+    "shopping_preferences": "Books and learning tools with transparent prices; no automatic premium upgrades.",
+    "typical_spending": "Small recurring subscriptions, book purchases, transport, and inexpensive cafés.",
+    "budget_style": "careful",
+    "travel_pattern": "Occasional domestic trips only."
+   },
+   {
+    "customer_id": "CU0006",
+    "persona_name": "Jonas Frei",
+    "home_region": "Lucerne region",
+    "background": "Runs and cycles throughout the year and replaces equipment only when needed.",
+    "shopping_preferences": "Technical sports equipment from specialist retailers and products with clear return terms.",
+    "typical_spending": "Frequent modest sports purchases with occasional higher-value shoes or cycling equipment.",
+    "budget_style": "balanced",
+    "travel_pattern": "Weekend trips within Switzerland and Austria."
+   },
+   {
+    "customer_id": "CU0007",
+    "persona_name": "Camille Dubois",
+    "home_region": "Lausanne region",
+    "background": "Is gradually renovating an apartment and plans each room as a separate project.",
+    "shopping_preferences": "Simple repairable fittings, neutral colours, and click-and-collect when available.",
+    "typical_spending": "Home-improvement stores, household purchases, transport, and occasional furniture deliveries.",
+    "budget_style": "balanced",
+    "travel_pattern": "Rare short visits to France."
+   },
+   {
+    "customer_id": "CU0008",
+    "persona_name": "Priya Nair",
+    "home_region": "Zurich region",
+    "background": "Coordinates purchases for children and an older relative as well as her own household.",
+    "shopping_preferences": "Reliable delivery windows, clearly sized children's items, and familiar pharmacies.",
+    "typical_spending": "Groceries, family supplies, health purchases, and household orders across two cards.",
+    "budget_style": "balanced",
+    "travel_pattern": "One family holiday in Europe each year."
+   },
+   {
+    "customer_id": "CU0009",
+    "persona_name": "Mateo Silva",
+    "home_region": "Basel region",
+    "background": "Shares an apartment with two friends and manages a rotating household shopping list.",
+    "shopping_preferences": "Shared essentials in normal pack sizes and receipts that are easy to split.",
+    "typical_spending": "Groceries and household goods from recurring local merchants, plus shared meal deliveries.",
+    "budget_style": "careful",
+    "travel_pattern": "Occasional weekend travel."
+   },
+   {
+    "customer_id": "CU0010",
+    "persona_name": "Lea Baumann",
+    "home_region": "Winterthur region",
+    "background": "Works independently as a designer and uses a separate card for business tools and travel.",
+    "shopping_preferences": "Month-to-month software, clear invoices, and no bundled consulting services.",
+    "typical_spending": "Software subscriptions, electronics, cafés, and occasional foreign-currency online services.",
+    "budget_style": "flexible",
+    "travel_pattern": "Several European client trips each year."
+   },
+   {
+    "customer_id": "CU0011",
+    "persona_name": "Daniel Schmid",
+    "home_region": "St. Gallen region",
+    "background": "Prefers nearby physical shops and normally pays for everyday items in person.",
+    "shopping_preferences": "Local products, simple receipts, and collection from a store rather than delivery.",
+    "typical_spending": "Daytime in-store groceries, transport, clothing, and occasional restaurant purchases.",
+    "budget_style": "careful",
+    "travel_pattern": "Rarely travels abroad."
+   },
+   {
+    "customer_id": "CU0012",
+    "persona_name": "Giulia Rossi",
+    "home_region": "Lugano region",
+    "background": "Uses a phone wallet for most everyday purchases and keeps a separate travel card.",
+    "shopping_preferences": "Mobile receipts, fast checkout, and Italian or Swiss fashion retailers with returns.",
+    "typical_spending": "High mobile-wallet usage for clothing, dining, groceries, and cross-border trips.",
+    "budget_style": "balanced",
+    "travel_pattern": "Regular short trips to Italy."
+   },
+   {
+    "customer_id": "CU0013",
+    "persona_name": "Sami El-Amin",
+    "home_region": "Neuchatel region",
+    "background": "Repairs products where possible and chooses refill or second-life options for routine shopping.",
+    "shopping_preferences": "Reusable, refurbished, or repairable items with transparent materials.",
+    "typical_spending": "Groceries, repair services, second-life goods, public transport, and few impulse purchases.",
+    "budget_style": "balanced",
+    "travel_pattern": "Mostly domestic travel."
+   },
+   {
+    "customer_id": "CU0014",
+    "persona_name": "Hannah Weber",
+    "home_region": "Bern region",
+    "background": "Attends concerts and festivals in summer but spends little on entertainment during the rest of the year.",
+    "shopping_preferences": "Standard admission from clear ticket sellers; no VIP or resale upgrades.",
+    "typical_spending": "Seasonal clusters of event purchases alongside normal groceries, transport, and dining.",
+    "budget_style": "flexible",
+    "travel_pattern": "Domestic events and occasional German concerts."
+   },
+   {
+    "customer_id": "CU0015",
+    "persona_name": "Tomas Pereira",
+    "home_region": "Fribourg region",
+    "background": "Enjoys photography and saves for occasional equipment rather than buying accessories frequently.",
+    "shopping_preferences": "Compatible camera equipment from specialist shops, with a return window and no financing.",
+    "typical_spending": "Mostly modest daily spending interrupted by rare, planned high-value photography purchases.",
+    "budget_style": "planned_high_value",
+    "travel_pattern": "Occasional landscape photography trips."
+   },
+   {
+    "customer_id": "CU0016",
+    "persona_name": "Amina Diallo",
+    "home_region": "Geneva region",
+    "background": "Owns a dog and receives repeat deliveries of food and routine care products.",
+    "shopping_preferences": "The usual pet-food formula, dependable delivery, and no unrequested supplement substitutions.",
+    "typical_spending": "Recurring pet-care payments mixed with groceries, transport, health, and park-side cafés.",
+    "budget_style": "balanced",
+    "travel_pattern": "Rarely travels without the dog."
+   },
+   {
+    "customer_id": "CU0017",
+    "persona_name": "Nils Andersson",
+    "home_region": "Lausanne region",
+    "background": "Recently moved within Switzerland and is still establishing new local shopping routines.",
+    "shopping_preferences": "Practical household basics and merchants that offer clear delivery dates.",
+    "typical_spending": "A wider-than-usual variety of new grocery, household, transport, and home-improvement merchants.",
+    "budget_style": "balanced",
+    "travel_pattern": "Occasional travel to France and Sweden."
+   },
+   {
+    "customer_id": "CU0018",
+    "persona_name": "Mei Chen",
+    "home_region": "Zurich region",
+    "background": "Keeps personal daily spending separate from a shared household account.",
+    "shopping_preferences": "Predictable grocery orders, clearly separated receipts, and household staples in normal quantities.",
+    "typical_spending": "Frequent groceries and transport on one card, with shared household purchases on another account.",
+    "budget_style": "careful",
+    "travel_pattern": "A few European city trips each year."
+   },
+   {
+    "customer_id": "CU0019",
+    "persona_name": "Oliver Graf",
+    "home_region": "Basel region",
+    "background": "Researches online purchases carefully and uses a virtual card for web shops.",
+    "shopping_preferences": "Known electronics sellers, clear warranty terms, and no marketplace add-ons.",
+    "typical_spending": "Few online purchases, repeated familiar merchants, and mostly local in-store daily spending.",
+    "budget_style": "careful",
+    "travel_pattern": "Rarely travels abroad."
+   },
+   {
+    "customer_id": "CU0020",
+    "persona_name": "Elif Kaya",
+    "home_region": "Winterthur region",
+    "background": "Balances a busy schedule with frequent grocery and prepared-meal deliveries.",
+    "shopping_preferences": "Reliable delivery estimates, saved food preferences, and no automatic membership enrolment.",
+    "typical_spending": "Frequent small ecommerce and mobile-wallet payments, especially food delivery and groceries.",
+    "budget_style": "flexible",
+    "travel_pattern": "Occasional holidays in southern Europe."
+   },
+   {
+    "customer_id": "CU1016",
+    "persona_name": "Oliver Kunz",
+    "home_region": "Winterthur region",
+    "background": "Photographs landscapes in the Winterthur area and buys a lens perhaps once a year.",
+    "shopping_preferences": "Compatible camera equipment from specialist shops, with a return window and no financing.",
+    "typical_spending": "Small everyday payments and rare planned equipment purchases.",
+    "budget_style": "planned_high_value",
+    "travel_pattern": "A few European city trips each year."
+   },
+   {
+    "customer_id": "CU1448",
+    "persona_name": "Mateo Schmid",
+    "home_region": "Basel region",
+    "background": "Spends many weekends in Germany and France and prefers refundable bookings.",
+    "shopping_preferences": "Refundable hotel rates, rail tickets, and no travel insurance add-ons.",
+    "typical_spending": "Frequent travel-related purchases and dining in several currencies.",
+    "budget_style": "flexible",
+    "travel_pattern": "Frequent weekend trips to Germany."
+   },
+   {
+    "customer_id": "CU1308",
+    "persona_name": "Raphael Zbinden",
+    "home_region": "Neuchatel region",
+    "background": "Goes to early-morning classes and tracks meals with a subscription app.",
+    "shopping_preferences": "Monthly memberships that can be paused, and no annual upfront plans.",
+    "typical_spending": "Early-morning purchases near the gym and monthly subscription charges.",
+    "budget_style": "balanced",
+    "travel_pattern": "A family holiday in France once a year."
+   },
+   {
+    "customer_id": "CU1373",
+    "persona_name": "Yara Kumar",
+    "home_region": "Geneva region",
+    "background": "Spends many weekends in France and the United States and prefers refundable bookings.",
+    "shopping_preferences": "Booking directly with hotels and rail operators rather than resellers.",
+    "typical_spending": "Monthly hotel and rail bookings, restaurants abroad, and ordinary groceries at home.",
+    "budget_style": "flexible",
+    "travel_pattern": "Regular short trips to France and Austria."
+   },
+   {
+    "customer_id": "CU1475",
+    "persona_name": "Livia Bachmann",
+    "home_region": "Fribourg region",
+    "background": "Streams games in the evening and orders dinner online most nights.",
+    "shopping_preferences": "Monthly plans that can be paused and no in-app upsells.",
+    "typical_spending": "Mostly online spending after 18:00 and little in-store activity.",
+    "budget_style": "balanced",
+    "travel_pattern": "Occasional domestic trips only."
+   },
+   {
+    "customer_id": "CU1217",
+    "persona_name": "Omar Chen",
+    "home_region": "Winterthur region",
+    "background": "Lives in a shared flat in Winterthur where the grocery run rotates weekly between flatmates.",
+    "shopping_preferences": "Familiar supermarkets and the same meal-delivery service every time.",
+    "typical_spending": "Frequent small grocery and delivery payments and very few large ones.",
+    "budget_style": "careful",
+    "travel_pattern": "A family holiday in Germany once a year."
+   },
+   {
+    "customer_id": "CU1376",
+    "persona_name": "Elias Egli",
+    "home_region": "Chur region",
+    "background": "Relies on delivery apps for meals and household basics during the week.",
+    "shopping_preferences": "Quick reorders of the usual items and no premium delivery tiers.",
+    "typical_spending": "Many small online payments in the evening and few in-store purchases.",
+    "budget_style": "flexible",
+    "travel_pattern": "Weekend trips within Switzerland and Austria."
+   },
+   {
+    "customer_id": "CU1052",
+    "persona_name": "Yara Blanc",
+    "home_region": "Bern region",
+    "background": "Relocated from Germany and has not yet settled on regular merchants.",
+    "shopping_preferences": "Furniture and basics for the new flat, delivered on a fixed date.",
+    "typical_spending": "Household setup purchases, groceries from several different supermarkets, and transport.",
+    "budget_style": "balanced",
+    "travel_pattern": "A few European city trips each year."
+   },
+   {
+    "customer_id": "CU1363",
+    "persona_name": "Amina Kumar",
+    "home_region": "Lausanne region",
+    "background": "Manages two households' groceries and pharmacy runs on separate cards.",
+    "shopping_preferences": "Separate receipts per household, familiar pharmacies, and predictable delivery days.",
+    "typical_spending": "Steady mid-sized grocery and health spending with few large purchases.",
+    "budget_style": "careful",
+    "travel_pattern": "A family holiday in France once a year."
+   },
+   {
+    "customer_id": "CU1415",
+    "persona_name": "Hannah Chen",
+    "home_region": "Zurich region",
+    "background": "Runs and ski-tours most weekends and drives to trailheads in Germany in spring and autumn.",
+    "shopping_preferences": "Technical gear from specialist retailers, sold in standard sizes with a return window.",
+    "typical_spending": "Sports purchases, fuel, casual dining, and periodic EUR transactions in Germany.",
+    "budget_style": "balanced",
+    "travel_pattern": "Several trips to Germany and Austria each year."
+   }
+  ],
+  "accounts": [
+   {
+    "account_id": "AC0001",
+    "customer_id": "CU0001",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2019-02-02",
+    "per_transaction_limit_chf": "1200",
+    "monthly_limit_chf": "4500"
+   },
+   {
+    "account_id": "AC0002",
+    "customer_id": "CU0002",
+    "account_type": "credit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2020-03-03",
+    "per_transaction_limit_chf": "3000",
+    "monthly_limit_chf": "8500"
+   },
+   {
+    "account_id": "AC0003",
+    "customer_id": "CU0002",
+    "account_type": "credit",
+    "account_purpose": "travel",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2024-03-04",
+    "per_transaction_limit_chf": "3500",
+    "monthly_limit_chf": "9500"
+   },
+   {
+    "account_id": "AC0004",
+    "customer_id": "CU0003",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2021-04-04",
+    "per_transaction_limit_chf": "1600",
+    "monthly_limit_chf": "5500"
+   },
+   {
+    "account_id": "AC0005",
+    "customer_id": "CU0003",
+    "account_type": "prepaid",
+    "account_purpose": "travel",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2022-04-05",
+    "per_transaction_limit_chf": "800",
+    "monthly_limit_chf": "2800"
+   },
+   {
+    "account_id": "AC0006",
+    "customer_id": "CU0004",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2022-05-05",
+    "per_transaction_limit_chf": "1000",
+    "monthly_limit_chf": "4000"
+   },
+   {
+    "account_id": "AC0007",
+    "customer_id": "CU0005",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2023-06-06",
+    "per_transaction_limit_chf": "1200",
+    "monthly_limit_chf": "4500"
+   },
+   {
+    "account_id": "AC0008",
+    "customer_id": "CU0005",
+    "account_type": "prepaid",
+    "account_purpose": "online",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2024-06-07",
+    "per_transaction_limit_chf": "1000",
+    "monthly_limit_chf": "3600"
+   },
+   {
+    "account_id": "AC0009",
+    "customer_id": "CU0006",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2018-07-07",
+    "per_transaction_limit_chf": "1400",
+    "monthly_limit_chf": "5000"
+   },
+   {
+    "account_id": "AC0010",
+    "customer_id": "CU0007",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2019-08-08",
+    "per_transaction_limit_chf": "1600",
+    "monthly_limit_chf": "5500"
+   },
+   {
+    "account_id": "AC0011",
+    "customer_id": "CU0007",
+    "account_type": "credit",
+    "account_purpose": "renovation",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2023-08-09",
+    "per_transaction_limit_chf": "3000",
+    "monthly_limit_chf": "8500"
+   },
+   {
+    "account_id": "AC0012",
+    "customer_id": "CU0008",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2020-09-09",
+    "per_transaction_limit_chf": "1000",
+    "monthly_limit_chf": "4000"
+   },
+   {
+    "account_id": "AC0013",
+    "customer_id": "CU0008",
+    "account_type": "debit",
+    "account_purpose": "family",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2024-09-10",
+    "per_transaction_limit_chf": "1000",
+    "monthly_limit_chf": "3600"
+   },
+   {
+    "account_id": "AC0014",
+    "customer_id": "CU0009",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2021-10-10",
+    "per_transaction_limit_chf": "1200",
+    "monthly_limit_chf": "4500"
+   },
+   {
+    "account_id": "AC0015",
+    "customer_id": "CU0010",
+    "account_type": "credit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2022-11-11",
+    "per_transaction_limit_chf": "2500",
+    "monthly_limit_chf": "7500"
+   },
+   {
+    "account_id": "AC0016",
+    "customer_id": "CU0010",
+    "account_type": "credit",
+    "account_purpose": "business",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2023-11-12",
+    "per_transaction_limit_chf": "3000",
+    "monthly_limit_chf": "8500"
+   },
+   {
+    "account_id": "AC0017",
+    "customer_id": "CU0011",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2023-01-12",
+    "per_transaction_limit_chf": "1600",
+    "monthly_limit_chf": "5500"
+   },
+   {
+    "account_id": "AC0018",
+    "customer_id": "CU0012",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2018-02-13",
+    "per_transaction_limit_chf": "1000",
+    "monthly_limit_chf": "4000"
+   },
+   {
+    "account_id": "AC0019",
+    "customer_id": "CU0012",
+    "account_type": "prepaid",
+    "account_purpose": "travel",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2022-02-14",
+    "per_transaction_limit_chf": "800",
+    "monthly_limit_chf": "2800"
+   },
+   {
+    "account_id": "AC0020",
+    "customer_id": "CU0013",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2019-03-14",
+    "per_transaction_limit_chf": "1200",
+    "monthly_limit_chf": "4500"
+   },
+   {
+    "account_id": "AC0021",
+    "customer_id": "CU0014",
+    "account_type": "credit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2020-04-15",
+    "per_transaction_limit_chf": "3000",
+    "monthly_limit_chf": "8500"
+   },
+   {
+    "account_id": "AC0022",
+    "customer_id": "CU0014",
+    "account_type": "credit",
+    "account_purpose": "events",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2024-04-16",
+    "per_transaction_limit_chf": "3500",
+    "monthly_limit_chf": "9500"
+   },
+   {
+    "account_id": "AC0023",
+    "customer_id": "CU0015",
+    "account_type": "credit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2021-05-16",
+    "per_transaction_limit_chf": "2000",
+    "monthly_limit_chf": "6500"
+   },
+   {
+    "account_id": "AC0024",
+    "customer_id": "CU0016",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2022-06-17",
+    "per_transaction_limit_chf": "1000",
+    "monthly_limit_chf": "4000"
+   },
+   {
+    "account_id": "AC0025",
+    "customer_id": "CU0016",
+    "account_type": "debit",
+    "account_purpose": "pet_care",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2023-06-18",
+    "per_transaction_limit_chf": "900",
+    "monthly_limit_chf": "3200"
+   },
+   {
+    "account_id": "AC0026",
+    "customer_id": "CU0017",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2023-07-18",
+    "per_transaction_limit_chf": "1200",
+    "monthly_limit_chf": "4500"
+   },
+   {
+    "account_id": "AC0027",
+    "customer_id": "CU0018",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2018-08-19",
+    "per_transaction_limit_chf": "1400",
+    "monthly_limit_chf": "5000"
+   },
+   {
+    "account_id": "AC0028",
+    "customer_id": "CU0018",
+    "account_type": "debit",
+    "account_purpose": "shared_household",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2022-08-20",
+    "per_transaction_limit_chf": "800",
+    "monthly_limit_chf": "2800"
+   },
+   {
+    "account_id": "AC0029",
+    "customer_id": "CU0019",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2019-09-20",
+    "per_transaction_limit_chf": "1600",
+    "monthly_limit_chf": "5500"
+   },
+   {
+    "account_id": "AC0030",
+    "customer_id": "CU0019",
+    "account_type": "prepaid",
+    "account_purpose": "online",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2023-09-21",
+    "per_transaction_limit_chf": "900",
+    "monthly_limit_chf": "3200"
+   },
+   {
+    "account_id": "AC0031",
+    "customer_id": "CU0020",
+    "account_type": "credit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2020-10-01",
+    "per_transaction_limit_chf": "3000",
+    "monthly_limit_chf": "8500"
+   },
+   {
+    "account_id": "AC1519",
+    "customer_id": "CU1415",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2020-05-13",
+    "per_transaction_limit_chf": "1400",
+    "monthly_limit_chf": "5000"
+   },
+   {
+    "account_id": "AC1275",
+    "customer_id": "CU1217",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2019-11-02",
+    "per_transaction_limit_chf": "1000",
+    "monthly_limit_chf": "4000"
+   },
+   {
+    "account_id": "AC1598",
+    "customer_id": "CU1475",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2024-04-05",
+    "per_transaction_limit_chf": "1400",
+    "monthly_limit_chf": "5000"
+   },
+   {
+    "account_id": "AC1385",
+    "customer_id": "CU1308",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2019-10-08",
+    "per_transaction_limit_chf": "1000",
+    "monthly_limit_chf": "3600"
+   },
+   {
+    "account_id": "AC1066",
+    "customer_id": "CU1052",
+    "account_type": "debit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2017-02-05",
+    "per_transaction_limit_chf": "1400",
+    "monthly_limit_chf": "5000"
+   },
+   {
+    "account_id": "AC1021",
+    "customer_id": "CU1016",
+    "account_type": "credit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2016-01-22",
+    "per_transaction_limit_chf": "3000",
+    "monthly_limit_chf": "8500"
+   },
+   {
+    "account_id": "AC1466",
+    "customer_id": "CU1373",
+    "account_type": "credit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2018-08-01",
+    "per_transaction_limit_chf": "2500",
+    "monthly_limit_chf": "7500"
+   },
+   {
+    "account_id": "AC1469",
+    "customer_id": "CU1376",
+    "account_type": "credit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2018-01-20",
+    "per_transaction_limit_chf": "4000",
+    "monthly_limit_chf": "11000"
+   },
+   {
+    "account_id": "AC1454",
+    "customer_id": "CU1363",
+    "account_type": "debit",
+    "account_purpose": "family",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2021-11-19",
+    "per_transaction_limit_chf": "800",
+    "monthly_limit_chf": "2800"
+   },
+   {
+    "account_id": "AC1564",
+    "customer_id": "CU1448",
+    "account_type": "credit",
+    "account_purpose": "daily_spending",
+    "base_currency": "CHF",
+    "status": "active",
+    "opened_on": "2014-09-22",
+    "per_transaction_limit_chf": "2000",
+    "monthly_limit_chf": "6500"
+   }
+  ],
+  "cards": [
+   {
+    "card_id": "CA0001",
+    "account_id": "AC0001",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-02-03",
+    "expires_on": "2029-02-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0002",
+    "account_id": "AC0001",
+    "card_type": "debit",
+    "card_purpose": "mobile_and_online",
+    "status": "active",
+    "first_used_on": "2025-03-02",
+    "expires_on": "2030-03-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0003",
+    "account_id": "AC0002",
+    "card_type": "credit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-03-04",
+    "expires_on": "2029-03-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0004",
+    "account_id": "AC0003",
+    "card_type": "credit",
+    "card_purpose": "travel",
+    "status": "active",
+    "first_used_on": "2025-03-03",
+    "expires_on": "2030-03-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0005",
+    "account_id": "AC0004",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-04-05",
+    "expires_on": "2029-04-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0006",
+    "account_id": "AC0005",
+    "card_type": "prepaid",
+    "card_purpose": "travel",
+    "status": "active",
+    "first_used_on": "2025-04-04",
+    "expires_on": "2030-04-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0007",
+    "account_id": "AC0006",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-05-06",
+    "expires_on": "2029-05-01",
+    "online_enabled": "true",
+    "international_enabled": "false",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0008",
+    "account_id": "AC0007",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-06-07",
+    "expires_on": "2029-06-01",
+    "online_enabled": "true",
+    "international_enabled": "false",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0009",
+    "account_id": "AC0007",
+    "card_type": "debit",
+    "card_purpose": "mobile_and_online",
+    "status": "blocked",
+    "first_used_on": "2025-07-06",
+    "expires_on": "2030-07-01",
+    "online_enabled": "true",
+    "international_enabled": "false",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0010",
+    "account_id": "AC0008",
+    "card_type": "prepaid",
+    "card_purpose": "online",
+    "status": "active",
+    "first_used_on": "2025-06-06",
+    "expires_on": "2030-06-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0011",
+    "account_id": "AC0009",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-07-08",
+    "expires_on": "2029-07-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0012",
+    "account_id": "AC0009",
+    "card_type": "debit",
+    "card_purpose": "mobile_and_online",
+    "status": "active",
+    "first_used_on": "2025-08-07",
+    "expires_on": "2030-08-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0013",
+    "account_id": "AC0010",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-08-09",
+    "expires_on": "2029-08-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0014",
+    "account_id": "AC0011",
+    "card_type": "credit",
+    "card_purpose": "renovation",
+    "status": "active",
+    "first_used_on": "2025-08-08",
+    "expires_on": "2030-08-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0015",
+    "account_id": "AC0012",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-09-10",
+    "expires_on": "2029-09-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0016",
+    "account_id": "AC0012",
+    "card_type": "debit",
+    "card_purpose": "mobile_and_online",
+    "status": "active",
+    "first_used_on": "2025-10-09",
+    "expires_on": "2030-10-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0017",
+    "account_id": "AC0013",
+    "card_type": "debit",
+    "card_purpose": "family",
+    "status": "active",
+    "first_used_on": "2025-09-09",
+    "expires_on": "2030-09-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0018",
+    "account_id": "AC0014",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-10-11",
+    "expires_on": "2029-10-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0019",
+    "account_id": "AC0014",
+    "card_type": "debit",
+    "card_purpose": "mobile_and_online",
+    "status": "active",
+    "first_used_on": "2025-10-26",
+    "expires_on": "2030-11-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0020",
+    "account_id": "AC0015",
+    "card_type": "credit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-11-12",
+    "expires_on": "2029-11-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0021",
+    "account_id": "AC0016",
+    "card_type": "credit",
+    "card_purpose": "business",
+    "status": "active",
+    "first_used_on": "2025-09-19",
+    "expires_on": "2030-11-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0022",
+    "account_id": "AC0017",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-01-13",
+    "expires_on": "2029-01-01",
+    "online_enabled": "true",
+    "international_enabled": "false",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0023",
+    "account_id": "AC0018",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-02-14",
+    "expires_on": "2029-02-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0024",
+    "account_id": "AC0019",
+    "card_type": "prepaid",
+    "card_purpose": "travel",
+    "status": "active",
+    "first_used_on": "2025-02-13",
+    "expires_on": "2030-02-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0025",
+    "account_id": "AC0020",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-03-15",
+    "expires_on": "2029-03-01",
+    "online_enabled": "true",
+    "international_enabled": "false",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0026",
+    "account_id": "AC0020",
+    "card_type": "debit",
+    "card_purpose": "mobile_and_online",
+    "status": "expired",
+    "first_used_on": "2025-05-14",
+    "expires_on": "2026-04-01",
+    "online_enabled": "true",
+    "international_enabled": "false",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0027",
+    "account_id": "AC0021",
+    "card_type": "credit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-04-16",
+    "expires_on": "2029-04-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0028",
+    "account_id": "AC0021",
+    "card_type": "credit",
+    "card_purpose": "mobile_and_online",
+    "status": "active",
+    "first_used_on": "2025-06-15",
+    "expires_on": "2030-06-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0029",
+    "account_id": "AC0022",
+    "card_type": "credit",
+    "card_purpose": "events",
+    "status": "active",
+    "first_used_on": "2025-04-15",
+    "expires_on": "2030-04-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0030",
+    "account_id": "AC0023",
+    "card_type": "credit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-05-17",
+    "expires_on": "2029-05-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0031",
+    "account_id": "AC0023",
+    "card_type": "credit",
+    "card_purpose": "mobile_and_online",
+    "status": "active",
+    "first_used_on": "2025-07-16",
+    "expires_on": "2030-07-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0032",
+    "account_id": "AC0024",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-06-18",
+    "expires_on": "2029-06-01",
+    "online_enabled": "true",
+    "international_enabled": "false",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0033",
+    "account_id": "AC0025",
+    "card_type": "debit",
+    "card_purpose": "pet_care",
+    "status": "active",
+    "first_used_on": "2025-06-17",
+    "expires_on": "2030-06-01",
+    "online_enabled": "true",
+    "international_enabled": "false",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0034",
+    "account_id": "AC0026",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-07-19",
+    "expires_on": "2029-07-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0035",
+    "account_id": "AC0027",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-08-20",
+    "expires_on": "2029-08-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0036",
+    "account_id": "AC0027",
+    "card_type": "debit",
+    "card_purpose": "mobile_and_online",
+    "status": "active",
+    "first_used_on": "2025-10-19",
+    "expires_on": "2030-10-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0037",
+    "account_id": "AC0028",
+    "card_type": "debit",
+    "card_purpose": "shared_household",
+    "status": "active",
+    "first_used_on": "2025-08-19",
+    "expires_on": "2030-08-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0038",
+    "account_id": "AC0029",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-09-21",
+    "expires_on": "2029-09-01",
+    "online_enabled": "true",
+    "international_enabled": "false",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0039",
+    "account_id": "AC0030",
+    "card_type": "prepaid",
+    "card_purpose": "online",
+    "status": "active",
+    "first_used_on": "2025-09-08",
+    "expires_on": "2030-09-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA0040",
+    "account_id": "AC0031",
+    "card_type": "credit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-10-02",
+    "expires_on": "2029-10-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA0041",
+    "account_id": "AC0031",
+    "card_type": "credit",
+    "card_purpose": "mobile_and_online",
+    "status": "active",
+    "first_used_on": "2025-02-01",
+    "expires_on": "2030-02-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA1576",
+    "account_id": "AC1469",
+    "card_type": "credit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2025-08-20",
+    "expires_on": "2030-08-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA1573",
+    "account_id": "AC1466",
+    "card_type": "credit",
+    "card_purpose": "mobile_and_online",
+    "status": "active",
+    "first_used_on": "2025-02-13",
+    "expires_on": "2030-02-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "true"
+   },
+   {
+    "card_id": "CA1022",
+    "account_id": "AC1021",
+    "card_type": "credit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2025-08-20",
+    "expires_on": "2030-08-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA1559",
+    "account_id": "AC1454",
+    "card_type": "debit",
+    "card_purpose": "family",
+    "status": "active",
+    "first_used_on": "2025-08-20",
+    "expires_on": "2030-08-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA1696",
+    "account_id": "AC1564",
+    "card_type": "credit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2023-04-12",
+    "expires_on": "2028-04-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA1331",
+    "account_id": "AC1275",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-11-26",
+    "expires_on": "2029-11-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA1643",
+    "account_id": "AC1519",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2025-07-07",
+    "expires_on": "2030-07-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA1738",
+    "account_id": "AC1598",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-05-28",
+    "expires_on": "2028-05-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA1079",
+    "account_id": "AC1066",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2023-12-11",
+    "expires_on": "2028-12-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   },
+   {
+    "card_id": "CA1471",
+    "account_id": "AC1385",
+    "card_type": "debit",
+    "card_purpose": "everyday",
+    "status": "active",
+    "first_used_on": "2024-01-15",
+    "expires_on": "2029-01-01",
+    "online_enabled": "true",
+    "international_enabled": "true",
+    "virtual_card": "false"
+   }
+  ],
+  "merchants": [
+   {
+    "merchant_id": "ME0001",
+    "merchant_name": "Alpine Basket",
+    "merchant_category": "groceries",
+    "merchant_mcc": "5411",
+    "merchant_country": "CH",
+    "merchant_city": "Zurich",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0002",
+    "merchant_name": "Neighbour Pantry",
+    "merchant_category": "groceries",
+    "merchant_mcc": "5411",
+    "merchant_country": "CH",
+    "merchant_city": "Bern",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0003",
+    "merchant_name": "Lakeview Grocer",
+    "merchant_category": "groceries",
+    "merchant_mcc": "5411",
+    "merchant_country": "CH",
+    "merchant_city": "Lausanne",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0004",
+    "merchant_name": "Sunrise Provisions",
+    "merchant_category": "groceries",
+    "merchant_mcc": "5411",
+    "merchant_country": "CH",
+    "merchant_city": "Lugano",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0005",
+    "merchant_name": "Rhine Pantry",
+    "merchant_category": "groceries",
+    "merchant_mcc": "5411",
+    "merchant_country": "DE",
+    "merchant_city": "Freiburg",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0006",
+    "merchant_name": "RailNest",
+    "merchant_category": "transport",
+    "merchant_mcc": "4111",
+    "merchant_country": "CH",
+    "merchant_city": "Bern",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0007",
+    "merchant_name": "MetroHop",
+    "merchant_category": "transport",
+    "merchant_mcc": "4111",
+    "merchant_country": "CH",
+    "merchant_city": "Zurich",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0008",
+    "merchant_name": "LakeLine Mobility",
+    "merchant_category": "transport",
+    "merchant_mcc": "4111",
+    "merchant_country": "CH",
+    "merchant_city": "Geneva",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0009",
+    "merchant_name": "RoadPine Energy",
+    "merchant_category": "fuel",
+    "merchant_mcc": "5541",
+    "merchant_country": "CH",
+    "merchant_city": "Lucerne",
+    "availability": "store",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0010",
+    "merchant_name": "Alto Charge",
+    "merchant_category": "fuel",
+    "merchant_mcc": "5541",
+    "merchant_country": "IT",
+    "merchant_city": "Como",
+    "availability": "store",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0011",
+    "merchant_name": "Cedar Table",
+    "merchant_category": "dining",
+    "merchant_mcc": "5812",
+    "merchant_country": "CH",
+    "merchant_city": "Basel",
+    "availability": "store",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0012",
+    "merchant_name": "Basil and Board",
+    "merchant_category": "dining",
+    "merchant_mcc": "5812",
+    "merchant_country": "CH",
+    "merchant_city": "Lausanne",
+    "availability": "store",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0013",
+    "merchant_name": "Noon Spoon",
+    "merchant_category": "dining",
+    "merchant_mcc": "5812",
+    "merchant_country": "CH",
+    "merchant_city": "Zurich",
+    "availability": "store",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0014",
+    "merchant_name": "Riverside Plate",
+    "merchant_category": "dining",
+    "merchant_mcc": "5812",
+    "merchant_country": "DE",
+    "merchant_city": "Munich",
+    "availability": "store",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0015",
+    "merchant_name": "MealWing",
+    "merchant_category": "food_delivery",
+    "merchant_mcc": "5812",
+    "merchant_country": "CH",
+    "merchant_city": "Zurich",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0016",
+    "merchant_name": "NightOwl Kitchen",
+    "merchant_category": "food_delivery",
+    "merchant_mcc": "5812",
+    "merchant_country": "CH",
+    "merchant_city": "Geneva",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0017",
+    "merchant_name": "StoryArc Media",
+    "merchant_category": "subscriptions",
+    "merchant_mcc": "5815",
+    "merchant_country": "CH",
+    "merchant_city": "Bern",
+    "availability": "online",
+    "recurring_capable": "true"
+   },
+   {
+    "merchant_id": "ME0018",
+    "merchant_name": "NorthTone Digital",
+    "merchant_category": "subscriptions",
+    "merchant_mcc": "5815",
+    "merchant_country": "GB",
+    "merchant_city": "London",
+    "availability": "online",
+    "recurring_capable": "true"
+   },
+   {
+    "merchant_id": "ME0019",
+    "merchant_name": "CloudShelf Books",
+    "merchant_category": "books",
+    "merchant_mcc": "5942",
+    "merchant_country": "CH",
+    "merchant_city": "Basel",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0020",
+    "merchant_name": "BrightPage Learning",
+    "merchant_category": "books",
+    "merchant_mcc": "5942",
+    "merchant_country": "CH",
+    "merchant_city": "Bern",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0021",
+    "merchant_name": "London Leaf Books",
+    "merchant_category": "books",
+    "merchant_mcc": "5942",
+    "merchant_country": "GB",
+    "merchant_city": "London",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0022",
+    "merchant_name": "PixelHarbor",
+    "merchant_category": "electronics",
+    "merchant_mcc": "5732",
+    "merchant_country": "CH",
+    "merchant_city": "Zurich",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0023",
+    "merchant_name": "Circuit and Pine",
+    "merchant_category": "electronics",
+    "merchant_mcc": "5732",
+    "merchant_country": "CH",
+    "merchant_city": "Lausanne",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0024",
+    "merchant_name": "HarborByte",
+    "merchant_category": "electronics",
+    "merchant_mcc": "5732",
+    "merchant_country": "US",
+    "merchant_city": "Boston",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0025",
+    "merchant_name": "Loom and Pine",
+    "merchant_category": "clothing",
+    "merchant_mcc": "5651",
+    "merchant_country": "CH",
+    "merchant_city": "St. Gallen",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0026",
+    "merchant_name": "RainThread",
+    "merchant_category": "clothing",
+    "merchant_mcc": "5651",
+    "merchant_country": "CH",
+    "merchant_city": "Lugano",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0027",
+    "merchant_name": "Milano Weave",
+    "merchant_category": "clothing",
+    "merchant_mcc": "5651",
+    "merchant_country": "IT",
+    "merchant_city": "Milan",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0028",
+    "merchant_name": "TrailSpark",
+    "merchant_category": "sporting_goods",
+    "merchant_mcc": "5941",
+    "merchant_country": "CH",
+    "merchant_city": "Lucerne",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0029",
+    "merchant_name": "Summit Thread",
+    "merchant_category": "sporting_goods",
+    "merchant_mcc": "5941",
+    "merchant_country": "CH",
+    "merchant_city": "Interlaken",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0030",
+    "merchant_name": "AlpenWerk Sport",
+    "merchant_category": "sporting_goods",
+    "merchant_mcc": "5941",
+    "merchant_country": "AT",
+    "merchant_city": "Innsbruck",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0031",
+    "merchant_name": "HomeMend Market",
+    "merchant_category": "home_improvement",
+    "merchant_mcc": "5211",
+    "merchant_country": "CH",
+    "merchant_city": "Lausanne",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0032",
+    "merchant_name": "Tool and Timber",
+    "merchant_category": "home_improvement",
+    "merchant_mcc": "5211",
+    "merchant_country": "CH",
+    "merchant_city": "Winterthur",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0033",
+    "merchant_name": "Atelier Fixe",
+    "merchant_category": "home_improvement",
+    "merchant_mcc": "5211",
+    "merchant_country": "FR",
+    "merchant_city": "Lyon",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0034",
+    "merchant_name": "Little Lantern",
+    "merchant_category": "kids_family",
+    "merchant_mcc": "5945",
+    "merchant_country": "CH",
+    "merchant_city": "Zurich",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0035",
+    "merchant_name": "Growing Steps",
+    "merchant_category": "kids_family",
+    "merchant_mcc": "5945",
+    "merchant_country": "CH",
+    "merchant_city": "Bern",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0036",
+    "merchant_name": "Paw and Whisker",
+    "merchant_category": "pet_care",
+    "merchant_mcc": "5995",
+    "merchant_country": "CH",
+    "merchant_city": "Geneva",
+    "availability": "store_and_online",
+    "recurring_capable": "true"
+   },
+   {
+    "merchant_id": "ME0037",
+    "merchant_name": "Happy Trail Pets",
+    "merchant_category": "pet_care",
+    "merchant_mcc": "5995",
+    "merchant_country": "CH",
+    "merchant_city": "Fribourg",
+    "availability": "online",
+    "recurring_capable": "true"
+   },
+   {
+    "merchant_id": "ME0038",
+    "merchant_name": "HealthBridge Pharmacy",
+    "merchant_category": "health",
+    "merchant_mcc": "5912",
+    "merchant_country": "CH",
+    "merchant_city": "Geneva",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0039",
+    "merchant_name": "MotionCare",
+    "merchant_category": "health",
+    "merchant_mcc": "5912",
+    "merchant_country": "CH",
+    "merchant_city": "Basel",
+    "availability": "store",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0040",
+    "merchant_name": "SummitStay",
+    "merchant_category": "hotel",
+    "merchant_mcc": "7011",
+    "merchant_country": "CH",
+    "merchant_city": "Lucerne",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0041",
+    "merchant_name": "IsarNest Hotel",
+    "merchant_category": "hotel",
+    "merchant_mcc": "7011",
+    "merchant_country": "DE",
+    "merchant_city": "Munich",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0044",
+    "merchant_name": "FlyNorth Europe",
+    "merchant_category": "travel",
+    "merchant_mcc": "4722",
+    "merchant_country": "NL",
+    "merchant_city": "Amsterdam",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0045",
+    "merchant_name": "EuroTrail Tickets",
+    "merchant_category": "travel",
+    "merchant_mcc": "4722",
+    "merchant_country": "DE",
+    "merchant_city": "Berlin",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0046",
+    "merchant_name": "LensTrail",
+    "merchant_category": "photography",
+    "merchant_mcc": "7221",
+    "merchant_country": "CH",
+    "merchant_city": "Fribourg",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0047",
+    "merchant_name": "SilverFrame",
+    "merchant_category": "photography",
+    "merchant_mcc": "7221",
+    "merchant_country": "FR",
+    "merchant_city": "Annecy",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0048",
+    "merchant_name": "EventForge",
+    "merchant_category": "entertainment",
+    "merchant_mcc": "7929",
+    "merchant_country": "CH",
+    "merchant_city": "Bern",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0049",
+    "merchant_name": "ScreenGarden",
+    "merchant_category": "entertainment",
+    "merchant_mcc": "7929",
+    "merchant_country": "CH",
+    "merchant_city": "Basel",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0051",
+    "merchant_name": "WorkCanvas",
+    "merchant_category": "software",
+    "merchant_mcc": "7372",
+    "merchant_country": "NL",
+    "merchant_city": "Amsterdam",
+    "availability": "online",
+    "recurring_capable": "true"
+   },
+   {
+    "merchant_id": "ME0052",
+    "merchant_name": "PlainLedger",
+    "merchant_category": "software",
+    "merchant_mcc": "7372",
+    "merchant_country": "CH",
+    "merchant_city": "Zurich",
+    "availability": "online",
+    "recurring_capable": "true"
+   },
+   {
+    "merchant_id": "ME0053",
+    "merchant_name": "GreenLoop",
+    "merchant_category": "sustainable_goods",
+    "merchant_mcc": "5399",
+    "merchant_country": "CH",
+    "merchant_city": "Neuchatel",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0054",
+    "merchant_name": "Repair and Reuse",
+    "merchant_category": "sustainable_goods",
+    "merchant_mcc": "5399",
+    "merchant_country": "CH",
+    "merchant_city": "Biel",
+    "availability": "store",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0055",
+    "merchant_name": "Parcel and Pine",
+    "merchant_category": "household",
+    "merchant_mcc": "5399",
+    "merchant_country": "CH",
+    "merchant_city": "Basel",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0056",
+    "merchant_name": "RoomKind",
+    "merchant_category": "household",
+    "merchant_mcc": "5399",
+    "merchant_country": "CH",
+    "merchant_city": "Lausanne",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0057",
+    "merchant_name": "CashPoint Central",
+    "merchant_category": "cash_withdrawal",
+    "merchant_mcc": "6011",
+    "merchant_country": "CH",
+    "merchant_city": "Zurich",
+    "availability": "atm",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0058",
+    "merchant_name": "Cobalt Coatworks",
+    "merchant_category": "clothing",
+    "merchant_mcc": "5651",
+    "merchant_country": "CH",
+    "merchant_city": "Chur",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0059",
+    "merchant_name": "PixelHarbour",
+    "merchant_category": "electronics",
+    "merchant_mcc": "5732",
+    "merchant_country": "CH",
+    "merchant_city": "Zurich",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0060",
+    "merchant_name": "Thames Weave",
+    "merchant_category": "clothing",
+    "merchant_mcc": "5651",
+    "merchant_country": "GB",
+    "merchant_city": "London",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0061",
+    "merchant_name": "Cascade Outfitters",
+    "merchant_category": "sporting_goods",
+    "merchant_mcc": "5941",
+    "merchant_country": "US",
+    "merchant_city": "Portland",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0102",
+    "merchant_name": "Rhine Fresh",
+    "merchant_category": "groceries",
+    "merchant_mcc": "5411",
+    "merchant_country": "CH",
+    "merchant_city": "Winterthur",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0198",
+    "merchant_name": "Chip Works",
+    "merchant_category": "electronics",
+    "merchant_mcc": "5732",
+    "merchant_country": "CH",
+    "merchant_city": "Lucerne",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0110",
+    "merchant_name": "Meadow Grocer",
+    "merchant_category": "groceries",
+    "merchant_mcc": "5411",
+    "merchant_country": "CH",
+    "merchant_city": "Vevey",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0280",
+    "merchant_name": "Euro Routes",
+    "merchant_category": "travel",
+    "merchant_mcc": "4722",
+    "merchant_country": "NL",
+    "merchant_city": "Amsterdam",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0115",
+    "merchant_name": "Terrace Market",
+    "merchant_category": "groceries",
+    "merchant_mcc": "5411",
+    "merchant_country": "CH",
+    "merchant_city": "Olten",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0170",
+    "merchant_name": "Plate Box",
+    "merchant_category": "food_delivery",
+    "merchant_mcc": "5812",
+    "merchant_country": "CH",
+    "merchant_city": "Biel",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0287",
+    "merchant_name": "Silver Lab",
+    "merchant_category": "photography",
+    "merchant_mcc": "7221",
+    "merchant_country": "CH",
+    "merchant_city": "Bern",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0221",
+    "merchant_name": "Vertical Athletics",
+    "merchant_category": "sporting_goods",
+    "merchant_mcc": "5941",
+    "merchant_country": "DE",
+    "merchant_city": "Konstanz",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0108",
+    "merchant_name": "Valley Fresh",
+    "merchant_category": "groceries",
+    "merchant_mcc": "5411",
+    "merchant_country": "CH",
+    "merchant_city": "Lucerne",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0339",
+    "merchant_name": "Signall Hub",
+    "merchant_category": "electronics",
+    "merchant_mcc": "5732",
+    "merchant_country": "GB",
+    "merchant_city": "London",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0109",
+    "merchant_name": "Alpine Corner Store",
+    "merchant_category": "groceries",
+    "merchant_mcc": "5411",
+    "merchant_country": "CH",
+    "merchant_city": "Vevey",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0223",
+    "merchant_name": "Vertical Werk Sport",
+    "merchant_category": "sporting_goods",
+    "merchant_mcc": "5941",
+    "merchant_country": "CH",
+    "merchant_city": "Interlaken",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0228",
+    "merchant_name": "Glacier Werk Sport",
+    "merchant_category": "sporting_goods",
+    "merchant_mcc": "5941",
+    "merchant_country": "CH",
+    "merchant_city": "Sion",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0284",
+    "merchant_name": "Silver Works",
+    "merchant_category": "photography",
+    "merchant_mcc": "7221",
+    "merchant_country": "FR",
+    "merchant_city": "Mulhouse",
+    "availability": "store_and_online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0177",
+    "merchant_name": "Bright Press Digital",
+    "merchant_category": "subscriptions",
+    "merchant_mcc": "5815",
+    "merchant_country": "CH",
+    "merchant_city": "Aarau",
+    "availability": "online",
+    "recurring_capable": "true"
+   },
+   {
+    "merchant_id": "ME0226",
+    "merchant_name": "Trek Supply",
+    "merchant_category": "sporting_goods",
+    "merchant_mcc": "5941",
+    "merchant_country": "AT",
+    "merchant_city": "Vienna",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0181",
+    "merchant_name": "Loop Media",
+    "merchant_category": "subscriptions",
+    "merchant_mcc": "5815",
+    "merchant_country": "GB",
+    "merchant_city": "Manchester",
+    "availability": "online",
+    "recurring_capable": "true"
+   },
+   {
+    "merchant_id": "ME0172",
+    "merchant_name": "Night Owl Kitchen",
+    "merchant_category": "food_delivery",
+    "merchant_mcc": "5812",
+    "merchant_country": "CH",
+    "merchant_city": "Sion",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0196",
+    "merchant_name": "Byte and Pine",
+    "merchant_category": "electronics",
+    "merchant_mcc": "5732",
+    "merchant_country": "CH",
+    "merchant_city": "Fribourg",
+    "availability": "online",
+    "recurring_capable": "false"
+   },
+   {
+    "merchant_id": "ME0194",
+    "merchant_name": "Quartz and Pine",
+    "merchant_category": "electronics",
+    "merchant_mcc": "5732",
+    "merchant_country": "CH",
+    "merchant_city": "Thun",
+    "availability": "online",
+    "recurring_capable": "false"
+   }
+  ],
+  "items": [
+   {
+    "item_id": "IT0001",
+    "item_name": "Fresh produce selection",
+    "item_category": "groceries",
+    "item_description": "Seasonal fruit and vegetables; a typical weekly produce basket.",
+    "unit_price_min_chf": "12.00",
+    "unit_price_typical_chf": "28.00",
+    "unit_price_max_chf": "90.00"
+   },
+   {
+    "item_id": "IT0002",
+    "item_name": "Pantry staples",
+    "item_category": "groceries",
+    "item_description": "Long-lasting cupboard staples including rice, pasta, and tinned goods.",
+    "unit_price_min_chf": "20.00",
+    "unit_price_typical_chf": "50.00",
+    "unit_price_max_chf": "140.00"
+   },
+   {
+    "item_id": "IT0003",
+    "item_name": "Breakfast supplies",
+    "item_category": "groceries",
+    "item_description": "Bread, oats, and yoghurt for everyday breakfasts.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "30.00",
+    "unit_price_max_chf": "100.00"
+   },
+   {
+    "item_id": "IT0004",
+    "item_name": "Weekly grocery basket",
+    "item_category": "groceries",
+    "item_description": "Food and household staples for one weekly shop.",
+    "unit_price_min_chf": "45.00",
+    "unit_price_typical_chf": "95.00",
+    "unit_price_max_chf": "180.00"
+   },
+   {
+    "item_id": "IT0005",
+    "item_name": "Digital gift voucher",
+    "item_category": "gift_card",
+    "item_description": "Digital gift card spendable with the issuing merchant.",
+    "unit_price_min_chf": "20.00",
+    "unit_price_typical_chf": "50.00",
+    "unit_price_max_chf": "200.00"
+   },
+   {
+    "item_id": "IT0006",
+    "item_name": "Kitchen storage containers",
+    "item_category": "household",
+    "item_description": "Reusable food containers in assorted sizes.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "38.00",
+    "unit_price_max_chf": "190.00"
+   },
+   {
+    "item_id": "IT0007",
+    "item_name": "Household essentials",
+    "item_category": "household",
+    "item_description": "Shared consumables and common household refills.",
+    "unit_price_min_chf": "20.00",
+    "unit_price_typical_chf": "70.00",
+    "unit_price_max_chf": "180.00"
+   },
+   {
+    "item_id": "IT0008",
+    "item_name": "Cleaning supplies",
+    "item_category": "household",
+    "item_description": "Surface and laundry cleaning products in standard pack sizes.",
+    "unit_price_min_chf": "12.00",
+    "unit_price_typical_chf": "45.00",
+    "unit_price_max_chf": "110.00"
+   },
+   {
+    "item_id": "IT0009",
+    "item_name": "Everyday waterproof jacket",
+    "item_category": "clothing",
+    "item_description": "Waterproof everyday jacket with a standard return window.",
+    "unit_price_min_chf": "60.00",
+    "unit_price_typical_chf": "140.00",
+    "unit_price_max_chf": "280.00"
+   },
+   {
+    "item_id": "IT0010",
+    "item_name": "Waterproof work jacket",
+    "item_category": "clothing",
+    "item_description": "Waterproof jacket suited to working days.",
+    "unit_price_min_chf": "55.00",
+    "unit_price_typical_chf": "120.00",
+    "unit_price_max_chf": "240.00"
+   },
+   {
+    "item_id": "IT0011",
+    "item_name": "Waterproof rain coat",
+    "item_category": "clothing",
+    "item_description": "Lightweight waterproof rain coat with a shorter return window.",
+    "unit_price_min_chf": "50.00",
+    "unit_price_typical_chf": "130.00",
+    "unit_price_max_chf": "260.00"
+   },
+   {
+    "item_id": "IT0012",
+    "item_name": "Hotel room",
+    "item_category": "hotel",
+    "item_description": "Hotel room booking; cancellation terms vary by rate and are carried on the order.",
+    "unit_price_min_chf": "130.00",
+    "unit_price_typical_chf": "280.00",
+    "unit_price_max_chf": "620.00"
+   },
+   {
+    "item_id": "IT0013",
+    "item_name": "Serviced apartment stay",
+    "item_category": "hotel",
+    "item_description": "Serviced apartment booking; cancellation terms vary by rate and are carried on the order.",
+    "unit_price_min_chf": "130.00",
+    "unit_price_typical_chf": "280.00",
+    "unit_price_max_chf": "620.00"
+   },
+   {
+    "item_id": "IT0014",
+    "item_name": "Road-running shoes",
+    "item_category": "sporting_goods",
+    "item_description": "Road-running shoes available in standard sizes.",
+    "unit_price_min_chf": "70.00",
+    "unit_price_typical_chf": "140.00",
+    "unit_price_max_chf": "240.00"
+   },
+   {
+    "item_id": "IT0015",
+    "item_name": "Monthly learning subscription",
+    "item_category": "subscriptions",
+    "item_description": "One month of a digital learning subscription.",
+    "unit_price_min_chf": "8.00",
+    "unit_price_typical_chf": "19.00",
+    "unit_price_max_chf": "70.00"
+   },
+   {
+    "item_id": "IT0016",
+    "item_name": "Premium membership",
+    "item_category": "membership",
+    "item_description": "Premium tier of a digital learning service for one month.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "30.00",
+    "unit_price_max_chf": "90.00"
+   },
+   {
+    "item_id": "IT0017",
+    "item_name": "27-inch computer monitor",
+    "item_category": "electronics",
+    "item_description": "27-inch computer monitor covered by a standard manufacturer warranty.",
+    "unit_price_min_chf": "140.00",
+    "unit_price_typical_chf": "270.00",
+    "unit_price_max_chf": "650.00"
+   },
+   {
+    "item_id": "IT0018",
+    "item_name": "Fresh produce order",
+    "item_category": "groceries",
+    "item_description": "Standing fresh produce order with seasonal contents.",
+    "unit_price_min_chf": "12.00",
+    "unit_price_typical_chf": "42.00",
+    "unit_price_max_chf": "90.00"
+   },
+   {
+    "item_id": "IT0019",
+    "item_name": "Pantry restock",
+    "item_category": "groceries",
+    "item_description": "Restock of shared household pantry staples.",
+    "unit_price_min_chf": "20.00",
+    "unit_price_typical_chf": "60.00",
+    "unit_price_max_chf": "140.00"
+   },
+   {
+    "item_id": "IT0020",
+    "item_name": "Family breakfast supplies",
+    "item_category": "groceries",
+    "item_description": "Breakfast staples sized for a family.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "45.00",
+    "unit_price_max_chf": "100.00"
+   },
+   {
+    "item_id": "IT0021",
+    "item_name": "Regional rail ticket",
+    "item_category": "transport",
+    "item_description": "Single journey ticket on regional public transport.",
+    "unit_price_min_chf": "8.00",
+    "unit_price_typical_chf": "28.00",
+    "unit_price_max_chf": "80.00"
+   },
+   {
+    "item_id": "IT0022",
+    "item_name": "Monthly transit pass",
+    "item_category": "transport",
+    "item_description": "Monthly pass for unlimited regional public transport.",
+    "unit_price_min_chf": "60.00",
+    "unit_price_typical_chf": "90.00",
+    "unit_price_max_chf": "140.00"
+   },
+   {
+    "item_id": "IT0023",
+    "item_name": "Airport transfer",
+    "item_category": "transport",
+    "item_description": "Prepaid transfer between the city and the airport.",
+    "unit_price_min_chf": "35.00",
+    "unit_price_typical_chf": "75.00",
+    "unit_price_max_chf": "150.00"
+   },
+   {
+    "item_id": "IT0024",
+    "item_name": "City day pass",
+    "item_category": "transport",
+    "item_description": "Day pass for unlimited travel within one city zone.",
+    "unit_price_min_chf": "5.00",
+    "unit_price_typical_chf": "12.00",
+    "unit_price_max_chf": "30.00"
+   },
+   {
+    "item_id": "IT0025",
+    "item_name": "Fuel purchase",
+    "item_category": "fuel",
+    "item_description": "Standard fuel fill at a service station.",
+    "unit_price_min_chf": "35.00",
+    "unit_price_typical_chf": "75.00",
+    "unit_price_max_chf": "130.00"
+   },
+   {
+    "item_id": "IT0026",
+    "item_name": "Electric vehicle charging session",
+    "item_category": "fuel",
+    "item_description": "One electric-vehicle charging session.",
+    "unit_price_min_chf": "10.00",
+    "unit_price_typical_chf": "30.00",
+    "unit_price_max_chf": "65.00"
+   },
+   {
+    "item_id": "IT0027",
+    "item_name": "Motorway service stop",
+    "item_category": "fuel",
+    "item_description": "Fuel and refreshments at a motorway service area.",
+    "unit_price_min_chf": "10.00",
+    "unit_price_typical_chf": "35.00",
+    "unit_price_max_chf": "90.00"
+   },
+   {
+    "item_id": "IT0028",
+    "item_name": "Fuel and car wash",
+    "item_category": "fuel",
+    "item_description": "Fuel purchase combined with a car wash.",
+    "unit_price_min_chf": "45.00",
+    "unit_price_typical_chf": "90.00",
+    "unit_price_max_chf": "145.00"
+   },
+   {
+    "item_id": "IT0029",
+    "item_name": "Dinner reservation",
+    "item_category": "dining",
+    "item_description": "Reserved dinner for one or more guests.",
+    "unit_price_min_chf": "35.00",
+    "unit_price_typical_chf": "85.00",
+    "unit_price_max_chf": "160.00"
+   },
+   {
+    "item_id": "IT0030",
+    "item_name": "Lunch order",
+    "item_category": "dining",
+    "item_description": "Quick lunch order at a café or counter.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "35.00",
+    "unit_price_max_chf": "70.00"
+   },
+   {
+    "item_id": "IT0031",
+    "item_name": "Team meal",
+    "item_category": "dining",
+    "item_description": "Shared meal for a small team.",
+    "unit_price_min_chf": "60.00",
+    "unit_price_typical_chf": "140.00",
+    "unit_price_max_chf": "280.00"
+   },
+   {
+    "item_id": "IT0032",
+    "item_name": "Weekend brunch",
+    "item_category": "dining",
+    "item_description": "Weekend brunch for a small group.",
+    "unit_price_min_chf": "20.00",
+    "unit_price_typical_chf": "55.00",
+    "unit_price_max_chf": "110.00"
+   },
+   {
+    "item_id": "IT0033",
+    "item_name": "Dinner delivery",
+    "item_category": "food_delivery",
+    "item_description": "Prepared dinner delivered to the door.",
+    "unit_price_min_chf": "25.00",
+    "unit_price_typical_chf": "50.00",
+    "unit_price_max_chf": "90.00"
+   },
+   {
+    "item_id": "IT0034",
+    "item_name": "Late-shift meal",
+    "item_category": "food_delivery",
+    "item_description": "Prepared meal ordered outside standard hours.",
+    "unit_price_min_chf": "18.00",
+    "unit_price_typical_chf": "35.00",
+    "unit_price_max_chf": "70.00"
+   },
+   {
+    "item_id": "IT0035",
+    "item_name": "Family meal delivery",
+    "item_category": "food_delivery",
+    "item_description": "Family-sized prepared meal delivered to the door.",
+    "unit_price_min_chf": "40.00",
+    "unit_price_typical_chf": "70.00",
+    "unit_price_max_chf": "120.00"
+   },
+   {
+    "item_id": "IT0036",
+    "item_name": "Prepared lunch order",
+    "item_category": "food_delivery",
+    "item_description": "Prepared lunch ordered online for pickup or delivery.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "30.00",
+    "unit_price_max_chf": "60.00"
+   },
+   {
+    "item_id": "IT0037",
+    "item_name": "Monthly media subscription",
+    "item_category": "subscriptions",
+    "item_description": "One month of a digital media streaming subscription.",
+    "unit_price_min_chf": "8.00",
+    "unit_price_typical_chf": "16.00",
+    "unit_price_max_chf": "28.00"
+   },
+   {
+    "item_id": "IT0038",
+    "item_name": "Cloud storage plan",
+    "item_category": "subscriptions",
+    "item_description": "Monthly cloud storage plan.",
+    "unit_price_min_chf": "3.00",
+    "unit_price_typical_chf": "10.00",
+    "unit_price_max_chf": "24.00"
+   },
+   {
+    "item_id": "IT0039",
+    "item_name": "Digital newspaper plan",
+    "item_category": "subscriptions",
+    "item_description": "Monthly digital newspaper subscription.",
+    "unit_price_min_chf": "8.00",
+    "unit_price_typical_chf": "18.00",
+    "unit_price_max_chf": "35.00"
+   },
+   {
+    "item_id": "IT0040",
+    "item_name": "Music plan",
+    "item_category": "subscriptions",
+    "item_description": "Monthly music streaming subscription.",
+    "unit_price_min_chf": "8.00",
+    "unit_price_typical_chf": "14.00",
+    "unit_price_max_chf": "24.00"
+   },
+   {
+    "item_id": "IT0041",
+    "item_name": "Paperback book order",
+    "item_category": "books",
+    "item_description": "Paperback book order from a bookseller.",
+    "unit_price_min_chf": "10.00",
+    "unit_price_typical_chf": "25.00",
+    "unit_price_max_chf": "55.00"
+   },
+   {
+    "item_id": "IT0042",
+    "item_name": "Professional reference book",
+    "item_category": "books",
+    "item_description": "Technical reference or professional book.",
+    "unit_price_min_chf": "35.00",
+    "unit_price_typical_chf": "70.00",
+    "unit_price_max_chf": "140.00"
+   },
+   {
+    "item_id": "IT0043",
+    "item_name": "Children's book set",
+    "item_category": "books",
+    "item_description": "Set of children's books with clear pricing.",
+    "unit_price_min_chf": "18.00",
+    "unit_price_typical_chf": "40.00",
+    "unit_price_max_chf": "85.00"
+   },
+   {
+    "item_id": "IT0044",
+    "item_name": "E-book bundle",
+    "item_category": "books",
+    "item_description": "Bundle of digital books on a single purchase.",
+    "unit_price_min_chf": "12.00",
+    "unit_price_typical_chf": "35.00",
+    "unit_price_max_chf": "75.00"
+   },
+   {
+    "item_id": "IT0045",
+    "item_name": "Noise-cancelling headphones",
+    "item_category": "electronics",
+    "item_description": "Noise-cancelling headphones from a specialist electronics seller.",
+    "unit_price_min_chf": "60.00",
+    "unit_price_typical_chf": "190.00",
+    "unit_price_max_chf": "420.00"
+   },
+   {
+    "item_id": "IT0046",
+    "item_name": "Computer monitor",
+    "item_category": "electronics",
+    "item_description": "Computer monitor with a standard seller warranty.",
+    "unit_price_min_chf": "140.00",
+    "unit_price_typical_chf": "320.00",
+    "unit_price_max_chf": "650.00"
+   },
+   {
+    "item_id": "IT0047",
+    "item_name": "Phone charger",
+    "item_category": "electronics",
+    "item_description": "Phone charger and cable accessory.",
+    "unit_price_min_chf": "10.00",
+    "unit_price_typical_chf": "30.00",
+    "unit_price_max_chf": "85.00"
+   },
+   {
+    "item_id": "IT0048",
+    "item_name": "Tablet accessory",
+    "item_category": "electronics",
+    "item_description": "Tablet accessory such as a cover or keyboard.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "60.00",
+    "unit_price_max_chf": "180.00"
+   },
+   {
+    "item_id": "IT0049",
+    "item_name": "Everyday jacket",
+    "item_category": "clothing",
+    "item_description": "Everyday jacket for regular wear.",
+    "unit_price_min_chf": "60.00",
+    "unit_price_typical_chf": "140.00",
+    "unit_price_max_chf": "280.00"
+   },
+   {
+    "item_id": "IT0050",
+    "item_name": "Work shoes",
+    "item_category": "clothing",
+    "item_description": "Work shoes for regular professional use.",
+    "unit_price_min_chf": "55.00",
+    "unit_price_typical_chf": "120.00",
+    "unit_price_max_chf": "240.00"
+   },
+   {
+    "item_id": "IT0051",
+    "item_name": "Seasonal clothing order",
+    "item_category": "clothing",
+    "item_description": "Seasonal clothing order from a familiar retailer.",
+    "unit_price_min_chf": "35.00",
+    "unit_price_typical_chf": "100.00",
+    "unit_price_max_chf": "260.00"
+   },
+   {
+    "item_id": "IT0052",
+    "item_name": "Rain coat",
+    "item_category": "clothing",
+    "item_description": "Rain coat with a clear return window.",
+    "unit_price_min_chf": "50.00",
+    "unit_price_typical_chf": "130.00",
+    "unit_price_max_chf": "260.00"
+   },
+   {
+    "item_id": "IT0053",
+    "item_name": "Running shoes",
+    "item_category": "sporting_goods",
+    "item_description": "Running shoes available in standard sizes.",
+    "unit_price_min_chf": "70.00",
+    "unit_price_typical_chf": "140.00",
+    "unit_price_max_chf": "240.00"
+   },
+   {
+    "item_id": "IT0054",
+    "item_name": "Hiking boots",
+    "item_category": "sporting_goods",
+    "item_description": "Hiking boots for trail use.",
+    "unit_price_min_chf": "90.00",
+    "unit_price_typical_chf": "180.00",
+    "unit_price_max_chf": "320.00"
+   },
+   {
+    "item_id": "IT0055",
+    "item_name": "Cycling accessories",
+    "item_category": "sporting_goods",
+    "item_description": "Cycling accessories from a specialist retailer.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "75.00",
+    "unit_price_max_chf": "250.00"
+   },
+   {
+    "item_id": "IT0056",
+    "item_name": "Training equipment",
+    "item_category": "sporting_goods",
+    "item_description": "Training equipment for home or gym use.",
+    "unit_price_min_chf": "20.00",
+    "unit_price_typical_chf": "90.00",
+    "unit_price_max_chf": "300.00"
+   },
+   {
+    "item_id": "IT0057",
+    "item_name": "Wall paint and brushes",
+    "item_category": "home_improvement",
+    "item_description": "Wall paint and brushes for a renovation project.",
+    "unit_price_min_chf": "45.00",
+    "unit_price_typical_chf": "120.00",
+    "unit_price_max_chf": "260.00"
+   },
+   {
+    "item_id": "IT0058",
+    "item_name": "Tool set",
+    "item_category": "home_improvement",
+    "item_description": "Tool set for home repair work.",
+    "unit_price_min_chf": "40.00",
+    "unit_price_typical_chf": "150.00",
+    "unit_price_max_chf": "480.00"
+   },
+   {
+    "item_id": "IT0059",
+    "item_name": "Shelving materials",
+    "item_category": "home_improvement",
+    "item_description": "Shelving materials sized for one room.",
+    "unit_price_min_chf": "30.00",
+    "unit_price_typical_chf": "140.00",
+    "unit_price_max_chf": "420.00"
+   },
+   {
+    "item_id": "IT0060",
+    "item_name": "Kitchen repair parts",
+    "item_category": "home_improvement",
+    "item_description": "Spare parts for kitchen repairs.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "80.00",
+    "unit_price_max_chf": "260.00"
+   },
+   {
+    "item_id": "IT0061",
+    "item_name": "Personal care set",
+    "item_category": "cosmetics",
+    "item_description": "Everyday personal care and cosmetics such as skincare, toiletries, and grooming products.",
+    "unit_price_min_chf": "10.00",
+    "unit_price_typical_chf": "35.00",
+    "unit_price_max_chf": "120.00"
+   },
+   {
+    "item_id": "IT0062",
+    "item_name": "Fragrance and beauty gift",
+    "item_category": "cosmetics",
+    "item_description": "Fragrance or beauty product of the kind usually bought as a personal treat rather than a household staple.",
+    "unit_price_min_chf": "25.00",
+    "unit_price_typical_chf": "70.00",
+    "unit_price_max_chf": "220.00"
+   },
+   {
+    "item_id": "IT0063",
+    "item_name": "Trail-running shoes",
+    "item_category": "sporting_goods",
+    "item_description": "Off-road running shoes with a lugged sole, sold in standard sizes.",
+    "unit_price_min_chf": "80.00",
+    "unit_price_typical_chf": "150.00",
+    "unit_price_max_chf": "260.00"
+   },
+   {
+    "item_id": "IT0064",
+    "item_name": "Cycling helmet",
+    "item_category": "sporting_goods",
+    "item_description": "Road cycling helmet sold in standard sizes.",
+    "unit_price_min_chf": "50.00",
+    "unit_price_typical_chf": "110.00",
+    "unit_price_max_chf": "250.00"
+   },
+   {
+    "item_id": "IT0065",
+    "item_name": "Running socks",
+    "item_category": "sporting_goods",
+    "item_description": "Technical running socks, usually sold in packs.",
+    "unit_price_min_chf": "8.00",
+    "unit_price_typical_chf": "18.00",
+    "unit_price_max_chf": "40.00"
+   },
+   {
+    "item_id": "IT0066",
+    "item_name": "Extended protection plan",
+    "item_category": "subscriptions",
+    "item_description": "Optional add-on service extending repair cover beyond the seller warranty.",
+    "unit_price_min_chf": "25.00",
+    "unit_price_typical_chf": "79.00",
+    "unit_price_max_chf": "180.00"
+   },
+   {
+    "item_id": "IT0112",
+    "item_name": "Winter boots",
+    "item_category": "clothing",
+    "item_description": "Insulated winter boots sold in standard sizes.",
+    "unit_price_min_chf": "70.00",
+    "unit_price_typical_chf": "160.00",
+    "unit_price_max_chf": "320.00"
+   },
+   {
+    "item_id": "IT0158",
+    "item_name": "Premium streaming tier",
+    "item_category": "membership",
+    "item_description": "Premium tier upgrade of a streaming service for one month.",
+    "unit_price_min_chf": "12.00",
+    "unit_price_typical_chf": "25.00",
+    "unit_price_max_chf": "60.00"
+   },
+   {
+    "item_id": "IT0123",
+    "item_name": "Camera lens",
+    "item_category": "photography",
+    "item_description": "Interchangeable camera lens from a specialist shop, with a return window.",
+    "unit_price_min_chf": "250.00",
+    "unit_price_typical_chf": "620.00",
+    "unit_price_max_chf": "2400.00"
+   },
+   {
+    "item_id": "IT0111",
+    "item_name": "Light bulbs and batteries",
+    "item_category": "household",
+    "item_description": "Household consumables such as bulbs and batteries.",
+    "unit_price_min_chf": "8.00",
+    "unit_price_typical_chf": "22.00",
+    "unit_price_max_chf": "70.00"
+   },
+   {
+    "item_id": "IT0160",
+    "item_name": "Store loyalty membership",
+    "item_category": "membership",
+    "item_description": "Paid annual loyalty membership with a retailer.",
+    "unit_price_min_chf": "20.00",
+    "unit_price_typical_chf": "60.00",
+    "unit_price_max_chf": "150.00"
+   },
+   {
+    "item_id": "IT0136",
+    "item_name": "Travel insurance add-on",
+    "item_category": "travel",
+    "item_description": "Optional travel insurance offered at checkout.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "45.00",
+    "unit_price_max_chf": "200.00"
+   },
+   {
+    "item_id": "IT0173",
+    "item_name": "Hostel bed",
+    "item_category": "hotel",
+    "item_description": "Bed in a shared hostel dormitory.",
+    "unit_price_min_chf": "30.00",
+    "unit_price_typical_chf": "55.00",
+    "unit_price_max_chf": "120.00"
+   },
+   {
+    "item_id": "IT0104",
+    "item_name": "USB-C hub",
+    "item_category": "electronics",
+    "item_description": "Multi-port USB-C hub for laptops.",
+    "unit_price_min_chf": "20.00",
+    "unit_price_typical_chf": "45.00",
+    "unit_price_max_chf": "120.00"
+   },
+   {
+    "item_id": "IT0108",
+    "item_name": "Vacuum cleaner",
+    "item_category": "household",
+    "item_description": "Cordless stick vacuum cleaner.",
+    "unit_price_min_chf": "90.00",
+    "unit_price_typical_chf": "260.00",
+    "unit_price_max_chf": "700.00"
+   },
+   {
+    "item_id": "IT0165",
+    "item_name": "Bakery and dairy order",
+    "item_category": "groceries",
+    "item_description": "Bread, milk, cheese, and other fresh dairy.",
+    "unit_price_min_chf": "8.00",
+    "unit_price_typical_chf": "22.00",
+    "unit_price_max_chf": "70.00"
+   },
+   {
+    "item_id": "IT0161",
+    "item_name": "Prepaid gift card",
+    "item_category": "gift_card",
+    "item_description": "Prepaid gift card for a retailer or platform, redeemable by anyone holding the code.",
+    "unit_price_min_chf": "25.00",
+    "unit_price_typical_chf": "100.00",
+    "unit_price_max_chf": "500.00"
+   },
+   {
+    "item_id": "IT0166",
+    "item_name": "Drinks and snacks",
+    "item_category": "groceries",
+    "item_description": "Soft drinks, snacks, and party supplies.",
+    "unit_price_min_chf": "10.00",
+    "unit_price_typical_chf": "30.00",
+    "unit_price_max_chf": "120.00"
+   },
+   {
+    "item_id": "IT0168",
+    "item_name": "Wine and spirits",
+    "item_category": "groceries",
+    "item_description": "Alcoholic beverages sold by a licensed retailer.",
+    "unit_price_min_chf": "15.00",
+    "unit_price_typical_chf": "45.00",
+    "unit_price_max_chf": "300.00"
+   },
+   {
+    "item_id": "IT0171",
+    "item_name": "Hotel room, refundable rate",
+    "item_category": "hotel",
+    "item_description": "Hotel room at a refundable rate; cancellation terms are carried on the order.",
+    "unit_price_min_chf": "110.00",
+    "unit_price_typical_chf": "240.00",
+    "unit_price_max_chf": "600.00"
+   },
+   {
+    "item_id": "IT0159",
+    "item_name": "Gym membership",
+    "item_category": "membership",
+    "item_description": "Monthly gym membership.",
+    "unit_price_min_chf": "40.00",
+    "unit_price_typical_chf": "85.00",
+    "unit_price_max_chf": "200.00"
+   },
+   {
+    "item_id": "IT0132",
+    "item_name": "Economy flight ticket",
+    "item_category": "travel",
+    "item_description": "Economy class flight ticket; fare rules are carried on the order.",
+    "unit_price_min_chf": "60.00",
+    "unit_price_typical_chf": "220.00",
+    "unit_price_max_chf": "900.00"
+   },
+   {
+    "item_id": "IT0117",
+    "item_name": "Hiking backpack",
+    "item_category": "sporting_goods",
+    "item_description": "Daypack or trekking backpack sized in litres.",
+    "unit_price_min_chf": "40.00",
+    "unit_price_typical_chf": "120.00",
+    "unit_price_max_chf": "320.00"
+   },
+   {
+    "item_id": "IT0167",
+    "item_name": "Frozen food order",
+    "item_category": "groceries",
+    "item_description": "Frozen meals and ingredients.",
+    "unit_price_min_chf": "12.00",
+    "unit_price_typical_chf": "35.00",
+    "unit_price_max_chf": "110.00"
+   },
+   {
+    "item_id": "IT0172",
+    "item_name": "Hotel room, non-refundable rate",
+    "item_category": "hotel",
+    "item_description": "Hotel room at a discounted non-refundable rate.",
+    "unit_price_min_chf": "90.00",
+    "unit_price_typical_chf": "190.00",
+    "unit_price_max_chf": "480.00"
+   },
+   {
+    "item_id": "IT0155",
+    "item_name": "Annual media subscription",
+    "item_category": "subscriptions",
+    "item_description": "Twelve months of a digital media subscription billed upfront.",
+    "unit_price_min_chf": "60.00",
+    "unit_price_typical_chf": "140.00",
+    "unit_price_max_chf": "320.00"
+   },
+   {
+    "item_id": "IT0169",
+    "item_name": "Weekly meal kit",
+    "item_category": "food_delivery",
+    "item_description": "Meal kit box with recipes and ingredients for one week.",
+    "unit_price_min_chf": "40.00",
+    "unit_price_typical_chf": "75.00",
+    "unit_price_max_chf": "160.00"
+   }
+  ],
+  "fx_rates": [
+   {
+    "from_currency": "CHF",
+    "to_currency": "CHF",
+    "rate": "1.000000",
+    "rate_date": "2026-08-01",
+    "source": "synthetic_fixed"
+   },
+   {
+    "from_currency": "EUR",
+    "to_currency": "CHF",
+    "rate": "0.950000",
+    "rate_date": "2026-08-01",
+    "source": "synthetic_fixed"
+   },
+   {
+    "from_currency": "GBP",
+    "to_currency": "CHF",
+    "rate": "1.120000",
+    "rate_date": "2026-08-01",
+    "source": "synthetic_fixed"
+   },
+   {
+    "from_currency": "USD",
+    "to_currency": "CHF",
+    "rate": "0.870000",
+    "rate_date": "2026-08-01",
+    "source": "synthetic_fixed"
+   }
+  ],
+  "scenario_catalogue": [
+   {
+    "scenario_id": "SCEN0101",
+    "scenario_name": "Connection check",
+    "cardholder_instruction": "Buy one ordinary grocery item for CHF 20 or less from a shop I use regularly. Ask me when uncertain.",
+    "event_count": 2
+   },
+   {
+    "scenario_id": "SCEN0135",
+    "scenario_name": "Household budget",
+    "cardholder_instruction": "Do the weekly grocery shopping online at supermarkets I already use. Never spend more than CHF 100 per order or CHF 250 in any 7-day window; groceries and household basics only. If unsure, ask.",
+    "event_count": 12
+   },
+   {
+    "scenario_id": "SCEN0130",
+    "scenario_name": "Requested item and order terms",
+    "cardholder_instruction": "I need new hiking boots, size 42, from a proper sports shop. Maximum CHF 180, and I must be able to return them within at least 14 days. Nothing else in the basket. If anything is unclear, ask me.",
+    "event_count": 13
+   },
+   {
+    "scenario_id": "SCEN0106",
+    "scenario_name": "Session integrity",
+    "cardholder_instruction": "Allow small electronics and accessories purchases up to CHF 300 each at retailers I already use. If the session looks unusual — a new device, a burst of orders, unfamiliar shops abroad — stop and ask me.",
+    "event_count": 12
+   },
+   {
+    "scenario_id": "SCEN0122",
+    "scenario_name": "Manipulated agent",
+    "cardholder_instruction": "Buy the camera lens I chose, from a seller I have bought from before, for CHF 900 or less. Do not add anything I did not ask for. Ask me when uncertain.",
+    "event_count": 13
+   },
+   {
+    "scenario_id": "SCEN0136",
+    "scenario_name": "Subscription control",
+    "cardholder_instruction": "Keep my current subscriptions running. Total per month must stay under CHF 80. No new services, no premium tiers, no annual prepayments. If a price changes, ask me.",
+    "event_count": 12
+   },
+   {
+    "scenario_id": "SCEN0104",
+    "scenario_name": "Cross-border purchase",
+    "cardholder_instruction": "Order hiking boots, size 46, from the Austrian outdoor retailer I already know. Pay no more than EUR 200 and only if they can be returned. Ask me if anything is unclear.",
+    "event_count": 10
+   },
+   {
+    "scenario_id": "SCEN0113",
+    "scenario_name": "Weeknight meal delivery",
+    "cardholder_instruction": "Weeknight dinners only: one delivery a day, CHF 40 maximum including the delivery fee, from my usual services. Never at the weekend. Ask me if something doesn't fit.",
+    "event_count": 12
+   },
+   {
+    "scenario_id": "SCEN0124",
+    "scenario_name": "Travel booking",
+    "cardholder_instruction": "Book me a hotel in Munich for 3 nights from 10 September to 13 September, at most CHF 200 per night, refundable rate only. No flights, no insurance. Ask me when uncertain.",
+    "event_count": 12
+   },
+   {
+    "scenario_id": "SCEN0117",
+    "scenario_name": "Category exclusions",
+    "cardholder_instruction": "Groceries and everyday household items only, maximum CHF 100 per order, from the shops I use. No alcohol, no gift cards, no cosmetics. When in doubt, ask.",
+    "event_count": 13
+   }
+  ]
+ },
+ "history": {
+  "path": "/v1/reference-data/authorization-history.csv",
+  "rows": 4701,
+  "format": "csv"
+ },
+ "runtime": {
+  "scenario_ids": [
+   "SCEN0101",
+   "SCEN0135",
+   "SCEN0130",
+   "SCEN0106",
+   "SCEN0122",
+   "SCEN0136",
+   "SCEN0104",
+   "SCEN0113",
+   "SCEN0124",
+   "SCEN0117"
+  ],
+  "purchase_attempts": "Delivered one at a time by scenario runs.",
+  "purchase_attempt_items": "Delivered inside authorization events."
+ }
+}
