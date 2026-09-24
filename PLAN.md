@@ -15,13 +15,16 @@ Approved by Jules on 2026-09-24. Tick a step's box once Jules has seen its check
 | Demo setup | **Desktop:** the app in a phone frame, with a presenter panel beside it (pick a test story, start a live run, watch purchases arrive from Viseca with the decision and the time it took, e.g. "Approved in 0.4 s"). **Phone:** the app fills the screen, no frame, no panel. The presenter panel is also its own page at `/presenter`. The customer app stays clean; the judges see both sides. |
 | Look | Dark, premium, glass. See section 4. |
 | Logo | None for now. The chat home is text only ("How can I help?"). |
+| Known shops without history | When the card has no history, Compass asks the customer the first time it sees a shop; once the customer approves a shop, it counts as known from then on. The customer can also name their usual shops in the chat before confirming. The explanation always says why ("First purchase at this shop, so I'm asking you once"). |
+| Recording the live stories | Once step 3 works, run each of the 10 live stories once in a safe mode that never approves, and save their purchases for offline testing (like the 45 pack purchases). |
+| Hidden stories | Judging may use stories we haven't seen: everything stays general. |
 
 ## 2. Principles
 
 - **A broken rule blocks. A warning sign follows the customer's "when unsure" choice**: ask by default, decline if the customer chose decline. A warning sign never approves. Warning signs: lookalike shop, instructions hidden in shop text, odd session, duplicate order. They apply to every policy, even if the customer didn't mention them.
 - The app offers two "when unsure" choices: **ask me** (default) or **decline** (as in `PRODUCT.md`).
 - **Revoking** a policy blocks anything that still arrives for it. Purchases already waiting in the Inbox stay there until Viseca confirms what happened to them.
-- **Chat:** picking a story puts its exact sentence in the chat; that sentence goes to Viseca word for word. Follow-up answers are stored separately (extra rules or guidance). Typing freely also works, but live purchases only exist for the 5 stories.
+- **Chat:** picking a story puts its exact sentence in the chat; that sentence goes to Viseca word for word. Follow-up answers are stored separately (extra rules or guidance). Typing freely also works, but live purchases only exist for Viseca's live stories (10 for our team, listed by `/v1/bootstrap`).
 - **Test rule sets** (used before the AI can read sentences) are written from each story's sentence only, as if the purchases had never been seen. They are saved in version history before any rule code runs and never edited to make a result come out right. If one looks wrong later, Jules decides, based on the sentence.
 - **Expected results in the checks below are for calibration only.** The engine must reach them through general rules, never through logic tailored to one purchase or story. If a result can only be reached with a special case, Claude tells Jules instead of forcing it. A check that doesn't match is reported as it is.
 - **Only one worker.** Only the engine on Jules's laptop takes purchases from Viseca. Any other copy runs with `WORKER=off`, otherwise two copies steal purchases from each other.
@@ -148,7 +151,12 @@ Without step 14, purchases that need the AI item check go to "Needs review". Tha
 
 ## 6. Open items
 
-1. **Found at step 3:** Viseca's behaviour after the 120 s, the evidence format, one-at-a-time vs bursts. Results get written here.
+1. **Found at step 3 (first live run, 2026-09-24):**
+   - Evidence as a list of objects `{check, result, detail}` is accepted and stored as sent.
+   - **Strictly one purchase at a time:** the next purchase is only created once the previous one is final (our automatic answer, the customer's answer, or expiry). A purchase waiting for review pauses the whole story.
+   - While a purchase waits for the customer, `/next` hands it out again, instantly. The worker must never answer it a second time and must not poll in a tight loop. The first run looped on exactly this; fixed in `engine/src/worker.ts`, with a stop after 3 redeliveries of a refused purchase.
+   - An unanswered review is **declined by Viseca** 120–150 s after our answer: status `declined`, reason `step_up_expired`, message "The confirmation window expired."
+   - A purchase nobody picks up is closed by Viseca as `timeout` ("The request expired before it was delivered.").
 2. **Found at step 1 (2026-09-24):** the live API is not the data pack.
    - Our team (`team35`) gets **10 live stories** (`SCEN0101`, `SCEN0135`, …), not the pack's 5. Same themes plus 5 new ones: subscriptions, cross-border (EUR limit), weeknight meal delivery, hotel booking, category exclusions. Different customers, cards and limits. The live list comes from `/v1/bootstrap`; nothing may be hard-coded to it.
    - Viseca's reference data is larger than the pack (30 customers, 51 cards, 78 merchants, 87 items), but the **history file is identical** and has **no past purchases for the 10 live cards** (`CA1xxx`). "A shop I already use" can't be derived from history for live stories, and the purchase event has no such field.
