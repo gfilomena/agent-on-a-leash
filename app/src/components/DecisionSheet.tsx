@@ -12,8 +12,6 @@ const RESULT: Record<CheckResult, { Icon: typeof Check; className: string; label
 
 /** The facts behind a decision, in a bottom sheet that opens inside the phone. */
 export function DecisionSheet({ decision: d, onClose, container }: { decision: Purchase | null; onClose: () => void; container: HTMLElement | null }) {
-  const rules = d?.checks.filter((c) => c.kind === "rule" || c.kind === "status") ?? [];
-  const signs = d?.checks.filter((c) => c.kind === "warning" || c.kind === "bank") ?? [];
   return (
     <Drawer open={!!d} onOpenChange={(open) => !open && onClose()} container={container}>
       <DrawerContent className="glass-strong !max-h-[85%] rounded-t-[28px] border-x-0 border-b-0 text-foreground">
@@ -51,22 +49,32 @@ export function DecisionSheet({ decision: d, onClose, container }: { decision: P
               </div>
             </div>
 
-            <CheckList title="Your rules" checks={rules} />
-            <CheckList title="Always checked" checks={signs} />
-
-            {d.ignoredText.map((text, i) => (
-              <div key={i} className="mt-6 rounded-2xl border border-block/40 bg-block/[0.07] p-4">
-                <div className="flex items-center gap-2 text-[14px] font-semibold text-block">
-                  <ShieldAlert className="size-4" aria-hidden /> Ignored: the shop's text tried to give instructions
-                </div>
-                <p className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground line-through decoration-block/70">"{text}"</p>
-                <p className="mt-2 text-[13px] text-foreground/80">Compass never follows text from shops. Your rules stay as you set them.</p>
-              </div>
-            ))}
+            <DecisionFacts d={d} />
           </div>
         )}
       </DrawerContent>
     </Drawer>
+  );
+}
+
+/** The checks behind a decision (your rules, always-on checks) and any shop text that was ignored. */
+export function DecisionFacts({ d }: { d: Purchase }) {
+  const rules = d.checks.filter((c) => c.kind === "rule" || c.kind === "status");
+  const signs = d.checks.filter((c) => c.kind === "warning" || c.kind === "bank");
+  return (
+    <>
+      <CheckList title="Your rules" checks={rules} />
+      <CheckList title="Always checked" checks={signs} />
+      {d.ignoredText.map((text, i) => (
+        <div key={i} className="mt-6 rounded-2xl border border-block/40 bg-block/[0.07] p-4">
+          <div className="flex items-center gap-2 text-[14px] font-semibold text-block">
+            <ShieldAlert className="size-4" aria-hidden /> Ignored: the shop's text tried to give instructions
+          </div>
+          <p className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground line-through decoration-block/70">"{text}"</p>
+          <p className="mt-2 text-[13px] text-foreground/80">Compass never follows text from shops. Your rules stay as you set them.</p>
+        </div>
+      ))}
+    </>
   );
 }
 

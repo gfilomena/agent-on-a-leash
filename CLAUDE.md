@@ -82,11 +82,12 @@ The original build order (connect → offline replay → live SCEN0000 → core 
 | `engine/src/engine/` | The decision engine: `decide.ts` (verdict + sentence), `rules.ts` (customer rules), `protections.ts` (warning signs, bank checks), `shoptext.ts` (untrusted shop text), `history.ts`, `reference.ts`, `memory.ts` |
 | `engine/src/compiler.ts`, `ai.ts` | Sentence → rules with the AI, validated by code |
 | `engine/src/server.ts`, `live.ts`, `worker.ts`, `policies.ts`, `state.ts` | API for the app, Viseca worker, policies, saved state |
+| `engine/src/tryout.ts` | "Try a purchase" test lane (simulated agent, real engine, never sent to Viseca) |
 | `engine/policies/test-policies.json` | Hand-written test rule sets (from sentences only; never edited to fix a result) |
 | `engine/recordings/` | The 10 live stories' 111 purchases (recording mode, `test_recording`) for offline tests |
 | `engine/reference/reference-data.json` | Viseca's reference data (catalogue, shops, cards, accounts), incl. the live stories |
 | `app/src/` | The app: `screens/`, `components/`, `presenter/` ("Behind the scenes"), `lib/` (API, types, polling) |
 
-Commands (repo root): `npm run dev` · `npm run connect` · `npm run replay [-- --live] [--approve-reviews] [--why]` · `npm run compile [-- --quiet]` · `npm run live -- --dry` · `npm run record -- --dry`.
+Commands (repo root): `npm run dev` · `npm run connect` · `npm run replay [-- --live] [--approve-reviews] [--why]` · `npm run compile [-- --quiet]` · `npm run questions [-- "sentence"]` · `npm run live -- --dry` · `npm run record -- --dry`.
 
 Pitfalls: Python on this Mac exits silently (use Node/TypeScript); `timeout` does not exist on macOS; the browser pane's screenshots can lag one step behind clicks; Viseca's reset is off, so every live run and policy stays in the team's record (ask Jules before starting live runs).

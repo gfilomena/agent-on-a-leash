@@ -3,6 +3,8 @@
 // loses nothing (CLAUDE.md: decisions and the spend ledger must survive a restart).
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import type { FollowUp } from "./compiler.js";
+import type { TryoutRecord } from "./tryout.js";
 import type { Check } from "./engine/rules.js";
 import type { MandateRule, Verdict } from "./types.js";
 
@@ -27,7 +29,7 @@ export interface Policy {
   scenarioId?: string;
   runId?: string;
   /** Follow-up questions still open while this is a draft. */
-  questions?: { text: string; options: string[] }[];
+  questions?: FollowUp[];
 }
 
 export type PurchaseStatus = "approved" | "declined" | "pending" | "expired";
@@ -71,6 +73,8 @@ export interface State {
   purchases: PurchaseRecord[];
   /** card id → shop ids the customer approved in Compass (ask once per new shop). */
   approvedShops: Record<string, string[]>;
+  /** "Try a purchase" tests (step 14b): a separate lane, never sent to Viseca. */
+  tryouts?: TryoutRecord[];
   version: number;
 }
 

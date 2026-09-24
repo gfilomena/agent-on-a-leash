@@ -15,7 +15,7 @@ export interface AiResult<T> {
 }
 
 /** Asks for JSON matching `schema` (OpenAI structured outputs, strict). Never throws. */
-export async function askJson<T>(opts: { system: string; user: string; schemaName: string; schema: object; timeoutMs: number; model?: string }): Promise<AiResult<T>> {
+export async function askJson<T>(opts: { system: string; user: string; schemaName: string; schema: object; timeoutMs: number; model?: string; temperature?: number }): Promise<AiResult<T>> {
   const started = performance.now();
   const ms = () => Math.round(performance.now() - started);
   if (!client) return { data: null, ms: 0, error: "no OpenAI key" };
@@ -23,7 +23,7 @@ export async function askJson<T>(opts: { system: string; user: string; schemaNam
     const res = await client.chat.completions.create(
       {
         model: opts.model ?? aiModel,
-        temperature: 0,
+        temperature: opts.temperature ?? 0,
         messages: [
           { role: "system", content: opts.system },
           { role: "user", content: opts.user },

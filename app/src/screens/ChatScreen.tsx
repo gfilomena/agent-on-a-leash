@@ -1,20 +1,23 @@
-import { ArrowUp, Check, CircleAlert, RotateCcw } from "lucide-react";
+import { ArrowUp, Check, CircleAlert, FlaskConical, LoaderCircle, RotateCcw, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { TryPurchaseSheet } from "@/components/TryPurchaseSheet";
 import { api } from "@/lib/api";
 import type { Policy, Story } from "@/lib/types";
 
 type Phase = "home" | "reading" | "review" | "confirming" | "active";
+type Answer = { option: string } | { typed: string } | { skip: true };
 
 /** Chat: request → "Here's what I understood" (AI + code checks) → one-tap answers → confirm. */
-export function ChatScreen({ stories }: { stories: Story[] }) {
+export function ChatScreen({ stories, container }: { stories: Story[]; container: HTMLElement | null }) {
   const [phase, setPhase] = useState<Phase>("home");
   const [draftText, setDraftText] = useState("");
   const [request, setRequest] = useState("");
   const [policy, setPolicy] = useState<Policy | null>(null);
   const [whenUnsure, setWhenUnsure] = useState<"ask" | "decline">("ask");
   const [answering, setAnswering] = useState<string | null>(null);
+  const [trying, setTrying] = useState(false);
 
   const send = async (text: string) => {
     if (!text.trim()) return;
@@ -32,13 +35,15 @@ export function ChatScreen({ stories }: { stories: Story[] }) {
     }
   };
 
-  const answer = async (question: string, option: string) => {
-    if (!policy) return;
+  const answer = async (question: string, a: Answer) => {
+    if (!policy) return false;
     setAnswering(question);
     try {
-      setPolicy(await api.answer(policy.id, question, option));
+      setPolicy(await api.answer(policy.id, question, a));
+      return true;
     } catch (err) {
       toast((err as Error).message);
+      return false;
     } finally {
       setAnswering(null);
     }
@@ -103,6 +108,7 @@ export function ChatScreen({ stories }: { stories: Story[] }) {
   }
 
   const openQuestions = policy?.questions ?? [];
+  const requiredOpen = openQuestions.filter((q) => q.required).length;
   return (
     <div className="flex flex-1 flex-col gap-4 pt-2">
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="ml-10 self-end rounded-3xl rounded-br-lg bg-primary px-4 py-3 text-[15px] leading-snug text-white">
@@ -127,10 +133,10 @@ export function ChatScreen({ stories }: { stories: Story[] }) {
             </div>
             <ol className="mt-4 space-y-3">
               {policy.rules.map((rule, i) => (
-                <li key={`${rule}-${i}`} className="flex gap-3 text-[15px] leading-snug">
+                <motion.li key={`${rule}-${i}`} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex gap-3 text-[15px] leading-snug">
                   <span className="amount grid size-6 shrink-0 place-items-center rounded-full bg-white/10 text-[12px] font-semibold">{i + 1}</span>
                   {rule}
-                </li>
+                </motion.li>
               ))}
             </ol>
 
@@ -139,7 +145,9 @@ export function ChatScreen({ stories }: { stories: Story[] }) {
                 <div className="font-medium text-foreground/80">Also noted</div>
                 <ul className="mt-1 space-y-1">
                   {policy.guidance.map((g) => (
-                    <li key={g}>• {g}</li>
+                    <motion.li key={g} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
+                      • {g}
+                    </motion.li>
                   ))}
                 </ul>
               </div>
@@ -158,25 +166,12 @@ export function ChatScreen({ stories }: { stories: Story[] }) {
               </div>
             )}
 
-            {phase !== "active" &&
-              openQuestions.map((q) => (
-                <div key={q.text} className="mt-5">
-                  <div className="text-[14.5px] font-medium">{q.text}</div>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {q.options.map((o) => (
-                      <button
-                        key={o}
-                        type="button"
-                        disabled={answering !== null}
-                        onClick={() => answer(q.text, o)}
-                        className="rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-2 text-[14px] font-medium transition hover:bg-white/10 disabled:opacity-50"
-                      >
-                        {o}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ))}
+            <AnimatePresence initial={false}>
+              {phase !== "active" &&
+                openQuestions.map((q) => (
+                  <FollowUp key={q.text} question={q} busy={answering !== null} working={answering === q.text} onAnswer={(a) => answer(q.text, a)} />
+                ))}
+            </AnimatePresence>
 
             <div className="mt-5">
               <div className="text-[13.5px] text-muted-foreground">When something is unclear</div>
@@ -209,11 +204,20 @@ export function ChatScreen({ stories }: { stories: Story[] }) {
             ) : (
               <button
                 type="button"
-                disabled={phase === "confirming" || openQuestions.length > 0}
+                disabled={phase === "confirming" || requiredOpen > 0}
                 onClick={confirm}
                 className="mt-5 h-12 w-full rounded-2xl bg-primary text-[15px] font-semibold text-white transition hover:brightness-110 active:scale-[0.99] disabled:opacity-50"
               >
-                {phase === "confirming" ? "Confirming…" : openQuestions.length ? "Answer the question above first" : "Confirm and activate"}
+                {phase === "confirming" ? "Confirming…" : requiredOpen > 1 ? "Answer the required questions first" : requiredOpen ? "Answer the required question first" : "Confirm and activate"}
+              </button>
+            )}
+            {requiredOpen === 0 && phase !== "confirming" && (
+              <button
+                type="button"
+                onClick={() => setTrying(true)}
+                className="mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/[0.04] text-[15px] font-medium transition hover:bg-white/10"
+              >
+                <FlaskConical className="size-4 text-review" aria-hidden /> Try a purchase
               </button>
             )}
             <p className="mt-3 text-center text-[12.5px] text-muted-foreground">Your words are kept exactly as you wrote them.</p>
@@ -221,12 +225,82 @@ export function ChatScreen({ stories }: { stories: Story[] }) {
         )}
       </AnimatePresence>
 
+      {policy && <TryPurchaseSheet open={trying} onClose={() => setTrying(false)} policyId={policy.id} whenUnsure={whenUnsure} container={container} />}
+
       {(phase === "active" || phase === "review") && (
         <button type="button" onClick={reset} className="mx-auto mt-1 inline-flex items-center gap-1.5 text-[14px] font-medium text-[#b3a1ff] hover:text-white">
           <RotateCcw className="size-4" aria-hidden /> New request
         </button>
       )}
     </div>
+  );
+}
+
+const chip = "rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-2 text-[14px] font-medium transition hover:bg-white/10 disabled:opacity-50";
+
+/** One follow-up question: one-tap answers, "Other…" to type, "Skip" unless the answer is required. No options = type only (e.g. dates). */
+function FollowUp({ question: q, busy, working, onAnswer }: { question: Policy["questions"][number]; busy: boolean; working: boolean; onAnswer: (a: Answer) => Promise<boolean> }) {
+  const typedOnly = q.options.length === 0;
+  const [typing, setTyping] = useState(typedOnly);
+  const [text, setText] = useState("");
+  const close = () => {
+    setTyping(typedOnly);
+    setText("");
+  };
+  return (
+    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, height: 0, marginTop: 0 }} className="mt-5 overflow-hidden">
+      <div className="flex items-start justify-between gap-3">
+        <div className="text-[14.5px] font-medium">{q.text}</div>
+        {q.required ? (
+          <span className="mt-0.5 shrink-0 rounded-full bg-white/10 px-2.5 py-0.5 text-[11.5px] font-medium text-muted-foreground">Required</span>
+        ) : (
+          <button type="button" disabled={busy} onClick={() => onAnswer({ skip: true })} className="mt-0.5 shrink-0 text-[13px] font-medium text-muted-foreground transition hover:text-foreground disabled:opacity-50">
+            Skip
+          </button>
+        )}
+      </div>
+      <div className={`flex flex-wrap gap-2 ${typedOnly ? "" : "mt-2"}`}>
+        {q.options.map((o) => (
+          <button key={o} type="button" disabled={busy} onClick={() => onAnswer({ option: o })} className={chip}>
+            {o}
+          </button>
+        ))}
+        {!typing && !typedOnly && (
+          <button type="button" disabled={busy} onClick={() => setTyping(true)} className={`${chip} text-muted-foreground`}>
+            {q.amount ? "Other amount" : "Other…"}
+          </button>
+        )}
+      </div>
+      {typing && (
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            if (text.trim() && (await onAnswer({ typed: text.trim() }))) close();
+          }}
+          className="mt-2 flex h-11 items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] pr-1.5 pl-4 focus-within:border-primary"
+        >
+          {q.amount && <span className="text-[14.5px] font-medium text-muted-foreground">CHF</span>}
+          <input
+            autoFocus={!typedOnly}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            inputMode={q.amount ? "decimal" : "text"}
+            maxLength={200}
+            placeholder="Type your answer"
+            aria-label={q.text}
+            className="min-w-0 flex-1 bg-transparent text-[14.5px] outline-none placeholder:text-muted-foreground"
+          />
+          {!typedOnly && (
+            <button type="button" onClick={close} disabled={working} aria-label="Cancel" className="grid size-8 place-items-center rounded-full text-muted-foreground transition hover:text-foreground">
+              <X className="size-4" />
+            </button>
+          )}
+          <button type="submit" disabled={!text.trim() || busy} aria-label="Send answer" className="grid size-8 place-items-center rounded-full bg-primary text-white transition disabled:opacity-40">
+            {working ? <LoaderCircle className="size-4 animate-spin" /> : <ArrowUp className="size-4" strokeWidth={2.5} />}
+          </button>
+        </form>
+      )}
+    </motion.div>
   );
 }
 

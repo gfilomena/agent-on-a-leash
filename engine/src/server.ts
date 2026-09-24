@@ -2,12 +2,14 @@
 // Listens on this laptop only; changes are accepted only from our own app (piece 7).
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
-import { compilerModel } from "./compiler.js";
+import { compilerModel, isAmountQuestion } from "./compiler.js";
 import { live, answerPurchase, loadBootstrap, startWorker } from "./live.js";
 import { money } from "./money.js";
-import { answerQuestion, confirmPolicy, createDraft, PolicyError, revokePolicy } from "./policies.js";
+import { answerQuestion, confirmPolicy, createDraft, PolicyError, revokePolicy, type Answer } from "./policies.js";
 import { shops } from "./engine/reference.js";
 import { state, type Policy, type PurchaseRecord } from "./state.js";
+import { propose, tryCatalogue, tryPurchase } from "./tryout.js";
+import type { Check } from "./engine/rules.js";
 
 const PORT = Number(process.env.ENGINE_PORT ?? 8787);
 const HOST = process.env.ENGINE_HOST ?? "127.0.0.1";
@@ -24,6 +26,10 @@ app.use("/api/*", async (c, next) => {
 
 // ---------- views: what the app shows (plain words, no codes or ids to display) ----------
 const storyName = (scenarioId?: string) => live.stories.find((s) => s.id === scenarioId)?.name;
+
+/** Facts shown to the customer: every rule and bank check; warning signs only when they found something (and shop text always). */
+const checksView = (checks: Check[]) =>
+  checks.filter((c) => c.kind !== "warning" || c.result !== "pass" || c.label === "Shop text").map((c) => ({ label: c.label, result: c.result, detail: c.detail, kind: c.kind }));
 
 function purchaseView(p: PurchaseRecord) {
   const policy = state.policies.find((x) => x.id === p.policyId);
@@ -48,7 +54,7 @@ function purchaseView(p: PurchaseRecord) {
     decidedInMs: p.engineMs,
     answerMs: p.answerMs,
     waitingUntil: p.status === "pending" ? Date.parse(p.answeredAt) + live.humanWindowMs : null,
-    checks: p.checks.filter((c) => c.kind !== "warning" || c.result !== "pass" || c.label === "Shop text").map((c) => ({ label: c.label, result: c.result, detail: c.detail, kind: c.kind })),
+    checks: checksView(p.checks),
     ignoredText: p.ignoredText,
     story: storyName(p.scenarioId) ?? null,
     policyTitle: policy?.title ?? null,
@@ -65,7 +71,7 @@ function policyView(p: Policy) {
     rules: p.explanations.map((e) => e.text),
     guidance: p.guidance,
     notUnderstood: p.notUnderstood,
-    questions: p.questions ?? [],
+    questions: (p.questions ?? []).map((q) => ({ text: q.text, required: q.required, amount: isAmountQuestion(q), options: q.options.map((o) => o.label) })),
     whenUnsure: p.uncertainty_policy,
     watchSession: p.watchSession,
     status: p.status,
@@ -103,9 +109,10 @@ app.post("/api/policies", async (c) => {
 });
 
 app.post("/api/policies/:id/answer", async (c) => {
-  const { question, answer } = await c.req.json().catch(() => ({}));
+  const body = await c.req.json().catch(() => ({}));
+  const answer: Answer = body.skip === true ? { skip: true } : typeof body.typed === "string" ? { typed: body.typed } : { option: String(body.option ?? "") };
   try {
-    return c.json(policyView(answerQuestion(c.req.param("id"), String(question ?? ""), String(answer ?? ""))));
+    return c.json(policyView(await answerQuestion(c.req.param("id"), String(body.question ?? ""), answer)));
   } catch (err) {
     return c.json(fail(err), 400);
   }
@@ -132,6 +139,48 @@ app.post("/api/purchases/:id/answer", async (c) => {
   const { approve } = await c.req.json().catch(() => ({}));
   const r = await answerPurchase(c.req.param("id"), approve === true);
   return c.json(r, r.ok ? 200 : 409);
+});
+
+// ---------- "Try a purchase" (step 14b): simulated agent, real engine, nothing sent to Viseca ----------
+app.get("/api/tryout/catalogue", (c) => c.json(tryCatalogue()));
+
+app.post("/api/tryout/propose", async (c) => {
+  const { policyId, avoid } = await c.req.json().catch(() => ({}));
+  try {
+    return c.json(await propose(String(policyId ?? ""), Array.isArray(avoid) ? avoid.map(String).slice(-10) : []));
+  } catch (err) {
+    return c.json(fail(err), 400);
+  }
+});
+
+app.post("/api/tryout/buy", async (c) => {
+  const { policyId, proposal, whenUnsure } = await c.req.json().catch(() => ({}));
+  try {
+    const { decision: d, event, policy } = tryPurchase(String(policyId ?? ""), proposal ?? {}, whenUnsure === "decline" ? "decline" : whenUnsure === "ask" ? "ask" : undefined);
+    const a = event.authorization;
+    return c.json({
+      id: a.authorization_id,
+      display: d.decision,
+      status: d.decision === "approve" ? "approved" : d.decision === "decline" ? "declined" : "pending",
+      answeredBy: "compass",
+      sentence: d.customer_message,
+      reviewReason: d.decision === "step_up" ? d.customer_message : null,
+      shop: a.merchant.merchant_name,
+      items: a.items.map((l) => l.item_name),
+      amountChf: a.billing_amount_chf,
+      original: a.currency === "CHF" ? null : { amount: a.amount, currency: a.currency },
+      at: a.timestamp,
+      decidedInMs: d.ms,
+      answerMs: 0,
+      waitingUntil: null,
+      checks: checksView(d.checks),
+      ignoredText: d.ignoredText,
+      story: null,
+      policyTitle: policy.title,
+    });
+  } catch (err) {
+    return c.json(fail(err), 400);
+  }
 });
 
 serve({ fetch: app.fetch, port: PORT, hostname: HOST }, () => {

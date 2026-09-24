@@ -1,7 +1,7 @@
 // Policies: the customer's sentence → draft (AI + code checks) → one-tap answers → confirm at
 // Viseca (sentence sent word for word) → optional Viseca test story → revoke.
 import { randomUUID } from "node:crypto";
-import { AMOUNT, compileRequest, describeRule, isPriceQuestion } from "./compiler.js";
+import { compileRequest, describeRule, hasPriceLimit, isAmountQuestion, readTypedAnswer, type FollowUpOption } from "./compiler.js";
 import { live } from "./live.js";
 import { save, state, type Policy } from "./state.js";
 import { viseca } from "./viseca.js";
@@ -39,21 +39,39 @@ const find = (id: string) => {
   return p;
 };
 
-/** A one-tap answer to a follow-up question. A price answer becomes a rule; anything else guidance. */
-export function answerQuestion(id: string, question: string, answer: string): Policy {
+export type Answer = { option: string } | { typed: string } | { skip: true };
+
+/**
+ * An answer to a follow-up question: a tapped option adds the rule (or note) prepared with the
+ * draft; a typed "Other" answer is read by code or the AI. Answers only ever add rules.
+ */
+export async function answerQuestion(id: string, question: string, answer: Answer): Promise<Policy> {
   const p = find(id);
   if (p.status !== "draft") throw new PolicyError("This policy is already confirmed.");
-  const amount = answer.match(AMOUNT);
-  const isPrice = isPriceQuestion(question);
-  if (isPrice && !amount) throw new PolicyError("Please pick an amount: a price limit is required.");
-  if (isPrice && amount) {
-    const rule = { field: "authorization.billing_amount_chf", operator: "<=" as const, value: Number(amount[2].replace(",", ".")), currency: amount[1].toUpperCase(), scope: "purchase" as const };
-    p.hard_rules.push(rule);
-    p.explanations.push({ text: describeRule(rule), source: answer });
+  const q = (p.questions ?? []).find((x) => x.text === question);
+  if (!q) throw new PolicyError("This question was already answered.");
+
+  if ("skip" in answer) {
+    if (q.required) throw new PolicyError("This question needs an answer.");
   } else {
-    p.guidance.push(`${question.replace(/\?$/, "")}: ${answer}`);
+    let picked: FollowUpOption | undefined;
+    if ("typed" in answer) {
+      if (!answer.typed.trim()) throw new PolicyError("Type your answer first.");
+      picked = await readTypedAnswer(p.instruction, q, answer.typed);
+      if (isAmountQuestion(q) && !picked.rule) throw new PolicyError("Please type an amount, for example 150.");
+    } else {
+      picked = q.options.find((o) => o.label === answer.option);
+      if (!picked) throw new PolicyError("Please pick one of the answers.");
+    }
+    if (p.status !== "draft") throw new PolicyError("This policy is already confirmed.");
+    if (picked.rule) {
+      p.hard_rules.push(picked.rule);
+      p.explanations.push({ text: describeRule(picked.rule), source: picked.label });
+    } else if (picked.note && !p.guidance.includes(picked.note)) {
+      p.guidance.push(picked.note);
+    }
   }
-  p.questions = (p.questions ?? []).filter((q) => q.text !== question);
+  p.questions = (p.questions ?? []).filter((x) => x.text !== question);
   save();
   return p;
 }
@@ -62,8 +80,9 @@ export function answerQuestion(id: string, question: string, answer: string): Po
 export async function confirmPolicy(id: string, whenUnsure: "ask" | "decline"): Promise<Policy> {
   const p = find(id);
   if (p.status !== "draft") throw new PolicyError("This policy is already confirmed.");
-  if (!p.hard_rules.some((r) => r.field === "authorization.billing_amount_chf" && r.scope === "purchase"))
-    throw new PolicyError("Please set a maximum price per order first.");
+  if (!hasPriceLimit(p.hard_rules)) throw new PolicyError("Please set a maximum price per order first.");
+  const open = (p.questions ?? []).find((q) => q.required);
+  if (open) throw new PolicyError(`Please answer "${open.text}" first.`);
   p.uncertainty_policy = whenUnsure;
 
   const draft = await viseca.createMandate({

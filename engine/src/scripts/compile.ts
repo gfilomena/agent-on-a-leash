@@ -3,7 +3,7 @@
 // Usage: npm run compile [-- SCEN0124] [--model gpt-4.1-mini] [--quiet]
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { compileRequest, compilerModel, type PolicyDraft } from "../compiler.js";
+import { compileRequest, compilerModel, describeRule, type PolicyDraft } from "../compiler.js";
 import { decide } from "../engine/decide.js";
 import { toPast, type PastPurchase } from "../engine/memory.js";
 import { loadPackStories, loadRecordedStories, OfflineRun, type StoryInfo } from "../offline.js";
@@ -62,7 +62,10 @@ for (const s of stories) {
     draft.explanations.forEach((e, i) => console.log(`  • ${e.text}   ${dim}${JSON.stringify(draft.hard_rules[i])}${reset}`));
     for (const g of draft.guidance) console.log(`  ~ ${g}`);
     console.log(`  When unsure: ${draft.uncertainty_policy === "ask" ? "ask me" : "decline"}${draft.watchSession ? " · watching the session" : ""}`);
-    for (const q of draft.questions) console.log(`  ? ${q.text}  [${q.options.join(" | ")}]`);
+    for (const q of draft.questions) {
+      console.log(`  ? ${q.text}${q.required ? " (required)" : ""}`);
+      for (const o of q.options) console.log(`      ${o.label} → ${o.rule ? describeRule(o.rule) : o.note ? `note: ${o.note}` : "no rule"}`);
+    }
     for (const n of draft.notUnderstood) console.log(`  ${red}! I may not have understood: ${n}${reset}`);
     mine.forEach((v, i) => v !== theirs[i] && console.log(`  ${red}≠ purchase #${i + 1}: AI rules → ${v}, test rules → ${theirs[i]}${reset}`));
     console.log();

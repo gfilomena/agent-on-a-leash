@@ -9,7 +9,8 @@
     "replay": "tsx src/scripts/replay.ts",
     "live": "tsx --env-file=../.env src/scripts/live.ts",
     "record": "tsx --env-file=../.env src/scripts/record.ts",
-    "compile": "tsx --env-file=../.env src/scripts/compile.ts"
+    "compile": "tsx --env-file=../.env src/scripts/compile.ts",
+    "questions": "tsx --env-file=../.env src/scripts/try-questions.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.1",

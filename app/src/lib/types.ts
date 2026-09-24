@@ -42,7 +42,8 @@ export interface Policy {
   rules: string[];
   guidance: string[];
   notUnderstood: string[];
-  questions: { text: string; options: string[] }[];
+  /** Follow-up questions still open. Required ones can't be skipped; amount = the answer is a price. */
+  questions: { text: string; required: boolean; amount: boolean; options: string[] }[];
   whenUnsure: "ask" | "decline";
   watchSession: boolean;
   status: "draft" | "active" | "revoked";
@@ -50,6 +51,21 @@ export interface Policy {
   confirmedAt: string | null;
   revokedAt: string | null;
   story: { name: string; total: number; received: number } | null;
+}
+
+/** "Try a purchase": what the simulated agent may pick from (Viseca's products and shops). */
+export interface TryCatalogue {
+  products: { id: string; name: string; category: string; typicalChf: number }[];
+  shops: { id: string; name: string; category: string; city: string; country: string; currency: string }[];
+}
+
+/** A proposal the customer can change before "Let the agent buy". Price in the shop's currency, delivery included. */
+export interface TryProposal {
+  id: string;
+  productId: string;
+  shopId: string;
+  price: number;
+  shopText: string;
 }
 
 export interface Story {

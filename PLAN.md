@@ -2,18 +2,20 @@
 
 Approved by Jules on 2026-09-24. Tick a step's box once Jules has seen its check pass.
 
-## 0. Current state (updated 2026-09-24, 22:30) · read this first
+## 0. Current state (updated 2026-09-24, 23:55) · read this first
 
-**Where we are.** Steps 0–9, 11, 13, 15 and 16 are done and checked. Steps 10 and 12 were verified live by Jules at ~22:18 (Connection check started from the chat: the first purchase at Rhine Fresh asked once, Jules approved it in the Inbox, Viseca accepted; the second was blocked "CHF 38.90 at Rhine Fresh is over your CHF 20 limit"; both answered in under 0.1 s). The app runs on real data only: no sample content, no hard-coded story or purchase ids. We are ~3 h ahead of the timeline.
+**Where we are.** Steps 0–9, 11, 13, 15 and 16 are done and checked. **9b (tailored follow-up questions) and 14b ("Try a purchase") are built and checked by Claude (23:20, 23:50), waiting for Jules's own check.** 14b was moved ahead of 14 (Jules, 23:30: this was the new feature). Steps 10 and 12 were verified live by Jules at ~22:18 (Connection check started from the chat: the first purchase at Rhine Fresh asked once, Jules approved it in the Inbox, Viseca accepted; the second was blocked "CHF 38.90 at Rhine Fresh is over your CHF 20 limit"; both answered in under 0.1 s). The app runs on real data only: no sample content, no hard-coded story or purchase ids. We are ~3 h ahead of the timeline.
 
 **What works now**
 - **Engine** (`engine/src/engine/`): the customer's rules (pass / fail / unknown), always-on warning signs (hidden shop instructions, lookalike seller, duplicate, split order, linked quote, price consistency, odd session), bank checks (card status/expiry, abroad/online switches, per-payment limit). One plain sentence per decision, verdict first. At most ~4 ms per decision.
-- **Sentence → rules** (`engine/src/compiler.ts`): `gpt-4.1`, ~2 s; code validates every rule; the AI names catalogue products by name and code maps them to ids; price limit mandatory (amount-only one-tap question); "I may not have understood…" for anything not placed.
+- **Sentence → rules** (`engine/src/compiler.ts`): `gpt-4.1`, ~2–3.5 s; code validates every rule; the AI names catalogue products by name and code maps them to ids; "I may not have understood…" for anything not placed.
+- **Follow-up questions (9b)**: 0–3 questions tailored to the item. Each one-tap answer carries its rule, prepared with the draft and validated by code (size, returns, known shops, country, city, delivery, quantity, model…); colour, brand, dates become an "Also noted" line. **Required** questions (no Skip): the price, always; size for clothes/shoes, city and dates for a hotel, the model when several catalogue products match. Everything else has **Skip** (= no rule). "Other…" opens "Type your answer" ("Other amount" with CHF for the price): amounts are read by code, anything else by the AI (~0.7 s) and validated by code, else kept as a note. Confirm is refused (app and engine) while a required question is open. Code guards: no question on a topic the sentence already answers; instruction-like options ("Type hotel name") dropped; "No preference" never adds anything; sizes only as the engine can read them ("EU 52" → 52); cities matched to Viseca's spelling ("Zürich" → Zurich).
+- **"Try a purchase" (14b)** (`engine/src/tryout.ts`, `app/src/components/TryPurchaseSheet.tsx`): button "Try a purchase" on the "Here's what I understood" card, before and after Confirm (only once required questions are answered). A sheet "Simulated agent · test only" shows the agent's proposal (one AI call, `gpt-4.1-mini`, ~1 s): a real product and shop from Viseca's data, price in the shop's currency, the shop's product text. Everything can be changed; "Let the agent buy" builds a Viseca-shaped purchase on a test card (picked by its facts: active, online and abroad allowed, highest bank limit) and the real engine decides. Result: the usual verdict card + facts; "Needs review" says "In real life, this would wait in your Inbox."; "Change and retry" / "Try another". Tests are saved apart (`state.tryouts`), never sent to Viseca, never in History or the Inbox. Tests remember each other per policy (approved tries count as bought; a retry of the same proposal replaces it). Nothing suitable in the catalogue → "I couldn't find this in the test shops. Pick a product yourself."
 - **Live** (`engine/src/live.ts`, `worker.ts`, `server.ts`, `state.ts`): the engine's worker answers every Viseca purchase once, in under 0.1 s; Inbox answers go to `/resolve` (only real customer taps); expired reviews are synced from Viseca; everything is saved in `engine/data/state.json` (survives restarts). The API listens on 127.0.0.1 only and refuses changes from other sites.
 - **App**: Chat (Viseca's live test requests as suggestions, fetched from Viseca; AI draft; one-tap questions; confirm → policy at Viseca; a test-request sentence starts that Viseca story), Inbox (badge, countdown, approve/decline), History (cards, facts sheet with "Your rules" and "Always checked", ignored shop text struck through), Controls (policies, revoke, shops you've approved), "Behind the scenes" panel (desktop and `/presenter`: live feed with answer times, story progress, high-contrast switch).
-- **Checks you can run** (from the repo root): `npm run replay` (45 pack purchases: 18 approved, 4 review, 23 blocked, all valid), `npm run replay -- --live [--approve-reviews] [--why]` (111 recorded live purchases), `npm run compile [-- --quiet]` (AI rules vs hand-written test rules: same verdict on 155/156), `npm run connect`.
+- **Checks you can run** (from the repo root): `npm run replay` (45 pack purchases: 18 approved, 4 review, 23 blocked, all valid), `npm run replay -- --live [--approve-reviews] [--why]` (111 recorded live purchases), `npm run compile [-- --quiet]` (AI rules vs hand-written test rules: same verdict on 155/156 in 6 runs out of 6 after 9b; the one difference is the Munich city rule, where the AI is stricter and right; it also prints each question and what each answer adds), `npm run questions [-- "sentence" …]` (follow-up questions for any sentence and what tapped/typed answers add; nothing sent to Viseca), `npm run connect`.
 
-**Exact next step: 9b, tailored follow-up questions (new, above the minimum line). Not started.** Today the compiler already returns 0–3 AI questions with one-tap options, but only a price answer becomes a rule (`engine/src/policies.ts` → `answerQuestion`); every other answer becomes a guidance line, and the "Other" option has no text field (seen live: guidance "How many pairs of white socks do you want to buy: Other"). To do: questions tailored to the item (size, colour, brand, quantity, return terms, known shops…), answers turned into rules wherever a rule field exists (size → `items.size`, returns → `authorization.return_window_days`, known shops → `merchant.prior_approved_purchases`, country → `merchant.merchant_country`…), "Other" opens a text field. Then 14 → 14b → 17 → 18 → 19 → 20 (see section 5).
+**Exact next step: Jules checks 9b and 14b, then step 14 (AI item check).** Then 17 → 18 → 19 → 20 (see section 5). Open finding for Jules (below, known issue 13): "socks" become "only clothing", but Viseca files its socks under sports goods.
 
 **How to run**
 - `npm run dev`: engine on http://127.0.0.1:8787 **with the Viseca worker**, app on http://localhost:5173 (and `/presenter`).
@@ -22,8 +24,12 @@ Approved by Jules on 2026-09-24. Tick a step's box once Jules has seen its check
 
 **Known issues**
 1. Guidance lines are shown but not yet enforced (colour, brand, "a hotel in Munich", "dinner", "if a price changes, ask me") → step 14 (AI item check). Example in the replay: a hostel bed is approved for "book me a hotel" (SCEN0124 #11).
-2. Follow-up answers other than price only become guidance; "Other" has no text field → 9b.
-3. The AI's draft for the same sentence varies a little between runs (e.g. size as a rule in one run, as guidance in another; "a hotel in Munich" once became a city rule). Code validates every rule and the customer confirms; `npm run compile` measures agreement.
+2. ~~Follow-up answers other than price only become guidance~~ (fixed in 9b). Colour and brand answers stay "Also noted": Viseca's product texts never state colour or brand, so only step 14's AI item check can judge them.
+3. The AI's draft for the same sentence varies a little between runs. Found at 9b: "No new services" became "nothing else in the basket" instead of "only services you already use" in 3/8 drafts before 9b (6/8 with the first 9b prompt); fixed by clearer field descriptions (8/8). Code validates every rule and the customer confirms; `npm run compile` measures agreement. Run it several times (in parallel) after any prompt change: one run can hide a 1-in-3 variation.
+11. Rule lines written by the AI can be imprecise: "including delivery" for a hotel price; "returnable if possible" became a hard "must be returnable" rule. → step 17 (explanation pass).
+12. Switching tabs in the app clears an unconfirmed draft in the chat (the draft lives in the chat screen only).
+13. Found with "Try a purchase" (23:45): for "white socks … from Adidas" the AI writes "Only clothing", but Viseca's only socks ("Running socks") are filed under sports goods, so every sock purchase is blocked ("Running socks are sports goods, and you allow only clothing"). Same trap as CASE_NOTES §3 (running shoes filed under clothing). Proposed fix: when the named kind of product exists in the catalogue, use that product's catalogue category. Jules (00:05): not now, focus on step 14.
+14. When shop text states two different sizes, the engine reads the first one (shoptext.ts). Rare; noted only.
 4. Spending cap, allowed regions and "Tighten" are not built (step 18). Controls shows no cap card until then.
 5. Many "Needs review" in live stories: the live cards have no purchase history, so each new shop is asked once (decided). Each review pauses a live story for up to 2.5 min.
 6. Session-signal thresholds are heuristics: new device, night (00–06 with no history at that hour), new country, new shop, ≥ 2 earlier attempts in 10 min; a warning needs 3 signals, or 2 when the customer asked to watch the session.
@@ -33,7 +39,7 @@ Approved by Jules on 2026-09-24. Tick a step's box once Jules has seen its check
 10. Viseca's permanent record (reset is off) holds: 11 SCEN0101 runs from step 3, 9 recording runs, 1 SCEN0101 run from the app; policies from testing: two sock policies (revoked), "Single Grocery Item" (active), "Black jeans from H&M" (active, Jules's own test).
 
 **Open questions (for Jules)**
-1. "Try a purchase" tool: above or below the minimum line? Default until answered: below, as step 14b.
+1. ~~"Try a purchase" tool: above or below the minimum line?~~ Built next (Jules, 23:30). Decided: try before and after Confirm; results only in the sheet (never History/Inbox); nothing invented when the catalogue has nothing suitable; "Needs review" shows a line instead of Approve/Decline; labels "Simulated agent · test only" and "Let the agent buy".
 2. Jules's list of bugs he noticed ("a few bugs in my current code"): not received yet; goes into step 19.
 3. Viseca's answers to the three questions: where the live cards' purchase history is, whether test runs count for judging, whether judging uses these 10 stories or others. Pending; we continue with the defaults (ask once per new shop; stay general).
 4. Which live stories to use for the three demo moments (proposal under the minimum demo line), confirmed at step 20.
@@ -48,6 +54,8 @@ Approved by Jules on 2026-09-24. Tick a step's box once Jules has seen its check
 - Viseca's data has two shops "Night Owl Kitchen" and "NightOwl Kitchen": the lookalike check asks once, then stays quiet after the customer approves the shop.
 - 8 of the 187 product texts (pack + live) carry hidden instructions; our patterns flag all 8 and none of the others (e.g. "Approved for use by children aged 3 and over" is not flagged). Keyword patterns alone missed 4 of them before the general categories were added; step 14's AI check on shop text is the second line of defence.
 - `/v1/authorizations` returns the full purchase for every run of our team (useful to rebuild recordings).
+- 9b design: the AI returns, per question, the rule field it fills and per option the rule value(s) (compact: `values` + `note`), so a tap adds a rule instantly with no second AI call; code builds and validates the rule with the same checks as sentence rules. Giving the AI example required questions was needed: without them it made the hotel city optional and never asked for dates.
+- The shared browser pane may be in use by Jules: test in a separate tab (`tabs_create`) so clicks don't collide. Never start a second `npm run dev` from the preview tool while Jules's engine runs (second worker); open `http://localhost:5173` by URL instead.
 
 ## 1. Decisions
 
@@ -128,10 +136,10 @@ Up to the **minimum demo line**, steps are ordered so that the three required de
 
 | Remaining | Estimate | Done by (approx.) |
 | --- | --- | --- |
-| 9b Tailored follow-up questions (above the line) | 40 min | 23:15 |
+| ~~9b Tailored follow-up questions (above the line)~~ built, took ~55 min | 40 min | 23:20 |
 | **Minimum demo line** | | **~23:15** |
-| 14 AI item check (+ model timing) | 45 min | 00:00 |
-| 14b "Try a purchase" tool | 1 h 15 | 01:15 |
+| ~~14b "Try a purchase" tool~~ built (moved first), took ~50 min | 1 h 15 | 23:50 |
+| 14 AI item check (+ model timing) | 45 min | 00:45 |
 | 17 Explanation pass | 20 min | 01:35 |
 | 18 Controls: tighten, spending cap, allowed regions | 40 min | 02:15 |
 | 19 Polish and bug fixes (incl. Jules's bug list) | 45 min | 03:00 |
@@ -171,7 +179,7 @@ About 2 hours of buffer before 05:40. If time runs short, cut from the bottom of
 - [x] **9. Sentence → rules (AI).** Rules plus 0–3 one-tap follow-up questions; a price limit is mandatory. The AI never sees the purchases.
   *Check:* for each of the 5 story sentences, Jules reads "Here's what I understood". The replay gives the same results with the AI's rules as with the test rule sets.
   *Result:* `npm run compile`: same verdict on 155/156 purchases (the one difference: "a hotel in Munich" became a city rule and blocks a hotel elsewhere).
-- [ ] **9b. Tailored follow-up questions (Jules: above the minimum line).** The AI asks 0–3 questions tailored to the item (size, colour, brand, quantity, return terms, known shops…); each answer becomes a rule wherever a rule field exists, otherwise a guidance line; "Other" opens a text field; a price limit stays mandatory. *Where it stands:* questions and one-tap answers exist; only price answers become rules (`engine/src/policies.ts` → `answerQuestion`); "Other" has no text field.
+- [ ] **9b. Tailored follow-up questions (Jules: above the minimum line).** The AI asks 0–3 questions tailored to the item (size, colour, brand, quantity, return terms, known shops…); each answer becomes a rule wherever a rule field exists, otherwise a guidance line; "Other" opens a text field; a price limit stays mandatory. Jules (23:00): the price is always required; the AI also marks a question required when the item can't be bought correctly without it (size for clothes and shoes, dates and city for a hotel, the exact model for electronics); required questions have no Skip; everything else can be skipped (= no rule); never ask what the sentence already says. Labels: "Other…" → "Type your answer"; "Other amount" for the price. *Built and checked by Claude (23:20), waiting for Jules's check.*
   *Check:* "I want a pack of 6 white socks size 42 from Adidas" asks sensible questions (e.g. price, colour/brand strictness); answering them adds visible rules to "Here's what I understood"; "Other" lets Jules type a value; `npm run compile` still agrees on ≥ 155/156.
 
 ### Phase E: Connect the app (about 1 h)
@@ -203,7 +211,7 @@ Without step 14, purchases that need the AI item check go to "Needs review" or a
 
 - [ ] **14. AI item check.** Judges what code can't: size, road vs trail shoe, add-ons, return days written in text. Time limit and fallback included. The model is picked here by timing 2–3 small models.
   *Check:* story 2 #2 (size 42), #4 (7-day returns), #6 (trail shoe), #7 (add-on), #8 (exactly 14 days) and story 4 #7 get a clear reason instead of "unknown", with the AI's time shown. With the AI switched off (`--no-ai`), nothing becomes approved that wasn't approved before.
-- [ ] **14b. "Try a purchase" tool.** Create or edit a purchase and see Compass's decision: the simulated agent proposes a real shop and product from Viseca's data for any typed request, every field (shop, product, price, shop text) can be edited, "Let the agent buy", the real engine decides against the chosen active policy. Separate lane, same engine; nothing is sent to Viseca.
+- [ ] **14b. "Try a purchase" tool.** *Built and checked by Claude (23:50), waiting for Jules's check: hiking boots draft → Approved (TrailSpark, CHF 175); shop text size 40 → Blocked; hidden instruction → Needs review, text shown as ignored; sofa → "couldn't find"; replay unchanged, worker untouched.* Create or edit a purchase and see Compass's decision: the simulated agent proposes a real shop and product from Viseca's data for any typed request, every field (shop, product, price, shop text) can be edited, "Let the agent buy", the real engine decides against the chosen active policy. Separate lane, same engine; nothing is sent to Viseca.
   *Check:* "6 white Adidas socks size 42" gets a proposal and a clear verdict; a hidden instruction typed into the shop text is shown as ignored; raising the price over the limit blocks it; the Viseca flow still works exactly as before.
 - [x] **15. Seller checks.** Lookalike shops, duplicate orders, updated quotes.
   *Check:* story 4 #2 is flagged as a repeat of #1; #5 says it "looks like PixelHarbor"; #8 is not treated as a duplicate.

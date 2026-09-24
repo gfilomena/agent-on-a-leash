@@ -13,7 +13,8 @@
     "replay": "npm run --silent replay -w engine --",
     "live": "npm run --silent live -w engine --",
     "record": "npm run --silent record -w engine --",
-    "compile": "npm run --silent compile -w engine --"
+    "compile": "npm run --silent compile -w engine --",
+    "questions": "npm run --silent questions -w engine --"
   },
   "devDependencies": {
     "concurrently": "^10.0.5"

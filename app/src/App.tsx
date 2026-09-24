@@ -38,7 +38,7 @@ export default function App() {
   }
 
   const screen = {
-    chat: <ChatScreen stories={snap?.stories ?? []} />,
+    chat: <ChatScreen stories={snap?.stories ?? []} container={frame} />,
     inbox: <InboxScreen items={waiting} windowMs={(snap?.engine.humanWindowSeconds ?? 120) * 1000} onOpen={openSheet} />,
     history: <HistoryScreen items={decided} waiting={waiting.length} onOpen={openSheet} />,
     controls: <ControlsScreen policies={snap?.policies ?? []} approvedShops={snap?.approvedShops ?? []} />,
