@@ -23,3 +23,11 @@ export function toChf(amount: number, currency: string): number {
 export function formatMoney(amount: number, currency = "CHF"): string {
   return `${currency} ${amount.toFixed(2)}`;
 }
+
+const swiss = new Intl.NumberFormat("de-CH", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+/** For customer sentences: "CHF 1’147.95", and "CHF 200" for round amounts. */
+export function money(amount: number, currency = "CHF"): string {
+  const text = swiss.format(roundHalfEven(amount));
+  return `${currency} ${text.endsWith(".00") ? text.slice(0, -3) : text}`;
+}
