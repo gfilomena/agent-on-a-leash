@@ -8,12 +8,13 @@ Approved by Jules on 2026-09-24. Tick a step's box once Jules has seen its check
 | --- | --- |
 | Name | **Compass** |
 | Time | At least 7 hours of build time until the demo |
-| Spending cap | One setting in Controls, **off by default**. Counts all approved agent spending on the card, across all policies (not per policy). Lowering it is always allowed; raising it means creating a new policy. |
+| Spending cap | One setting in Controls, **off by default**. Counts all approved agent spending on the card, across all policies (not per policy), but only purchases approved through Compass (by the engine or the customer), not the older history file. Lowering it is always allowed; raising it means creating a new policy. Test runs replay the same days, so the demo reset clears it. |
 | Standout feature | **Highlighted manipulation attempts:** instructions hidden in shop text are shown struck through and marked "Ignored". Stretch goal, only if the core flow and the demo are done early: a session-risk timeline for story 3. |
 | Inbox timeout | The customer has 120 s to answer. Until step 3 shows what Viseca does when time runs out, the card only says "Expired: you didn't answer in time", with no claim about what happened to the purchase. |
 | Inbox badge | The Inbox tab shows the number of waiting purchases, visible from every screen. |
 | Demo setup | **Desktop:** the app in a phone frame, with a presenter panel beside it (pick a test story, start a live run, watch purchases arrive from Viseca with the decision and the time it took, e.g. "Approved in 0.4 s"). **Phone:** the app fills the screen, no frame, no panel. The presenter panel is also its own page at `/presenter`. The customer app stays clean; the judges see both sides. |
 | Look | Dark, premium, glass. See section 4. |
+| Logo | None for now. The chat home is text only ("How can I help?"). |
 
 ## 2. Principles
 
@@ -42,14 +43,14 @@ Folders: `engine/` (backend) and `app/` (frontend), each runnable alone; `npm ru
 
 ## 4. Look and feel
 
-Reference: `design/reference-home.png`. Mood: proton.me/business/trust and proton.me/business/pass/breach-observatory (calm, clean, Swiss-security).
+Reference: `design/reference-home.png` (for the background, type and mood; the cat is not used for now). Mood: proton.me/business/trust and proton.me/business/pass/breach-observatory (calm, clean, Swiss-security).
 
 - **Background:** near-black `#0B0B0F` with large, soft, blurred colour glows (indigo, violet, magenta, a touch of warm coral at the edges) and a subtle dot grid that fades out toward the edges. Glows stay still or move very slowly.
 - **Accent:** violet, close to `#6D4AFF` (matches the cat). Used for buttons, the active tab, links and focus. Never for verdicts.
 - **Glass:** cards, the bottom tab bar and sheets are frosted glass: semi-transparent dark fill, background blur, thin 1px light border, large rounded corners (20–24px). Glass is only a surface behind content; text never sits directly on a busy glow.
 - **Type:** white and large. Headings in the geometric display font, body text and amounts in Inter. Generous spacing, centred hero moments.
 - **Verdicts:** solid pills (not glass) in green, amber and red, each with an icon and a word: **Approved**, **Needs review**, **Blocked** (like the severity badges on Proton's breach observatory).
-- **Logo:** the purple cat in a white rounded square. Chat home: logo, with "How can I help?" below it.
+- **Logo:** none for now. The chat home is text only: "How can I help?" in the display font, centred.
 - **Readability first (projector):** high text contrast; key information never on a transparent surface. **High-contrast mode** swaps glass for solid dark surfaces: a switch in the presenter panel, and automatic when the device asks for less transparency.
 - **A decision in 3 seconds:** one large card with the verdict pill, one sentence with the verdict first ("Blocked: CHF 215 is over your CHF 200 limit"), and shop · item · amount in large numbers. Tapping opens a sheet with the facts (✓ passed, ✕ failed, ? unknown), any ignored shop text, and how fast Compass decided.
 
@@ -65,18 +66,18 @@ Time estimates add up to about 7 h 30, a bit over 7 h. That is why the line exis
 
 ### Phase A: Foundations (about 1 h)
 
-- [ ] **0. Project setup.** Folders `engine/` and `app/`, installs, local version history (git, nothing uploaded).
+- [x] **0. Project setup.** Folders `engine/` and `app/`, installs, local version history (git, nothing uploaded).
   *Check:* `npm run dev`, open the page: a dark phone-shaped page saying "Compass" and "Engine connected".
-- [ ] **1. Connect to Viseca.** Load the keys, call health and bootstrap.
+- [x] **1. Connect to Viseca.** Load the keys, call health and bootstrap.
   *Check:* `npm run connect` prints "Connected ✓", the decision deadline (8 s), the customer window (120 s) and the 5 stories. The key is never shown.
-- [ ] **2. Offline replay.** Rebuild the 45 purchases from the data pack and check each against Viseca's format. Every decision is "ask" for now.
+- [x] **2. Offline replay.** Rebuild the 45 purchases from the data pack and check each against Viseca's format. Every decision is "ask" for now.
   *Check:* `npm run replay` prints 45 lines (story, #, shop, CHF, decision, reason) and "45/45 valid". Story 4 #4 shows CHF 391.50 (USD 450 converted correctly).
-- [ ] **3. First live purchase, end to end (SCEN0000).** Create policy → confirm → start run → receive the purchase → answer → resolve as a test customer. Also find out: what Viseca does when the customer doesn't answer within 120 s; which evidence format Viseca accepts; whether purchases arrive one at a time or in bursts.
+- [ ] **3. First live purchase, end to end (SCEN0000).** Create policy → confirm → start run → receive the purchase → answer "ask" → **pause: Jules gives the customer's answer (approve or decline) himself**, then it is sent to Viseca. Also find out: what Viseca does when the customer doesn't answer within 120 s; which evidence format Viseca accepts; whether purchases arrive one at a time or in bursts.
   *Check:* every stage prints ✓ and "answered in X s". Claude reports the three findings in plain words.
 
 ### Phase B: Look (about 45 min)
 
-- [ ] **4. Design preview with fake data.** Chat home (logo + "How can I help?"), the four tabs with the Inbox badge, verdict cards, the detail sheet, the presenter panel, phone and desktop layouts, high-contrast mode. Claude looks at the two Proton pages first.
+- [ ] **4. Design preview with fake data.** Chat home ("How can I help?", text only), the four tabs with the Inbox badge, verdict cards, the detail sheet, the presenter panel, phone and desktop layouts, high-contrast mode. Claude looks at the two Proton pages first.
   *Check:* Jules clicks through it on the laptop (and on the projector if possible). **Jules approves the look before real data is wired.**
 
 ### Phase C: Core engine (about 1 h)
@@ -110,11 +111,11 @@ Time estimates add up to about 7 h 30, a bit over 7 h. That is why the line exis
 
 **MINIMUM DEMO LINE (about 4 h 45 in).** Everything above gives the three required moments:
 
-1. An ordinary purchase approved with no friction (story 1 or the connection check).
+1. An ordinary purchase approved with no friction: **a grocery order from story 1, which needs no AI item check.**
 2. A manipulated purchase stopped with a clear reason (story 4 #3: blocked for its price, the hidden instruction shown as ignored).
 3. The customer approving and declining in the Inbox, then revoking the policy.
 
-Without step 14, purchases that need the AI item check go to "Needs review". That is slower for the customer, but they are never wrongly approved. If moment 1 turns out to need the AI item check, step 14 moves above the line.
+Without step 14, purchases that need the AI item check go to "Needs review". That is slower for the customer, but they are never wrongly approved. If no story 1 grocery order gets approved without the AI item check, Claude tells Jules (no special case).
 
 ---
 
@@ -147,9 +148,13 @@ Without step 14, purchases that need the AI item check go to "Needs review". Tha
 
 ## 6. Open items
 
-1. **Logo file:** is the cat available as its own file (ideally SVG, or PNG with a transparent background)? If not, Claude cuts it out of `design/reference-home.png`. That's fine at app size but slightly soft on a big screen.
-2. **Spending cap and older purchases.** Default: the cap counts purchases approved through Compass (by the engine or by the customer), not the older purchases in Viseca's history file, so the total always matches what the customer sees in History. Test runs replay the same days, so the demo reset clears it.
-3. **Found at step 3:** Viseca's behaviour after the 120 s, the evidence format, one-at-a-time vs bursts. Results get written here.
+1. **Found at step 3:** Viseca's behaviour after the 120 s, the evidence format, one-at-a-time vs bursts. Results get written here.
+2. **Found at step 1 (2026-09-24):** the live API is not the data pack.
+   - Our team (`team35`) gets **10 live stories** (`SCEN0101`, `SCEN0135`, …), not the pack's 5. Same themes plus 5 new ones: subscriptions, cross-border (EUR limit), weeknight meal delivery, hotel booking, category exclusions. Different customers, cards and limits. The live list comes from `/v1/bootstrap`; nothing may be hard-coded to it.
+   - Viseca's reference data is larger than the pack (30 customers, 51 cards, 78 merchants, 87 items), but the **history file is identical** and has **no past purchases for the 10 live cards** (`CA1xxx`). "A shop I already use" can't be derived from history for live stories, and the purchase event has no such field.
+   - **Reset is off** (`features.reset: false`): every live run stays in our record.
+   - Viseca states purchases are "delivered one at a time by scenario runs".
+   - The offline replay (45 pack purchases) stays our regression check; the checks in steps 5–16 refer to those pack stories.
 
 ## 7. Keep possible for later
 

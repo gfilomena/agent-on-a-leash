@@ -8,7 +8,10 @@
   "scripts": {
     "dev": "concurrently -k -n engine,app -c magenta,cyan \"npm run dev -w engine\" \"npm run dev -w app\"",
     "engine": "npm run dev -w engine",
-    "app": "npm run dev -w app"
+    "app": "npm run dev -w app",
+    "connect": "npm run --silent connect -w engine",
+    "replay": "npm run --silent replay -w engine --",
+    "live": "npm run --silent live -w engine --"
   },
   "devDependencies": {
     "concurrently": "^10.0.5"

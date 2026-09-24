@@ -4,10 +4,16 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch --env-file=../.env src/server.ts",
-    "start": "tsx --env-file=../.env src/server.ts"
+    "start": "tsx --env-file=../.env src/server.ts",
+    "connect": "tsx --env-file=../.env src/scripts/connect.ts",
+    "replay": "tsx src/scripts/replay.ts",
+    "live": "tsx --env-file=../.env src/scripts/live.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.1",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "csv-parse": "^7.0.2",
     "hono": "^4.13.9"
   },
   "devDependencies": {
