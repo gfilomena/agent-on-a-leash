@@ -134,9 +134,9 @@ Other commands (from the repo root):
 
 ## Developers
 
-- Giuseppe Filomena
+- [Giuseppe Filomena](mailto:salsx@hotmail.it)
 - Jules Waldvogel
-- Francesco Dondi
+- [Francesco Dondi](mailto:francesco314@gmail.com)
 
 ---
 
