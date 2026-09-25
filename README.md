@@ -132,6 +132,12 @@ Other commands (from the repo root):
 | `docs/CASE_NOTES.md` | Lessons, traps and calibration notes for this case |
 | `viseca-2026-main/` | Viseca's brief, API docs and synthetic data pack |
 
+## Developers
+
+- Giuseppe Filomena
+- Jules Waldvogel
+- Francesco Dondi
+
 ---
 
 *Hackathon prototype. Everything runs on Viseca's synthetic sandbox: no real cards, customers or money are involved.*
