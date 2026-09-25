@@ -51,7 +51,8 @@ export interface Policy {
   createdAt: string;
   confirmedAt: string | null;
   revokedAt: string | null;
-  story: { name: string; total: number; received: number } | null;
+  /** finished = every purchase arrived, or Viseca reports the run as over (some may never have reached us). */
+  story: { name: string; title: string | null; total: number; received: number; finished: boolean } | null;
 }
 
 /** "Try a purchase": what the simulated agent may pick from (Viseca's products and shops). */
@@ -71,7 +72,10 @@ export interface TryProposal {
 
 export interface Story {
   id: string;
+  /** Viseca's name for the test (what it checks): "Behind the scenes" only, never the customer app. */
   name: string;
+  /** Short title written by the AI from the sentence; null = show the sentence alone. */
+  title: string | null;
   instruction: string;
   purchases: number;
 }
@@ -100,4 +104,18 @@ export interface Snapshot {
   approvedShops: string[];
   /** Missing until the engine has the security settings. */
   settings?: Settings;
+  /** Every call the engine made to Viseca, newest first ("Behind the scenes" only). */
+  viseca?: { calls: VisecaCall[]; listening: boolean; lastContactAt: string | null };
+}
+
+export interface VisecaCall {
+  at: string;
+  method: string;
+  path: string;
+  /** 0 = Viseca did not answer at all. */
+  status: number;
+  /** null for the queue check: its time is waiting, not Viseca's speed. */
+  ms: number | null;
+  ok: boolean;
+  label: string;
 }

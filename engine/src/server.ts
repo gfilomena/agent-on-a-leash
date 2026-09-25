@@ -4,11 +4,14 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { compilerModel, isAmountQuestion } from "./compiler.js";
 import { live, answerPurchase, liveSpent, loadBootstrap, startWorker } from "./live.js";
+import { aiCalls, aiModel, aiProvider, apertusAvailable, apertusModel, setAiProvider, type AiProvider } from "./ai.js";
+import { apiLog } from "./apilog.js";
 import { applyChange, countryLabel, REGION_COUNTRIES, usage } from "./engine/settings.js";
 import { money } from "./money.js";
 import { answerQuestion, confirmPolicy, createDraft, PolicyError, revokePolicy, type Answer } from "./policies.js";
 import { shops } from "./engine/reference.js";
 import { save, securitySettings, state, type Policy, type PurchaseRecord } from "./state.js";
+import { storyTitle, titleStories } from "./storytitles.js";
 import { propose, tryCatalogue, tryPurchase } from "./tryout.js";
 import type { Check } from "./engine/rules.js";
 
@@ -83,7 +86,7 @@ function policyView(p: Policy) {
     createdAt: p.createdAt,
     confirmedAt: p.confirmedAt ?? null,
     revokedAt: p.revokedAt ?? null,
-    story: story ? { name: story.name, total: story.purchases, received: run.length } : null,
+    story: story ? { name: story.name, title: storyTitle(story.instruction), total: story.purchases, received: run.length, finished: run.length >= story.purchases || !!p.runFinished } : null,
   };
 }
 
@@ -109,12 +112,37 @@ app.get("/api/snapshot", (c) => {
   return c.json({
     version: state.version,
     engine: { worker: live.running, lastError: live.lastError, compilerModel, humanWindowSeconds: live.humanWindowMs / 1000 },
-    stories: live.stories.map((s) => ({ id: s.id, name: s.name, instruction: s.instruction, purchases: s.purchases })),
+    stories: live.stories.map((s) => ({ id: s.id, name: s.name, title: storyTitle(s.instruction), instruction: s.instruction, purchases: s.purchases })),
     policies: state.policies.filter((p) => p.status !== "draft").map(policyView).reverse(),
     purchases: [...state.purchases].sort((a, b) => Date.parse(b.receivedAt) - Date.parse(a.receivedAt)).map(purchaseView),
     approvedShops: approvedShopNames,
     settings: settingsView(),
+    viseca: { calls: [...apiLog.calls].reverse().slice(0, 30), listening: apiLog.listening, lastContactAt: apiLog.lastContactAt },
+    ai: aiView(),
   });
+});
+
+/** Which AI answers (Behind the scenes): OpenAI, or Apertus with OpenAI as fallback. */
+function aiView() {
+  return {
+    provider: aiProvider(),
+    apertusAvailable: apertusAvailable(),
+    models: { openai: `${compilerModel} / ${aiModel}`, apertus: apertusModel },
+    calls: [...aiCalls].reverse().slice(0, 20),
+  };
+}
+
+app.post("/api/ai", async (c) => {
+  const { provider } = await c.req.json().catch(() => ({}));
+  if (provider !== "openai" && provider !== "apertus") return c.json({ error: "Pick OpenAI or Apertus." }, 400);
+  try {
+    setAiProvider(provider as AiProvider);
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : "Couldn't switch the AI." }, 400);
+  }
+  state.aiProvider = provider;
+  save();
+  return c.json(aiView());
 });
 
 // Security settings: applied from the next decision, for every policy. The app asks the customer before loosening.
@@ -227,5 +255,9 @@ serve({ fetch: app.fetch, port: PORT, hostname: HOST }, () => {
   console.log(`Compass engine on http://${HOST}:${PORT} (accepts changes only from ${ALLOWED_ORIGINS.join(", ")})`);
 });
 
+// The saved AI choice (Apertus only if this engine has its key; otherwise OpenAI).
+if (state.aiProvider === "apertus" && apertusAvailable()) setAiProvider("apertus");
+
 await loadBootstrap();
 void startWorker();
+void titleStories(live.stories);

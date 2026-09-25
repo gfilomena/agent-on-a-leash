@@ -29,6 +29,8 @@ export interface Policy {
   /** The Viseca test story started for this policy, if its sentence is one. */
   scenarioId?: string;
   runId?: string;
+  /** Viseca says the run is over (or no longer knows it), even if some purchases never reached us. */
+  runFinished?: boolean;
   /** Follow-up questions still open while this is a draft. */
   questions?: FollowUp[];
 }
@@ -78,6 +80,10 @@ export interface State {
   tryouts?: TryoutRecord[];
   /** Security settings (Controls): on top of every policy. Missing = defaults (limit off, global). */
   settings?: SecuritySettings;
+  /** Which AI the engine uses (Behind the scenes). Missing = OpenAI. */
+  aiProvider?: "openai" | "apertus";
+  /** Chat titles for Viseca's test requests, per sentence (written by the AI once per version of its instructions). */
+  storyTitles?: { version: number; titles: Record<string, string> };
   version: number;
 }
 

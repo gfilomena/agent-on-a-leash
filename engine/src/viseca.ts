@@ -1,4 +1,5 @@
 // Thin client for Viseca's hackathon API (see viseca-2026-main/technical_details.md).
+import { isQueuePoll, apiLog, recordCall } from "./apilog.js";
 import { config } from "./config.js";
 
 export type ApiResult<T = any> = { status: number; ok: boolean; data: T | null; ms: number };
@@ -10,13 +11,25 @@ export async function api<T = any>(
   const started = performance.now();
   const headers: Record<string, string> = { "Content-Type": "application/json" };
   if (opts.auth !== false) headers.Authorization = `Bearer ${config.teamKey}`;
-  const res = await fetch(config.baseUrl + path, {
-    method: opts.method ?? "GET",
-    headers,
-    body: opts.body === undefined ? undefined : JSON.stringify(opts.body),
-    signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000),
-  });
-  const text = await res.text();
+  const method = opts.method ?? "GET";
+  const ms = () => Math.round(performance.now() - started);
+  if (isQueuePoll(path)) apiLog.listening = true;
+  let res: Response;
+  let text: string;
+  try {
+    res = await fetch(config.baseUrl + path, {
+      method,
+      headers,
+      body: opts.body === undefined ? undefined : JSON.stringify(opts.body),
+      signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000),
+    });
+    text = await res.text();
+  } catch (err) {
+    recordCall({ method, path, status: 0, ms: ms(), body: opts.body });
+    throw err;
+  } finally {
+    if (isQueuePoll(path)) apiLog.listening = false;
+  }
   let data: any = null;
   if (text) {
     try {
@@ -25,7 +38,8 @@ export async function api<T = any>(
       data = text;
     }
   }
-  return { status: res.status, ok: res.ok, data, ms: Math.round(performance.now() - started) };
+  recordCall({ method, path, status: res.status, ms: ms(), body: opts.body, data });
+  return { status: res.status, ok: res.ok, data, ms: ms() };
 }
 
 export const viseca = {

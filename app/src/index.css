@@ -14,7 +14,7 @@
   --background: #0b0b0f;
   --foreground: #f5f5f7;
   --muted: rgba(255, 255, 255, 0.06);
-  --muted-foreground: rgba(245, 245, 247, 0.66);
+  --muted-foreground: rgba(245, 245, 247, 0.82);
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.12);
   --ring: #8b70ff;
@@ -39,27 +39,11 @@
   --verdict-block: #ff6b6b;
   --verdict-ink: #0b0b0f;
 
-  /* Glass surfaces */
-  --glass-fill: rgba(19, 19, 27, 0.74);
-  --glass-fill-strong: rgba(24, 24, 34, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-blur: 24px;
-}
-
-/* High-contrast mode: glass becomes solid (presenter switch, or the device asks for it). */
-:root[data-contrast="high"] {
+  /* Card surfaces: solid, high contrast, always (Jules, 2026-09-25: more readable on the projector than frosted glass). */
   --glass-fill: #15151d;
   --glass-fill-strong: #1b1b25;
   --glass-border: rgba(255, 255, 255, 0.22);
   --glass-blur: 0px;
-  --muted-foreground: rgba(245, 245, 247, 0.82);
-}
-@media (prefers-reduced-transparency: reduce) {
-  :root {
-    --glass-fill: #15151d;
-    --glass-fill-strong: #1b1b25;
-    --glass-blur: 0px;
-  }
 }
 
 @theme inline {

@@ -2,6 +2,8 @@
 
 Wallet control layer for AI shopping agents. Hackathon project for Viseca's challenge at Swiss {ai} Weeks 2026.
 
+**Live demo:** [agent-on-a-leash.vercel.app](https://agent-on-a-leash.vercel.app/)
+
 - `PRODUCT.md`: what we build
 - `CLAUDE.md`: brief for Claude Code (read automatically)
 - `docs/USER_GUIDE.md`: how to use the app, screen by screen

@@ -96,8 +96,8 @@ export function ChatScreen({ stories, settings, container }: { stories: Story[];
                   onClick={() => send(s.instruction)}
                   className="glass w-[250px] shrink-0 snap-start rounded-2xl px-4 py-3 text-left transition hover:border-white/20"
                 >
-                  <div className="text-[12.5px] font-semibold text-[#b3a1ff]">{s.name}</div>
-                  <span className="mt-1 line-clamp-3 text-[13.5px] leading-snug text-foreground/90">{s.instruction}</span>
+                  {s.title && <div className="mb-1 text-[12.5px] font-semibold text-[#b3a1ff]">{s.title}</div>}
+                  <span className="line-clamp-3 text-[13.5px] leading-snug text-foreground/90">{s.instruction}</span>
                 </button>
               ))}
             </div>

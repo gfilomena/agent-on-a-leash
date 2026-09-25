@@ -5,6 +5,8 @@
 //        add --why                                 show every check under each purchase
 //        add --ai [--model gpt-4.1-mini]           with the AI item check (step 14): stories run in parallel,
 //                                                  every verdict the AI changed is listed, and none may be looser
+//        add --serial                              one story at a time (stays under Apertus's rate limit)
+//        AI_PROVIDER=apertus [AI_FALLBACK=off] ... --ai --serial    the AI item check on Apertus (see engine/src/ai.ts)
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { decide, type Decision } from "../engine/decide.js";
@@ -21,7 +23,10 @@ const why = args.includes("--why");
 const withAi = args.includes("--ai");
 // The AI part needs the keys in .env: loaded only with --ai, so the plain replay works offline.
 const ai = withAi ? await import("../engine/itemcheck.js") : null;
+const aiCore = withAi ? await import("../ai.js") : null;
+const onApertus = aiCore?.aiProvider() === "apertus";
 const model = args.includes("--model") ? args[args.indexOf("--model") + 1] : ai?.itemCheckModel;
+const serial = args.includes("--serial");
 const only = args.find((a, i) => !a.startsWith("--") && args[i - 1] !== "--model");
 
 const policies: Record<string, { hard_rules: MandateRule[]; uncertainty_policy: "ask" | "decline"; local?: { watch_session?: boolean } }> = JSON.parse(
@@ -52,9 +57,11 @@ const changed: string[] = [];
 let loosened = 0;
 let aiFailures = 0;
 
-console.log(`${live ? "Recorded live stories" : "Data pack stories"} · test rule sets from engine/policies/${approveReviews ? " · simulated customer approves every review" : ""}${withAi ? ` · AI item check with ${model}` : ""}`);
-// Stories are independent: with the AI they run in parallel, each printing its own block in order.
-const blocks = await Promise.all(sources.map(async ({ story, items }) => {
+console.log(`${live ? "Recorded live stories" : "Data pack stories"} · test rule sets from engine/policies/${approveReviews ? " · simulated customer approves every review" : ""}${withAi ? ` · AI item check with ${onApertus ? `Apertus (${aiCore!.apertusModel}), ${process.env.AI_FALLBACK === "off" ? "no fallback" : "OpenAI as fallback"}` : model}` : ""}${serial ? " · one story at a time" : ""}`);
+// Stories are independent: with the AI they run in parallel (one at a time with --serial), each printing its own block in order.
+type Block = (source: Source) => Promise<string[]>;
+const inTurn = async (list: Source[], f: Block) => { const out: string[][] = []; for (const x of list) out.push(await f(x)); return out; };
+const blocks = await (serial ? inTurn : (list: Source[], f: Block) => Promise.all(list.map(f)))(sources, async ({ story, items }) => {
   const lines: string[] = [];
   const say = (line: string) => lines.push(line);
   const policy = policies[story.scenarioId];
@@ -109,7 +116,7 @@ const blocks = await Promise.all(sources.map(async ({ story, items }) => {
     if (why) for (const c of d.checks.filter((c) => c.kind === "rule" || c.kind === "ai" || c.result !== "pass")) say(`${color.dim}        ${mark[c.result]} ${c.kind === "ai" ? "AI · " : ""}${c.label}: ${c.detail}${color.reset}`);
   }
   return lines;
-}));
+});
 for (const block of blocks) console.log(block.join("\n"));
 
 console.log(`\n${total} purchases: ${tally.approve} approved, ${tally.step_up} need review, ${tally.decline} blocked · slowest decision ${slowest.toFixed(2)} ms`);
@@ -119,6 +126,7 @@ if (withAi) {
   const sorted = [...aiTimes].sort((x, y) => x - y);
   const at = (q: number) => (sorted.length ? sorted[Math.min(sorted.length - 1, Math.floor(q * sorted.length))] : 0);
   console.log(`\nAI item check (${model}): ${aiTimes.length} checks · median ${(at(0.5) / 1000).toFixed(2)} s · 95% under ${(at(0.95) / 1000).toFixed(2)} s · slowest ${((sorted.at(-1) ?? 0) / 1000).toFixed(2)} s · not available ${aiFailures}×`);
+  if (onApertus) console.log(`Answered by: ${Object.entries(aiCore!.aiTally).map(([who, n]) => `${who} ${n}×`).join(" · ")}`);
   console.log(`Verdicts the AI changed: ${changed.length} · made looser: ${loosened}${loosened ? " ✕" : " ✓"}`);
   for (const c of changed) console.log(`  ${c}`);
 }
