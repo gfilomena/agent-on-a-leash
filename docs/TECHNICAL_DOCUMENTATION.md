@@ -4,7 +4,7 @@ Wallet control layer built for Viseca's "Agent on a Leash" challenge (Swiss {ai}
 
 ## 1. What this is, in one paragraph
 
-An AI shopping agent (Viseca's simulator, in this challenge) proposes purchases on a customer's card. Compass is the independent control layer the customer configures: it turns a plain-English instruction into structured, code-enforced rules; checks every proposed purchase against those rules plus a fixed set of security protections; and answers **approve**, **decline**, or **step_up** (ask the customer) within Viseca's 8-second deadline. An LLM is used only where code cannot judge (natural-language rule extraction, and judging free-text product requirements) — it can never override, weaken, or bypass a rule, and the system degrades to a safe default if it is slow or unavailable.
+An AI shopping agent (Viseca's simulator, in this challenge) proposes purchases on a customer's card. Compass is the independent control layer the customer configures: it turns a plain-English instruction into structured, code-enforced rules; checks every proposed purchase against those rules plus a fixed set of security protections; and answers **approve**, **decline**, or **step_up** (ask the customer) within Viseca's 8-second deadline. An LLM is used only where code cannot judge (natural-language rule extraction, and judging free-text product requirements) — it can never override, weaken, or bypass a rule, and the system degrades to a safe default if it is slow or unavailable. Two LLM providers are supported behind one interface — OpenAI, and Apertus (Switzerland's open sovereign model, via Swisscom) — switchable live, with automatic per-request fallback (§5.7).
 
 ## 2. Architecture
 
@@ -16,10 +16,10 @@ An AI shopping agent (Viseca's simulator, in this challenge) proposes purchases 
                                       │ /api (same-origin, CORS-locked)
                                       ▼
                          ┌──────────────────────────┐        ┌────────────────┐
-                         │   Engine (Node + Hono)    │──────▶ │  OpenAI API     │
-                         │  - sentence → rules        │        │  gpt-4.1 /      │
-                         │  - decision engine         │        │  gpt-4.1-mini   │
-                         │  - Viseca worker loop      │◀──────┘  (strict JSON)   │
+                         │   Engine (Node + Hono)    │──────▶ │ OpenAI, or      │
+                         │  - sentence → rules        │        │ Apertus         │
+                         │  - decision engine         │        │ (Swisscom),     │
+                         │  - Viseca worker loop      │◀──────┘ with fallback    │
                          │  - JSON-file state         │        └────────────────┘
                          └────────────┬──────────────┘
                                       │ HTTPS, bearer key
@@ -36,7 +36,7 @@ The brief explicitly recommends decoupling the control UI from the decision engi
 - **`app/`** — React 19 + Vite + TypeScript, Tailwind 4, shadcn/ui (Radix), Motion. Talks to the engine only through same-origin `/api/*` calls (`app/src/lib/api.ts`) — never to Viseca or the LLM directly.
 - **`engine/`** — Node 22 + TypeScript (via `tsx`) + Hono (`@hono/node-server`). Owns all secrets, all decisions, and the one live connection to Viseca's queue.
 
-Both are deployed independently in this build: the app on Vercel (static/SPA), the engine on Railway (a long-running Node process — required because it holds an always-on worker loop and process-local JSON state that a stateless serverless platform cannot support). Vercel's rewrite (`app/vercel.json`) proxies `/api/*` to the Railway engine, so the app's own code is unaware of where the engine physically runs.
+Both are deployed independently in this build: the app on Vercel (static/SPA), the engine on Railway (a long-running Node process — required because it holds an always-on worker loop and process-local JSON state that a stateless serverless platform cannot support). Vercel's rewrite (`app/vercel.json`) proxies `/api/*` to the Railway engine, so the app's own code is unaware of where the engine physically runs. The Railway engine is the one live worker for the team's Viseca key (`WORKER` unset there); it must stay the *only* running engine — a teammate starting `npm run dev` locally at the same time would start a second worker racing the same queue (§9's redelivery handling reduces the damage but does not prevent it — see finding 10 in §14).
 
 ## 3. End-to-end workflow: what's real and what's simulated
 
@@ -51,7 +51,7 @@ sequenceDiagram
     participant C as Customer
     participant App as App (React)
     participant Eng as Engine
-    participant AI as OpenAI (gpt-4.1)
+    participant AI as OpenAI (always,<br/>for the compiler)
     participant V as Viseca sandbox
 
     C->>App: "Road-running shoes, size 43, max CHF 200…"
@@ -79,7 +79,7 @@ sequenceDiagram
 sequenceDiagram
     participant V as Viseca sandbox<br/>(simulated agent)
     participant Eng as Engine worker
-    participant AI as OpenAI (gpt-4.1-mini)
+    participant AI as OpenAI or Apertus<br/>(whichever is selected)
     participant App as App
     participant C as Customer
 
@@ -113,7 +113,7 @@ The customer reads History (every decision + its facts), adjusts Controls (secur
 | Component | Real | Simulated / synthetic |
 | --- | --- | --- |
 | **The control layer itself** (rule compiler, decision engine, security checks, app) | ✅ This is the actual deliverable being judged — real code, real logic, runs the same way it would in production | — |
-| **LLM calls** (OpenAI) | ✅ Real API calls, real latency, real cost, real model behaviour — not mocked or canned | — |
+| **LLM calls** (OpenAI, or Apertus via Swisscom) | ✅ Real API calls, real latency, real cost, real model behaviour — not mocked or canned, either provider | — |
 | **The shopping agent** | — | Entirely simulated: Viseca's own sandbox sends pre-scripted purchase attempts per test scenario. Compass never sees or talks to a real autonomous agent; it only reacts to what the simulator sends, exactly as the brief specifies ("you build the wallet control — not the shopping agent") |
 | **Merchants, products, cards, accounts, purchase history** | — | All synthetic data from Viseca's data pack (`viseca-2026-main/data/`) — fabricated shop names, product catalogues, fixed FX rates, and a purchase-history CSV built specifically to contain the traps this system defends against (lookalike sellers, split orders, etc.) |
 | **The purchases themselves** | — | Scripted per scenario (`SCEN0000`–`SCEN0135`), delivered in a fixed order (`replay_order`) — not generated live by any actual AI shopping behaviour |
@@ -186,7 +186,7 @@ None of the warning signs (lookalike, duplicate, split-order, related-order, amo
 
 ### 5.5 AI item check (`engine/src/engine/itemcheck.ts`)
 
-Judges only what the code vocabulary structurally cannot: free-text requirements like "a **road-running** shoe" vs. a trail shoe, "**new**, not second-hand", colour, brand, a named city or date range, "if a price changes, ask me". Model: `gpt-4.1-mini` (chosen by measured latency — see the file's own comment; overridable via `ITEM_CHECK_MODEL`). It:
+Judges only what the code vocabulary structurally cannot: free-text requirements like "a **road-running** shoe" vs. a trail shoe, "**new**, not second-hand", colour, brand, a named city or date range, "if a price changes, ask me". Model: `gpt-4.1-mini` by default (chosen by measured latency — see the file's own comment; overridable via `ITEM_CHECK_MODEL`), or Apertus when selected as the active provider — `itemcheck.ts` itself is unaware of which one actually answers; that's resolved inside `askJson()` (§5.7). It:
 
 - Receives the purchase as structured facts plus a **separately labelled `<untrusted_shop_text>` block** — the customer's own words (`<request>`, `<notes>`) are never in the same block as shop-authored text.
 - Returns `pass` / `fail` / `unknown` per requirement, strict JSON-schema output (temperature 0, `additionalProperties: false`).
@@ -201,6 +201,20 @@ Judges only what the code vocabulary structurally cannot: free-text requirements
 - Rounding is half-even to match Viseca's convention (`roundHalfEven`, `money.ts`), applied consistently before every numeric comparison so a boundary like `<= 400` passes at exactly `399.995`→`400.00`.
 - All history joins use ids, never merchant names (`history.ts`, `reference.ts`) — deliberately, because the lookalike-merchant scenario exists precisely to punish name-based matching.
 - The cumulative `approved_*_before` columns in `authorization_history.csv` are never reused as a live feature; `history.ts` aggregates its own per-card counts from raw rows instead (`CASE_NOTES.md §2` trap).
+
+### 5.7 Two AI providers, one interface, automatic fallback (`engine/src/ai.ts`)
+
+Every AI call in the engine — the compiler, the item check, the story-title writer, the "Try a purchase" agent — goes through one function, `askJson()`. Callers don't know or care which provider actually answers.
+
+- **Providers**: OpenAI (default), and Apertus 1.5 70B — Switzerland's open, sovereign model — served via Swisscom's OpenAI-compatible API (`APERTUS_API_KEY`/`APERTUS_BASE_URL`/`APERTUS_MODEL` in `config.ts`). Either can be absent; the engine only offers a provider it has a key for.
+- **Switching**: `POST /api/ai {provider}` changes the active provider live, no restart, persisted to `state.aiProvider` and restored on boot. `GET /api/snapshot`'s `ai` field reports the current provider, which ones are available, and the last 20 calls (provider, model, timing, and — when a fallback happened — why).
+- **Per-request fallback, not a global switch**: with Apertus selected, `askJson()` still tries Apertus *first*, capped at `min(5000ms, 60% of the caller's deadline)`. If that call is refused, errors, times out, or returns something that doesn't match the requested JSON shape, OpenAI answers with whatever time is left in the original budget. The customer-facing decision path never waits *longer* for having Apertus enabled — it only ever gets a second attempt inside the same deadline.
+- **One task is hard-pinned to OpenAI regardless of the selected provider**: the wallet-policy compiler (`schemaName: "wallet_policy"`). The code comment records why — measured 13.7s to 55s+ and outright gateway timeouts on Apertus for that call, against 3–4s on OpenAI. This is the same "rules first, AI second" discipline applied to provider choice: a slow provider is never allowed anywhere near the one call that isn't time-boxed by Viseca's 8-second deadline in the same way (drafting a policy has no hard external deadline, but a customer waiting 55 seconds for "Here's what I understood" is a failed product regardless).
+- **Apertus-specific tuning**: output capped at 1000 tokens per call (`max_tokens`) — measured against Apertus's ~12,500 output-tokens-per-minute limit, since an uncapped call can reserve ~4,000 tokens up front and starve the rate limit after 3 calls.
+- **An extra safety net not needed for OpenAI**: `fits()` independently re-validates that a parsed JSON answer actually matches the requested schema (required properties present, enum values valid, correct types) before accepting it. OpenAI's `strict: true` structured outputs already guarantee this; Apertus's guarantee is looser, so this check catches what strict mode would have caught, for the provider that doesn't offer the same guarantee.
+- **Observability**: every call is logged in-memory (`aiCalls`, last 30) and tallied (`aiTally`) — visible in "Behind the scenes" — specifically so a fallback happening live during a demo is visible to whoever's watching, not a silent detail.
+
+This design means Apertus can be selected for a demo without any risk to the decision engine's own reliability guarantees (§9): the worst case for any individual call is "Apertus was slow or unavailable, OpenAI answered instead," which is exactly the same shape of degradation the engine already handles for a single-provider OpenAI outage.
 
 ## 6. From sentence to confirmed policy
 
@@ -249,7 +263,8 @@ Crucially, in both layers, shop text is passed to the LLM in a block explicitly 
 | Method | Path | Purpose |
 | --- | --- | --- |
 | GET | `/api/health` | Liveness |
-| GET | `/api/snapshot` | Full state for the app to render (policies, purchases, settings, engine status) |
+| GET | `/api/snapshot` | Full state for the app to render (policies, purchases, settings, engine status, plus a live Viseca call log and AI provider/call log for "Behind the scenes") |
+| POST | `/api/ai` | Switch the active AI provider (`openai` \| `apertus`), live, no restart (§5.7) |
 | POST | `/api/policies` | Draft a policy from a sentence |
 | POST | `/api/policies/:id/answer` | Answer a follow-up question |
 | POST | `/api/policies/:id/confirm` | Confirm and activate at Viseca |
@@ -284,13 +299,13 @@ No live-API dependency is required to validate the decision engine:
 | Layer | Technology |
 | --- | --- |
 | Engine runtime | Node 22, TypeScript via `tsx`, Hono, `@hono/node-server` |
-| AI | OpenAI `gpt-4.1` (compiler), `gpt-4.1-mini` (item check, test agent), strict JSON-schema structured outputs |
+| AI | OpenAI `gpt-4.1` (compiler, always), `gpt-4.1-mini` (item check, test agent, story titles) — or **Apertus 1.5 70B** (Swisscom) for everything except the compiler, switchable live, with automatic OpenAI fallback (§5.7); strict JSON-schema structured outputs on OpenAI, schema-shape validated in code either way |
 | Validation | `zod`, `ajv` + `ajv-formats` (event schema conformance) |
 | Data | `csv-parse` over Viseca's synthetic data pack; engine state as a single JSON file (no database — a deliberate hackathon-scope choice, not a technical limitation of the design) |
 | App | React 19, Vite, TypeScript, Tailwind 4, shadcn/ui (Radix), Motion |
 | Monorepo | npm workspaces (`engine`, `app`), `concurrently` for local dev |
 | App hosting | Vercel (static SPA) |
-| Engine hosting | Railway (long-running container — required for the always-on Viseca worker and JSON-file state; a serverless platform cannot host either) |
+| Engine hosting | Railway (long-running container — required for the always-on Viseca worker and JSON-file state; a serverless platform cannot host either). This is the one live worker for the team's key: `WORKER` is unset there, and nothing else should run the engine at the same time (see finding 10, §14) |
 | Source | [github.com/gfilomena/agent-on-a-leash](https://github.com/gfilomena/agent-on-a-leash) |
 
 `app/vercel.json` rewrites `/api/*` to the Railway engine's public URL, so the app's own code and the local dev proxy (`app/vite.config.ts`) stay identical in shape between environments.
@@ -303,7 +318,7 @@ An honest audit, from reading the actual code (not just the team's own notes), r
 
 1. **The engine's own API has no authentication, only a CORS origin check.** `server.ts`'s `/api/*` middleware rejects a browser request from an unlisted `Origin`, but `if (origin && !ALLOWED_ORIGINS.includes(origin))` only fires when an `Origin` header is present — any non-browser client (`curl`, a script) can call every endpoint directly with no header at all, bypassing the app entirely. Concretely, this means a caller who knows the engine's URL could `POST /api/purchases/:id/answer` to approve or decline a purchase waiting in someone's Inbox, or `POST /api/policies/:id/confirm` to confirm a draft — **without being the real customer**. This directly conflicts with the project's own rule that "only a real customer answer... goes to `/resolve` \[and] never invent one." It was a low-risk gap while the engine only ran on `localhost`; **it became a live, internet-reachable gap the moment it was deployed to Railway in this session**, and should be closed (a shared secret/bearer token between the app and engine is the minimal fix) before sharing that URL with anyone.
 2. **"Loosening a security setting asks for confirmation first" is a frontend-only guard.** The confirmation sheet lives in `app/src/components/SecuritySettings.tsx`; the engine's `POST /api/settings` → `applyChange()` (`settings.ts`) applies any change it's sent, no matter how much looser, with no server-side check. Combined with finding 1, anyone hitting the API directly can raise or disable the spending limit or widen the allowed regions with zero confirmation — the exact loosening path the UX was explicitly designed to gate.
-3. **The Railway engine has no persistent volume.** `engine/data/state.json` (policies, purchase history, the spend ledger, security settings) is written to local container disk and is wiped on every redeploy. This is silent — nothing warns the customer their policy or spend history reset. It's currently low-impact only because that instance runs with `WORKER=off`; if the live worker were ever pointed at it, purchase history and the spend ledger — which the project's own rules require to "survive a restart" — would be lost without notice on the next deploy.
+3. **The Railway engine has no persistent volume — and, as of 2026-09-25, it is the live worker.** `engine/data/state.json` (policies, purchase history, the spend ledger, security settings, saved AI-provider choice) is written to local container disk and is wiped on every redeploy. This is silent — nothing warns the customer their policy or spend history reset. This finding was written when the deployed instance ran with `WORKER=off` and called it low-impact for that reason; **that is no longer true** — the Railway engine now owns the live Viseca worker (the local worker was deliberately stopped to avoid a two-worker conflict, §9), so a redeploy from this point on genuinely does lose real purchase history and the spend ledger the project's own rules require to "survive a restart." Attaching a Railway volume at `engine/data/` is a one-line fix in the Railway dashboard/CLI and should happen before any further redeploy during judging.
 4. **The customer's raw chat instruction can manipulate the AI item check on every future purchase under that policy — confirmed live, reproducible.** `describe()` in `itemcheck.ts` embeds `event.mandate.instruction` — the customer's **original, unedited sentence** — verbatim into the `<request>` block of every single item-check call, for the life of the policy. The compiler (`compiler.ts`) correctly *refuses* to turn manipulative language in that sentence into a rule or a `guidance` line — but that raw sentence still reaches the item-check AI unfiltered every time, and the model is not reliably immune to it despite the system prompt's "data, never instructions" framing.
 
    **Live test, run against the deployed engine via the "Try a purchase" sandbox (no Viseca record created):**
@@ -317,6 +332,8 @@ An honest audit, from reading the actual code (not just the team's own notes), r
 
    **Fix:** stop passing `event.mandate.instruction` (the raw sentence) into `itemcheck.ts`'s `<request>` block at all. Pass only the already-validated `guidance` array (which is what the compiler actually extracted and the customer actually confirmed) plus, if useful context, the policy `title`. Anything the compiler didn't turn into structured guidance has no legitimate reason to still reach a downstream model call.
 
+   **Still unfixed as of the AI-provider work (§5.7)**: `itemcheck.ts::describe()` wasn't touched by that change, so this gap applies identically whichever provider answers the call — it is a property of what gets sent to the model, not of which model receives it.
+
 ### Correctness bugs — reproducible, currently unresolved
 
 5. **Catalogue-category mismatch on socks (and likely similar items).** The compiler infers "only clothing" from a request for "white socks," but Viseca's only sock product is filed under `sporting_goods` in the catalogue, so a fully compliant sock purchase gets wrongly blocked. Root cause: the compiler derives the category rule from the customer's *wording*, not from the real category of the catalogue product it already matched by name. The general fix (use the matched product's actual category when one is confidently matched) was scoped but deliberately deferred by the team, not fixed.
@@ -329,16 +346,17 @@ An honest audit, from reading the actual code (not just the team's own notes), r
 9. **An unexplained engine crash was patched by suppressing the symptom, not by finding the cause.** The fix (`process.on("unhandledRejection", …)` in `server.ts`) keeps the engine alive through *any* stray async error, which is good for demo uptime but also means a real, still-unknown bug is now permanently invisible in production — it will never surface as a crash again, only ever as a silently swallowed log line.
 10. **No enforced safeguard against two engine processes running against the same Viseca team key.** The one-worker rule is documented (repeatedly, urgently) but not technically enforced anywhere — nothing stops a second `npm run dev` or a second deploy from silently stealing purchases out of the shared queue. This actually happened more than once during development. A simple mutual-exclusion mechanism (e.g. a lock file, or the engine refusing to start a worker if it can't acquire one) would remove the need to rely on discipline alone.
 11. **A theoretical read-modify-write race in `answerPurchase()`.** It reads `p.status`, awaits a network call to Viseca's `/resolve`, then writes `p.status` back; the background `syncLoop()` (polling every 4s) reads and writes the same record independently. The current guard conditions happen to make actual corruption unlikely, but the code doesn't structurally prevent two in-flight updates to the same purchase record — worth an explicit version check or a small per-record lock rather than relying on timing.
+12. **A Vercel project mix-up silently broke production for part of a session (2026-09-25), worth recording as a lesson.** `app/.vercel/project.json` is not git-tracked, and at some point got re-linked to a different, SSO-protected Vercel project ("app") instead of the public "agent-on-a-leash" one — likely swept in by a local file sync that isn't visible in any git diff, since `.vercel/` is gitignored by design. Two production deploys in a row landed invisibly behind Vercel's login wall while the public domain kept serving an older, broken build (a since-removed prototype that crashed on load, referencing a backend shape that no longer existed). Nothing in the deploy tooling flagged this — `vercel --prod --yes` reported success both times. Caught only by manually checking `vercel alias ls` against the actual serving domain. **Take-away:** after any `vercel --prod` deploy, verify the *public* domain's served JS bundle hash actually changed, not just that the CLI printed a success message; don't trust a green deploy result alone when the project link itself lives outside version control.
 
 ### Product/UX
 
-12. **"Shops you've approved" is scoped per card, not per policy.** Approving a shop once under a low-stakes shopping task silently pre-approves that same shop under any other, potentially stricter, policy on the same card — never asked again, which may not match customer expectations of per-task control.
-13. **An unconfirmed chat draft is lost silently on tab switch**, including any follow-up questions already answered — no warning before the work is discarded.
+13. **"Shops you've approved" is scoped per card, not per policy.** Approving a shop once under a low-stakes shopping task silently pre-approves that same shop under any other, potentially stricter, policy on the same card — never asked again, which may not match customer expectations of per-task control.
+14. **An unconfirmed chat draft is lost silently on tab switch**, including any follow-up questions already answered — no warning before the work is discarded.
 
 ## 15. Known scope limitations (honestly disclosed)
 
 - **Single-customer prototype**: no login or multi-user support (explicitly out of scope per the brief).
-- **JSON-file storage**, not a database — adequate for a single team's hackathon state, not for concurrent multi-instance deployment (only one engine process may run against a team's Viseca key at a time, by Viseca's own queue design).
+- **JSON-file storage**, not a database — adequate for a single team's hackathon state, not for concurrent multi-instance deployment (only one engine process may run against a team's Viseca key at a time, by Viseca's own queue design), and not currently backed by a persistent volume on Railway (see finding 3, §14 — this is now load-bearing since the Railway engine holds the live worker).
 - **Session-anomaly thresholds are heuristics** (a fixed signal count), not a trained model — reasonable given the challenge's explicit welcome of "rules, behavioural signals... or a thoughtful combination," and deliberately conservative to avoid over-blocking ordinary shopping (challenge requirement: "blocking ordinary shopping unnecessarily is also a failure").
 - **"Shops you've approved"** is tracked per card across all policies, not scoped per policy — acceptable for a single-customer prototype, called out here rather than left implicit.
 - No real payment execution, no real shopping agent — both explicitly out of scope; Viseca's simulator plays the agent, exactly as specified.
