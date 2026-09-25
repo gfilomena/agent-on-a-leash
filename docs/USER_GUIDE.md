@@ -23,6 +23,8 @@ There are two parts, but you only ever see one:
 
 > *"Road-running shoes, size 43, max CHF 200, only from a specialist sports shop, returns for at least 14 days."*
 
+Chat also suggests a few ready-made requests you can tap instead of typing — each with a short title (e.g. "Running shoes") and the full sentence underneath, so you can see exactly what you'd be confirming before you tap it.
+
 **Step 2 — Answer a few short questions, if asked.** Compass only asks what it actually needs, and tailors the questions to what you're buying — e.g. a size for shoes, a city and dates for a hotel, which model when several products could match. Each question is one tap:
 
 - **A required question** (no "Skip") — the item can't be bought correctly without it. A price limit is always required.
