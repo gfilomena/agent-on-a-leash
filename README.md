@@ -4,6 +4,8 @@ Wallet control layer for AI shopping agents. Hackathon project for Viseca's chal
 
 - `PRODUCT.md`: what we build
 - `CLAUDE.md`: brief for Claude Code (read automatically)
+- `docs/USER_GUIDE.md`: how to use the app, screen by screen
+- `docs/TECHNICAL_DOCUMENTATION.md`: architecture and decision engine, for judges/reviewers
 - `docs/CASE_NOTES.md`: lessons, traps, calibration notes
 - `viseca-2026-main/`: Viseca's case materials and data pack
 
