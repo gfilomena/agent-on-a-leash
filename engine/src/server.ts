@@ -16,7 +16,7 @@ import type { Check } from "./engine/rules.js";
 // Other crashes still stop it: e.g. a second engine that can't get the port must exit, or two workers would share the queue.
 process.on("unhandledRejection", (err) => console.error("Engine: unhandled async error (kept running):", err));
 
-const PORT = Number(process.env.ENGINE_PORT ?? 8787);
+const PORT = Number(process.env.PORT ?? process.env.ENGINE_PORT ?? 8787);
 const HOST = process.env.ENGINE_HOST ?? "127.0.0.1";
 const ALLOWED_ORIGINS = (process.env.APP_ORIGINS ?? "http://localhost:5173,http://127.0.0.1:5173").split(",").map((s) => s.trim());
 

@@ -7,6 +7,7 @@
   ],
   "scripts": {
     "dev": "concurrently -k -n engine,app -c magenta,cyan \"npm run dev -w engine\" \"npm run dev -w app\"",
+    "start": "npm run start -w engine",
     "engine": "npm run dev -w engine",
     "app": "npm run dev -w app",
     "connect": "npm run --silent connect -w engine",
