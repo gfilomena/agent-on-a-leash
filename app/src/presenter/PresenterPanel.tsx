@@ -1,22 +1,14 @@
-import { Contrast, RotateCcw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { VerdictPill } from "@/components/VerdictPill";
-import { clock, money, seconds } from "@/lib/format";
+import { clock, clockSeconds, money, seconds } from "@/lib/format";
 import type { Snapshot } from "@/lib/types";
 
 /** Desktop only (and /presenter): what the engine does, next to what the customer sees. */
 export function PresenterPanel({ snap, offline }: { snap: Snapshot | null; offline: boolean }) {
-  const [highContrast, setHighContrast] = useState(() => document.documentElement.dataset.contrast === "high");
-  const toggleContrast = () => {
-    const next = !highContrast;
-    setHighContrast(next);
-    if (next) document.documentElement.dataset.contrast = "high";
-    else delete document.documentElement.dataset.contrast;
-  };
-  const running = snap?.policies.filter((p) => p.status === "active" && p.story && p.story.received < p.story.total) ?? [];
+  const running = snap?.policies.filter((p) => p.status === "active" && p.story && !p.story.finished) ?? [];
   const feed = snap?.purchases.slice(0, 40) ?? [];
 
   return (
@@ -35,8 +27,11 @@ export function PresenterPanel({ snap, offline }: { snap: Snapshot | null; offli
 
       {running.map((p) => (
         <div key={p.id} className="mt-3 rounded-2xl bg-white/[0.04] px-3.5 py-3">
-          <div className="flex items-center justify-between text-[14px]">
-            <span className="font-medium">{p.story!.name}</span>
+          <div className="flex items-center justify-between gap-3 text-[14px]">
+            <div className="min-w-0">
+              <div className="truncate font-medium">{p.story!.title ?? p.title}</div>
+              <div className="truncate text-[12.5px] text-muted-foreground">Viseca test: {p.story!.name}</div>
+            </div>
             <span className="amount text-muted-foreground">
               {p.story!.received} of {p.story!.total}
             </span>
@@ -46,6 +41,8 @@ export function PresenterPanel({ snap, offline }: { snap: Snapshot | null; offli
           </div>
         </div>
       ))}
+
+      {snap?.viseca && <VisecaLog log={snap.viseca} />}
 
       <div className="mt-4 min-h-0 flex-1 space-y-2 overflow-y-auto pr-1 [scrollbar-width:thin]">
         <AnimatePresence initial={false}>
@@ -68,14 +65,6 @@ export function PresenterPanel({ snap, offline }: { snap: Snapshot | null; offli
         {feed.length === 0 && <p className="pt-6 text-center text-[14px] text-muted-foreground">Confirm one of Viseca's test requests in the chat, and its purchases appear here as they arrive.</p>}
       </div>
 
-      <button type="button" onClick={toggleContrast} className="mt-4 flex items-center justify-between rounded-2xl bg-white/[0.04] px-3.5 py-3 text-[14px]">
-        <span className="flex items-center gap-2">
-          <Contrast className="size-4 text-muted-foreground" aria-hidden /> High contrast (projector)
-        </span>
-        <span className={`relative h-6 w-10 rounded-full transition ${highContrast ? "bg-primary" : "bg-white/15"}`}>
-          <span className={`absolute top-0.5 size-5 rounded-full bg-white transition-all ${highContrast ? "left-[18px]" : "left-0.5"}`} />
-        </span>
-      </button>
       {snap?.settings && (
         <button
           type="button"
@@ -85,7 +74,7 @@ export function PresenterPanel({ snap, offline }: { snap: Snapshot | null; offli
               .then(() => toast("Spending reset", { description: "The spending limit counts from now. History is unchanged." }))
               .catch((err: Error) => toast(err.message))
           }
-          className="mt-2 flex items-center gap-2 rounded-2xl bg-white/[0.04] px-3.5 py-3 text-left text-[14px] hover:bg-white/[0.07]"
+          className="mt-4 flex items-center gap-2 rounded-2xl bg-white/[0.04] px-3.5 py-3 text-left text-[14px] hover:bg-white/[0.07]"
         >
           <RotateCcw className="size-4 text-muted-foreground" aria-hidden />
           <span>
@@ -94,5 +83,33 @@ export function PresenterPanel({ snap, offline }: { snap: Snapshot | null; offli
         </button>
       )}
     </section>
+  );
+}
+
+/** Every call to Viseca's API as it happens: plain words, then the real endpoint, status and time (proof nothing is canned). */
+function VisecaLog({ log }: { log: NonNullable<Snapshot["viseca"]> }) {
+  return (
+    <div className="mt-4 rounded-2xl bg-white/[0.04] px-3.5 py-3">
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-[14px] font-medium">Viseca API · live</span>
+        <span className="flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
+          {log.listening && <span className="size-1.5 animate-pulse rounded-full bg-approve" aria-hidden />}
+          {log.listening ? "Waiting for Viseca's next purchase" : log.lastContactAt ? `Last call at ${clockSeconds(log.lastContactAt)}` : "No calls yet"}
+        </span>
+      </div>
+      <div className="mt-2 max-h-[156px] space-y-2 overflow-y-auto pr-1 [scrollbar-width:thin]">
+        <AnimatePresence initial={false}>
+          {log.calls.map((c) => (
+            <motion.div key={`${c.at}-${c.method}-${c.path}`} layout initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}>
+              <div className={`truncate text-[13px] ${c.ok ? "" : "text-block"}`}>{c.label}</div>
+              <div className="truncate font-mono text-[11px] text-muted-foreground">
+                {clockSeconds(c.at)} {c.method} {c.path} → {c.status || "no answer"}
+                {c.ms !== null ? ` · ${seconds(c.ms)}` : ""}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+    </div>
   );
 }

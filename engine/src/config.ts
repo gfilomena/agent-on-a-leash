@@ -11,5 +11,9 @@ export const config = {
   teamKey: required("TEAM_API_KEY"),
   openaiKey: process.env.OPENAI_API_KEY?.trim() || null,
   openaiModel: process.env.OPENAI_MODEL?.trim() || null,
+  // Apertus (Swiss open model, via Swisscom): optional; OpenAI-compatible API.
+  apertusKey: process.env.APERTUS_API_KEY?.trim() || null,
+  apertusBaseUrl: process.env.APERTUS_BASE_URL?.trim().replace(/\/+$/, "") || null,
+  apertusModel: process.env.APERTUS_MODEL?.trim() || "swiss-ai/Apertus-v1.5-70B",
   engineVersion: "compass-0.1",
 };

@@ -144,10 +144,30 @@ export async function startWorker() {
   }
 }
 
-/** Every few seconds: learn what Viseca did with purchases still waiting (expired reviews). */
+/** Runs that stopped short of their purchase count: ask Viseca whether they are over ("Behind the scenes" then stops showing them). */
+let runsCheckedAt = 0;
+async function checkRuns() {
+  if (Date.now() - runsCheckedAt < 10_000) return;
+  runsCheckedAt = Date.now();
+  let changed = false;
+  for (const p of state.policies) {
+    const story = live.stories.find((s) => s.id === p.scenarioId);
+    if (!p.runId || p.runFinished || !story) continue;
+    if (state.purchases.filter((x) => x.runId === p.runId).length >= story.purchases) continue;
+    const r = await viseca.getRun(p.runId).catch(() => null);
+    if (r && (r.status === 404 || (r.ok && /complet|finish|fail|cancel|abort|expire|stop/i.test(String(r.data?.status))))) {
+      p.runFinished = true;
+      changed = true;
+    }
+  }
+  if (changed) save();
+}
+
+/** Every few seconds: learn what Viseca did with purchases still waiting (expired reviews), and which runs are over. */
 async function syncLoop() {
   while (true) {
     await sleep(4000);
+    await checkRuns().catch(() => {});
     const waiting = state.purchases.filter((p) => p.status === "pending");
     if (!waiting.length) continue;
     const r = await viseca.authorizations().catch(() => null);

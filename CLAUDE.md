@@ -35,8 +35,8 @@ We build the **wallet control layer**: the customer describes in a chat what the
   - **Engine (backend):** decision logic, the Viseca worker, LLM calls, a small REST API for the app.
   - **App (frontend):** mobile-first, looks like a section of a banking app. Talks only to our backend, never to Viseca or the LLM.
 - **Secrets:** read from `.env` in the backend only. Never in the frontend, never committed, never printed in logs or chat.
-- **Only one worker per team key.** Workers share Viseca's queue; a second running backend steals purchases. `npm run dev` starts the engine **with** the worker; never run `npm run live` or `npm run record` at the same time (they have their own worker). `WORKER=off` starts the engine without it.
-- **Stack (decided 2026-09-24, details in `PLAN.md`):** TypeScript everywhere. Engine: Node 22 + Hono, JSON-file storage (`engine/data/state.json`), OpenAI (`gpt-4.1` for sentence → rules; item-check model chosen at plan step 14). App: React + Vite + Tailwind + shadcn/ui + Motion, reaches the engine only via `/api`. `npm run dev` at the root starts both.
+- **Only one worker per team key.** Workers share Viseca's queue; a second running backend steals purchases. `npm run dev` starts the engine **with** the worker; never run `npm run live` or `npm run record` at the same time (they have their own worker). `WORKER=off` starts the engine without it. Never run a second AI agent (e.g. ChatGPT/Codex) in this folder at the same time, and run one Viseca story at a time (PLAN.md known issues 16–17). Every saved engine file restarts the engine and its worker: never edit engine files during a live run.
+- **Stack (decided 2026-09-24, details in `PLAN.md`):** TypeScript everywhere. Engine: Node 22 + Hono, JSON-file storage (`engine/data/state.json`), OpenAI (`gpt-4.1` for sentence → rules; `gpt-4.1-mini` for the AI item check and the "Try a purchase" agent, chosen by timing at plan step 14). App: React + Vite + Tailwind + shadcn/ui + Motion, reaches the engine only via `/api`. `npm run dev` at the root starts both.
 - **Storage:** keep it simple (in-memory + a JSON file or SQLite). Decisions and the spend ledger must survive a restart during the demo.
 
 ## Decision engine rules (non-negotiable)
@@ -75,7 +75,7 @@ Rule format: `field`, `operator` (`< <= = != > >= in not_in`), `value` (number |
 
 ## Build status and where things are
 
-The original build order (connect → offline replay → live SCEN0000 → core engine → security checks → LLM → app → demo polish) has been followed; steps 1–7 of it are done. **Status, next step and remaining work: `PLAN.md` section 0.**
+The original build order (connect → offline replay → live SCEN0000 → core engine → security checks → LLM → app → demo polish) has been followed and is complete, plus the extras: tailored follow-up questions (9b), "Try a purchase" (14b), the AI item check (14) and the security settings in Controls. **Status, next step (17, explanation pass) and remaining work: `PLAN.md` section 0.**
 
 | Where | What |
 | --- | --- |
@@ -88,6 +88,6 @@ The original build order (connect → offline replay → live SCEN0000 → core 
 | `engine/reference/reference-data.json` | Viseca's reference data (catalogue, shops, cards, accounts), incl. the live stories |
 | `app/src/` | The app: `screens/`, `components/`, `presenter/` ("Behind the scenes"), `lib/` (API, types, polling) |
 
-Commands (repo root): `npm run dev` · `npm run connect` · `npm run replay [-- --live] [--approve-reviews] [--why]` · `npm run compile [-- --quiet]` · `npm run questions [-- "sentence"]` · `npm run live -- --dry` · `npm run record -- --dry`.
+Commands (repo root): `npm run dev` · `npm run connect` · `npm run replay [-- --live] [--approve-reviews] [--why] [--ai]` · `npm run compile [-- --quiet]` · `npm run questions [-- "sentence"]` · `npm run live -- --dry` · `npm run record -- --dry`.
 
 Pitfalls: Python on this Mac exits silently (use Node/TypeScript); `timeout` does not exist on macOS; the browser pane's screenshots can lag one step behind clicks; Viseca's reset is off, so every live run and policy stays in the team's record (ask Jules before starting live runs).
